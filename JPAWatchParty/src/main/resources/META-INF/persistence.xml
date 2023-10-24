@@ -14,6 +14,7 @@
     <class>com.skilldistillery.watchparty.entities.FriendStatus</class>
     <class>com.skilldistillery.watchparty.entities.Team</class>
     <class>com.skilldistillery.watchparty.entities.User</class>
+
     <class>com.skilldistillery.watchparty.entities.Party</class>
     <class>com.skilldistillery.watchparty.entities.PartyComment</class>
     <class>com.skilldistillery.watchparty.entities.Friend</class>
@@ -24,7 +25,6 @@
     <class>com.skilldistillery.watchparty.entities.VenueRating</class>
     <class>com.skilldistillery.watchparty.entities.VenueRatingId</class>
     <class>com.skilldistillery.watchparty.entities.UserComment</class>
-
 
     <!-- end entities -->
 
