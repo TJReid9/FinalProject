@@ -8,7 +8,15 @@
     <!-- begin entities -->
     
     <class>com.skilldistillery.watchparty.entities.User</class>
-
+    <class>com.skilldistillery.watchparty.entities.Party</class>
+    <class>com.skilldistillery.watchparty.entities.PartyComment</class>
+    <class>com.skilldistillery.watchparty.entities.Friend</class>
+    <class>com.skilldistillery.watchparty.entities.FriendId</class>
+    <class>com.skilldistillery.watchparty.entities.PartyRatingId</class>
+    <class>com.skilldistillery.watchparty.entities.Sport</class>
+    <class>com.skilldistillery.watchparty.entities.Venue</class>
+    <class>com.skilldistillery.watchparty.entities.VenueRating</class>
+    <class>com.skilldistillery.watchparty.entities.VenueRatingId</class>
     <!-- end entities -->
 
     <properties>
