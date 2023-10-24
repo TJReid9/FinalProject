@@ -12,11 +12,11 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class UserTest {
+class DirectMessageTest {
 	
 	private static EntityManagerFactory emf;
 	private EntityManager em;
-	private User user;
+	private DirectMessage directMessage;
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -31,20 +31,19 @@ class UserTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		em = emf.createEntityManager();
-		user = em.find(User.class, 1);
+		directMessage = em.find(DirectMessage.class, 1);
 	}
 
 	@AfterEach
 	void tearDown() throws Exception {
 		em.close();
-		user = null;
+		directMessage = null;
 	}
 
 	@Test
 	void test() {
-		assertNotNull(user);
-		assertEquals("admin", user.getUsername());
-		assertEquals("James", user.getFirstName());
+		assertNotNull(directMessage);
+		assertEquals("Hey James, I'll bring the Hardware to the NW Party!!!", directMessage.getContent());
 	}
 
 }
