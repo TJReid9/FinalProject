@@ -84,17 +84,36 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
+-- Table `sport`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `sport` ;
+
+CREATE TABLE IF NOT EXISTS `sport` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `name_UNIQUE` (`name` ASC))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
 -- Table `team`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `team` ;
 
 CREATE TABLE IF NOT EXISTS `team` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NULL,
   `logo_url` VARCHAR(2000) NULL,
   `team_website_url` VARCHAR(2000) NULL,
-  `sport` VARCHAR(45) NULL,
-  PRIMARY KEY (`id`))
+  `sport_id` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `fk_team_sport1_idx` (`sport_id` ASC),
+  CONSTRAINT `fk_team_sport1`
+    FOREIGN KEY (`sport_id`)
+    REFERENCES `sport` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 
@@ -144,7 +163,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `party_comment` ;
 
 CREATE TABLE IF NOT EXISTS `party_comment` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `comment` TEXT NULL,
   `photo_url` VARCHAR(2000) NULL,
   `enabled` TINYINT NULL,
@@ -152,7 +171,7 @@ CREATE TABLE IF NOT EXISTS `party_comment` (
   `update_date` DATE NULL,
   `party_id` INT NOT NULL,
   `user_id` INT NOT NULL,
-  `in_reply_to_id` INT NOT NULL,
+  `in_reply_to_id` INT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_party_comment_party1_idx` (`party_id` ASC),
   INDEX `fk_party_comment_user1_idx` (`user_id` ASC),
@@ -181,14 +200,14 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `user_comment` ;
 
 CREATE TABLE IF NOT EXISTS `user_comment` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `comment` TEXT NULL,
   `photo_url` VARCHAR(2000) NULL,
   `enabled` TINYINT NULL,
   `create_date` DATE NULL,
   `update_date` DATE NULL,
   `user_id` INT NOT NULL,
-  `in_reply_to_id` INT NOT NULL,
+  `in_reply_to_id` INT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_user_comment_user1_idx` (`user_id` ASC),
   INDEX `fk_user_comment_user_comment1_idx` (`in_reply_to_id` ASC),
@@ -396,6 +415,7 @@ START TRANSACTION;
 USE `watchpartydb`;
 INSERT INTO `address` (`id`, `street`, `city`, `state`, `zip`, `enabled`) VALUES (1, '533 Old Point Ave', 'Hampton', 'Va', '23663', 1);
 INSERT INTO `address` (`id`, `street`, `city`, `state`, `zip`, `enabled`) VALUES (2, '1938 E Pembroke Ave', 'Hampton', 'Va', '23663', 1);
+INSERT INTO `address` (`id`, `street`, `city`, `state`, `zip`, `enabled`) VALUES (3, '1 Stadium Dr', 'Lincoln', 'Ne', '68588', 1);
 
 COMMIT;
 
@@ -416,6 +436,30 @@ COMMIT;
 START TRANSACTION;
 USE `watchpartydb`;
 INSERT INTO `user` (`id`, `username`, `password`, `email`, `first_name`, `photo_url`, `role`, `enabled`, `address_id`, `create_date`, `update_date`) VALUES (1, 'admin', '$2a$10$nShOi5/f0bKNvHB8x0u3qOpeivazbuN0NE4TO0LGvQiTMafaBxLJS', 'admin@admin.com', 'James', 'https://fanapeel.com/wp-content/uploads/logo_-university-of-nebraska-cornhuskers-herbie-husker.png', 'admin', 1, 1, '2023-10-24', '2023-10-24');
+INSERT INTO `user` (`id`, `username`, `password`, `email`, `first_name`, `photo_url`, `role`, `enabled`, `address_id`, `create_date`, `update_date`) VALUES (2, 'thejet', '$2a$10$nShOi5/f0bKNvHB8x0u3qOpeivazbuN0NE4TO0LGvQiTMafaBxLJS', 'thejet@unl.edu', 'Johnny', 'https://gpblackhistorymuseum.org/wp-content/uploads/2019/01/Johnny-Jett-Roggers.jpg', 'standard', 1, 3, '2023-10-24', '2023-10-24');
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `sport`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `watchpartydb`;
+INSERT INTO `sport` (`id`, `name`) VALUES (1, 'College Football');
+INSERT INTO `sport` (`id`, `name`) VALUES (2, 'Football');
+INSERT INTO `sport` (`id`, `name`) VALUES (3, 'Volleyball');
+INSERT INTO `sport` (`id`, `name`) VALUES (4, 'Baseball');
+INSERT INTO `sport` (`id`, `name`) VALUES (5, 'College Baseball');
+INSERT INTO `sport` (`id`, `name`) VALUES (6, 'Basketball');
+INSERT INTO `sport` (`id`, `name`) VALUES (7, 'College Basketball');
+INSERT INTO `sport` (`id`, `name`) VALUES (8, 'Nascar');
+INSERT INTO `sport` (`id`, `name`) VALUES (9, 'Olympics');
+INSERT INTO `sport` (`id`, `name`) VALUES (10, 'Soccer');
+INSERT INTO `sport` (`id`, `name`) VALUES (11, 'Womens Basket Ball');
+INSERT INTO `sport` (`id`, `name`) VALUES (12, 'Rugby');
+INSERT INTO `sport` (`id`, `name`) VALUES (13, 'Golf');
+INSERT INTO `sport` (`id`, `name`) VALUES (14, 'Billiards');
 
 COMMIT;
 
@@ -425,7 +469,7 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `watchpartydb`;
-INSERT INTO `team` (`id`, `name`, `logo_url`, `team_website_url`, `sport`) VALUES (1, 'Nebraska CornHuskers', 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Nebraska_Cornhuskers_logo%2C_1992%E2%80%932003.svg/987px-Nebraska_Cornhuskers_logo%2C_1992%E2%80%932003.svg.png', 'https://huskers.com/sports/football', 'College Football');
+INSERT INTO `team` (`id`, `name`, `logo_url`, `team_website_url`, `sport_id`) VALUES (1, 'Nebraska CornHuskers', 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Nebraska_Cornhuskers_logo%2C_1992%E2%80%932003.svg/987px-Nebraska_Cornhuskers_logo%2C_1992%E2%80%932003.svg.png', 'https://huskers.com/sports/football', 1);
 
 COMMIT;
 
@@ -437,6 +481,68 @@ START TRANSACTION;
 USE `watchpartydb`;
 INSERT INTO `party` (`id`, `title`, `party_date`, `start_time`, `description`, `completed`, `enabled`, `venue_id`, `user_id`, `create_date`, `update_date`, `team_id`) VALUES (1, 'Huskers vs Northwestern', '2023-10-21', '1330', 'Nebraska seeks to avenge last seasons opening game loss in Ireland, and get back to back Big Ten wins ', 1, 1, 1, 1, '2023-10-01', '2023-10-01', 1);
 INSERT INTO `party` (`id`, `title`, `party_date`, `start_time`, `description`, `completed`, `enabled`, `venue_id`, `user_id`, `create_date`, `update_date`, `team_id`) VALUES (2, 'Huskers vs Purdue', '2023-10-28', '1330', 'Nebraska goes for 3 strait Big 10 wins and tries to get one win closer to that all important 6 win mark on the season come watch your Huskers take on Purdue Pete\'s Boilermakers ', 0, 1, 1, 1, '2023-10-24', '2023-10-24', 1);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `party_comment`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `watchpartydb`;
+INSERT INTO `party_comment` (`id`, `comment`, `photo_url`, `enabled`, `create_date`, `update_date`, `party_id`, `user_id`, `in_reply_to_id`) VALUES (1, 'Great food and people and we won, woohoo! Who could ask for more???', NULL, 1, '2023-10-24', '2023-10-24', 1, 1, NULL);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `user_comment`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `watchpartydb`;
+INSERT INTO `user_comment` (`id`, `comment`, `photo_url`, `enabled`, `create_date`, `update_date`, `user_id`, `in_reply_to_id`) VALUES (1, 'Hey Johnny was great to see you! GBR!', NULL, 1, '2023-10-24', '2023-10-24', 1, NULL);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `direct_message`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `watchpartydb`;
+INSERT INTO `direct_message` (`id`, `create_date`, `content`, `sender_id`, `recipient_id`) VALUES (1, '2023-10-01', 'Hey James, I\'ll bring the Hardware to the NW Party!!!', 2, 1);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `friend_status`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `watchpartydb`;
+INSERT INTO `friend_status` (`id`, `name`) VALUES (1, 'pending');
+INSERT INTO `friend_status` (`id`, `name`) VALUES (2, 'accepted');
+INSERT INTO `friend_status` (`id`, `name`) VALUES (3, 'declined');
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `friend`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `watchpartydb`;
+INSERT INTO `friend` (`user_id`, `friend_id`, `friend_status_id`) VALUES (1, 2, 2);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `party_rating`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `watchpartydb`;
+INSERT INTO `party_rating` (`rating`, `comment`, `party_id`, `user_id`, `create_date`, `last_update`) VALUES (5, 'Food was great and Huskers won!!!  GBR!', 1, 1, '2023-10-24', '2023-10-24');
 
 COMMIT;
 
@@ -457,6 +563,18 @@ COMMIT;
 START TRANSACTION;
 USE `watchpartydb`;
 INSERT INTO `user_has_team` (`user_id`, `team_id`) VALUES (1, 1);
+INSERT INTO `user_has_team` (`user_id`, `team_id`) VALUES (2, 1);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `party_goers`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `watchpartydb`;
+INSERT INTO `party_goers` (`party_id`, `user_id`) VALUES (1, 2);
+INSERT INTO `party_goers` (`party_id`, `user_id`) VALUES (2, 2);
 
 COMMIT;
 
