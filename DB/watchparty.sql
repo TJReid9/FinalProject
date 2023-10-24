@@ -351,11 +351,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `user_has_team`
+-- Table `favorite_team`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `user_has_team` ;
+DROP TABLE IF EXISTS `favorite_team` ;
 
-CREATE TABLE IF NOT EXISTS `user_has_team` (
+CREATE TABLE IF NOT EXISTS `favorite_team` (
   `user_id` INT NOT NULL,
   `team_id` INT NOT NULL,
   PRIMARY KEY (`user_id`, `team_id`),
@@ -558,12 +558,12 @@ COMMIT;
 
 
 -- -----------------------------------------------------
--- Data for table `user_has_team`
+-- Data for table `favorite_team`
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `watchpartydb`;
-INSERT INTO `user_has_team` (`user_id`, `team_id`) VALUES (1, 1);
-INSERT INTO `user_has_team` (`user_id`, `team_id`) VALUES (2, 1);
+INSERT INTO `favorite_team` (`user_id`, `team_id`) VALUES (1, 1);
+INSERT INTO `favorite_team` (`user_id`, `team_id`) VALUES (2, 1);
 
 COMMIT;
 
