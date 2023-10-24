@@ -7,7 +7,14 @@
     
     <!-- begin entities -->
     
+    <class>com.skilldistillery.watchparty.entities.Address</class>
+    <class>com.skilldistillery.watchparty.entities.DirectMessage</class>
+    <class>com.skilldistillery.watchparty.entities.FavoriteTeam</class>
+    <class>com.skilldistillery.watchparty.entities.FavoriteTeamId</class>
+    <class>com.skilldistillery.watchparty.entities.FriendStatus</class>
+    <class>com.skilldistillery.watchparty.entities.Team</class>
     <class>com.skilldistillery.watchparty.entities.User</class>
+    <class>com.skilldistillery.watchparty.entities.UserComment</class>
 
     <!-- end entities -->
 
