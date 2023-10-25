@@ -19,7 +19,7 @@ public class Friend {
 	private FriendStatus friendStatus;
 	
 	@ManyToOne
-	@JoinColumn(name = "friend_id", insertable = false, updatable = false)
+	@JoinColumn(name = "friend_id")
 	@MapsId(value = "friendId")
 	private User friend;
 	
@@ -80,7 +80,7 @@ public class Friend {
 
 	@Override
 	public String toString() {
-		return "Friend [id=" + id + ", friendStatus=" + friendStatus + ", friend=" + friend + ", user=" + user + "]";
+		return "Friend [id=" + id + ", friendStatus=" + friendStatus + ", friends=" + "]";
 	}
 	
 	

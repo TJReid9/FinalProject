@@ -45,5 +45,17 @@ class DirectMessageTest {
 		assertNotNull(directMessage);
 		assertEquals("Hey James, I'll bring the Hardware to the NW Party!!!", directMessage.getContent());
 	}
+	
+	@Test
+	void test_sender_relationship_mapping() {
+		assertNotNull(directMessage);
+		assertEquals("Johnny", directMessage.getSender().getFirstName());
+	}
+	
+	@Test
+	void test_recipient_relationship_mapping() {
+		assertNotNull(directMessage);
+		assertEquals("James", directMessage.getRecipient().getFirstName());
+	}
 
 }
