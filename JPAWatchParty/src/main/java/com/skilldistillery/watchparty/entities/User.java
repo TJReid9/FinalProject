@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -42,6 +44,10 @@ public class User {
 	@Column(name = "update_date")
 	@UpdateTimestamp
 	private LocalDate updateDate;
+	
+	@OneToOne
+	@JoinColumn(name = "address_id")
+	private Address address;
 	
 	
 
@@ -171,6 +177,18 @@ public class User {
 
 
 
+	public Address getAddress() {
+		return address;
+	}
+
+
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+
+
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -192,7 +210,7 @@ public class User {
 	public String toString() {
 		return "User [id=" + id + ", username=" + username + ", password=" + password + ", email=" + email
 				+ ", firstName=" + firstName + ", photoUrl=" + photoUrl + ", role=" + role + ", enabled=" + enabled
-				+ ", createDate=" + createDate + ", updateDate=" + updateDate + "]";
+				+ ", createDate=" + createDate + ", updateDate=" + updateDate + ", address=" + address + "]";
 	}
 	
 	

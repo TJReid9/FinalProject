@@ -7,6 +7,8 @@ import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -30,6 +32,15 @@ public class VenueRating implements Serializable{
 	@Column(name = "update_date")
 	@UpdateTimestamp
 	private LocalDate updateDate;
+	
+	@ManyToOne
+	@JoinColumn(name = "venue_id")
+	private Venue venue;
+	
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	private User user;
+	
 
 	public VenueRating() {
 		super();
@@ -75,6 +86,14 @@ public class VenueRating implements Serializable{
 		this.id = id;
 	}
 
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -95,7 +114,7 @@ public class VenueRating implements Serializable{
 	@Override
 	public String toString() {
 		return "VenueRating [id=" + id + ", rating=" + rating + ", comment=" + comment + ", createDate=" + createDate
-				+ ", updateDate=" + updateDate + "]";
+				+ ", updateDate=" + updateDate + ", venue=" + venue + ", user=" + user + "]";
 	}
 
 

@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -25,6 +27,14 @@ public class DirectMessage {
 	private LocalDate createDate;
 	
 	private String content;
+	
+	@ManyToOne
+	@JoinColumn(name = "sender_id")
+	private User sender;
+	
+	@ManyToOne
+	@JoinColumn(name = "recipient_id")
+	private User recipient;
 
 	public DirectMessage() {
 		super();
@@ -54,6 +64,22 @@ public class DirectMessage {
 		this.content = content;
 	}
 
+	public User getSender() {
+		return sender;
+	}
+
+	public void setSender(User sender) {
+		this.sender = sender;
+	}
+
+	public User getRecipient() {
+		return recipient;
+	}
+
+	public void setRecipient(User recipient) {
+		this.recipient = recipient;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -73,7 +99,8 @@ public class DirectMessage {
 
 	@Override
 	public String toString() {
-		return "DirectMessage [id=" + id + ", createDate=" + createDate + ", content=" + content + "]";
+		return "DirectMessage [id=" + id + ", createDate=" + createDate + ", content=" + content + ", sender=" + sender
+				+ ", recipient=" + recipient + "]";
 	}
 	
 	
