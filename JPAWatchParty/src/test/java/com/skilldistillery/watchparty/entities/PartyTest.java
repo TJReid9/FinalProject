@@ -45,5 +45,23 @@ class PartyTest {
 		assertNotNull(party);
 		assertEquals("Huskers vs Northwestern", party.getTitle());
 	}
+	
+	@Test
+	void test_venueId() {
+		assertNotNull(party);
+		assertEquals("Josh's Bar & Grill", party.getVenue().getName());
+	}
+	
+	@Test
+	void test_userId() {
+		assertNotNull(party);
+		assertEquals("admin", party.getUser().getUsername());
+	}
+	
+	@Test
+	void test_teamId() {
+		assertNotNull(party);
+		assertEquals("Nebraska CornHuskers", party.getTeam().getName());
+	}
 
 }

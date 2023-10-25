@@ -45,6 +45,14 @@ class TeamTest {
 		assertNotNull(team);
 		assertEquals("Nebraska CornHuskers", team.getName());
 		assertEquals("https://huskers.com/sports/football", team.getTeamWebsiteUrl());
+		
+	}
+	
+	@Test
+	void test_sportId() {
+		assertNotNull(team);
+		assertEquals("College Football", team.getSport().getName());
+		
 	}
 
 }
