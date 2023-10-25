@@ -12,11 +12,11 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class PartyRatingTest {
+class PartyGoersTest {
 	
 	private static EntityManagerFactory emf;
 	private EntityManager em;
-	private PartyRating partyRating;
+	private PartyGoers partyGoers;
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -31,27 +31,23 @@ class PartyRatingTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		em = emf.createEntityManager();
-		PartyRatingId uid = new PartyRatingId();
-		uid.setUserId(1);
-		uid.setPartyId(1);
+		partyGoers = em.find(PartyGoers.class, new PartyGoersId(2,1));
 		
-		partyRating = em.find(PartyRating.class, uid);
 	}
 
 	@AfterEach
 	void tearDown() throws Exception {
 		em.close();
-		partyRating = null;
+		partyGoers = null;
 	}
 
 	@Test
 	void test() {
-		assertNotNull(partyRating);
-		assertEquals("Food was great and Huskers won!!!  GBR!", partyRating.getComment());
-		assertEquals("Huskers vs Northwestern", partyRating.getParty().getTitle());
-		assertEquals("admin", partyRating.getUser().getUsername());
+		assertNotNull(partyGoers);
+		assertEquals(1, partyGoers.getId().getPartyId());
+		assertEquals(2, partyGoers.getId().getUserId());
+		
+	
 	}
-	
-	
 
 }

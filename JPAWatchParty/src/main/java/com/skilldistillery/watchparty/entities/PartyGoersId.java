@@ -34,11 +34,11 @@ public class PartyGoersId implements Serializable{
 			this.userId = userId;
 		}
 
-		public int getTeamId() {
+		public int getPartyId() {
 			return partyId;
 		}
 
-		public void setTeamId(int partyId) {
+		public void setPartyId(int partyId) {
 			this.partyId = partyId;
 		}
 

@@ -46,5 +46,17 @@ class PartyCommentTest {
 		assertNotNull(partyComment);
 		assertEquals("Great food and people and we won, woohoo! Who could ask for more???", partyComment.getComment());
 	}
+	
+	@Test
+	void test_partyId_relationship() {
+		assertNotNull(partyComment);
+		assertEquals("Huskers vs Northwestern", partyComment.getParty().getTitle());
+	}
+	
+	@Test
+	void test_userId_relationship() {
+		assertNotNull(partyComment);
+		assertEquals("James", partyComment.getUser().getFirstName());
+	}
 
 }
