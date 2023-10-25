@@ -56,7 +56,7 @@ public class User {
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "friend")
-	private List<User> friends;
+	private List<Friend> friends;
 
 	public User() {
 		super();
@@ -196,13 +196,13 @@ public class User {
 
 
 
-	public List<User> getFriends() {
+	public List<Friend> getFriends() {
 		return friends;
 	}
 
 
 
-	public void setFriends(List<User> friends) {
+	public void setFriends(List<Friend> friends) {
 		this.friends = friends;
 	}
 
