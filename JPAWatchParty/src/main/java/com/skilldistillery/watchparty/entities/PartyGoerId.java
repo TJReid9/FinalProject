@@ -7,7 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 @Embeddable
-public class PartyGoersId implements Serializable{
+public class PartyGoerId implements Serializable{
 		private static final long serialVersionUID = 1L;
 	
 		@Column(name = "user_id")
@@ -16,11 +16,11 @@ public class PartyGoersId implements Serializable{
 		@Column(name = "party_id")
 		private int partyId;
 
-		public PartyGoersId() {
+		public PartyGoerId() {
 			super();
 		}
 
-		public PartyGoersId(int userId, int partyId) {
+		public PartyGoerId(int userId, int partyId) {
 			super();
 			this.userId = userId;
 			this.partyId = partyId;
@@ -59,7 +59,7 @@ public class PartyGoersId implements Serializable{
 				return false;
 			if (getClass() != obj.getClass())
 				return false;
-			PartyGoersId other = (PartyGoersId) obj;
+			PartyGoerId other = (PartyGoerId) obj;
 			return partyId == other.partyId && userId == other.userId;
 		}
 

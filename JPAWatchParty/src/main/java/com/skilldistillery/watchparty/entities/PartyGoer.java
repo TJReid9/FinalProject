@@ -8,25 +8,25 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "party_goers")
-public class PartyGoers {
+public class PartyGoer {
 	
 	@EmbeddedId
-	private PartyGoersId id;
+	private PartyGoerId id;
 
-	public PartyGoers() {
+	public PartyGoer() {
 		super();
 	}
 
-	public PartyGoers(PartyGoersId id) {
+	public PartyGoer(PartyGoerId id) {
 		super();
 		this.id = id;
 	}
 
-	public PartyGoersId getId() {
+	public PartyGoerId getId() {
 		return id;
 	}
 
-	public void setId(PartyGoersId id) {
+	public void setId(PartyGoerId id) {
 		this.id = id;
 	}
 
@@ -43,7 +43,7 @@ public class PartyGoers {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		PartyGoers other = (PartyGoers) obj;
+		PartyGoer other = (PartyGoer) obj;
 		return Objects.equals(id, other.id);
 	}
 

@@ -252,49 +252,6 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `friend_status`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `friend_status` ;
-
-CREATE TABLE IF NOT EXISTS `friend_status` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `friend`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `friend` ;
-
-CREATE TABLE IF NOT EXISTS `friend` (
-  `user_id` INT NOT NULL,
-  `friend_id` INT NOT NULL,
-  `friend_status_id` INT NOT NULL,
-  INDEX `fk_friend_user1_idx` (`user_id` ASC),
-  INDEX `fk_friend_user2_idx` (`friend_id` ASC),
-  PRIMARY KEY (`user_id`, `friend_id`),
-  INDEX `fk_friend_friend_status1_idx` (`friend_status_id` ASC),
-  CONSTRAINT `fk_friend_user1`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `user` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_friend_user2`
-    FOREIGN KEY (`friend_id`)
-    REFERENCES `user` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_friend_friend_status1`
-    FOREIGN KEY (`friend_status_id`)
-    REFERENCES `friend_status` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
 -- Table `party_rating`
 -- -----------------------------------------------------
 DROP TABLE IF EXISTS `party_rating` ;
@@ -375,11 +332,11 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `party_goers`
+-- Table `party_goer`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `party_goers` ;
+DROP TABLE IF EXISTS `party_goer` ;
 
-CREATE TABLE IF NOT EXISTS `party_goers` (
+CREATE TABLE IF NOT EXISTS `party_goer` (
   `party_id` INT NOT NULL,
   `user_id` INT NOT NULL,
   PRIMARY KEY (`party_id`, `user_id`),
@@ -393,6 +350,49 @@ CREATE TABLE IF NOT EXISTS `party_goers` (
   CONSTRAINT `fk_party_has_user_user1`
     FOREIGN KEY (`user_id`)
     REFERENCES `user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `friend_status`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `friend_status` ;
+
+CREATE TABLE IF NOT EXISTS `friend_status` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `friend`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `friend` ;
+
+CREATE TABLE IF NOT EXISTS `friend` (
+  `user_id` INT NOT NULL,
+  `friend_id` INT NOT NULL,
+  `friend_status_id` INT NOT NULL,
+  PRIMARY KEY (`user_id`, `friend_id`),
+  INDEX `fk_user_has_user_user2_idx` (`friend_id` ASC),
+  INDEX `fk_user_has_user_user1_idx` (`user_id` ASC),
+  INDEX `fk_friend_friend_status1_idx` (`friend_status_id` ASC),
+  CONSTRAINT `fk_user_has_user_user1`
+    FOREIGN KEY (`user_id`)
+    REFERENCES `user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_user_has_user_user2`
+    FOREIGN KEY (`friend_id`)
+    REFERENCES `user` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_friend_friend_status1`
+    FOREIGN KEY (`friend_status_id`)
+    REFERENCES `friend_status` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -516,28 +516,6 @@ COMMIT;
 
 
 -- -----------------------------------------------------
--- Data for table `friend_status`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `watchpartydb`;
-INSERT INTO `friend_status` (`id`, `name`) VALUES (1, 'pending');
-INSERT INTO `friend_status` (`id`, `name`) VALUES (2, 'accepted');
-INSERT INTO `friend_status` (`id`, `name`) VALUES (3, 'declined');
-
-COMMIT;
-
-
--- -----------------------------------------------------
--- Data for table `friend`
--- -----------------------------------------------------
-START TRANSACTION;
-USE `watchpartydb`;
-INSERT INTO `friend` (`user_id`, `friend_id`, `friend_status_id`) VALUES (1, 2, 2);
-
-COMMIT;
-
-
--- -----------------------------------------------------
 -- Data for table `party_rating`
 -- -----------------------------------------------------
 START TRANSACTION;
@@ -569,12 +547,34 @@ COMMIT;
 
 
 -- -----------------------------------------------------
--- Data for table `party_goers`
+-- Data for table `party_goer`
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `watchpartydb`;
-INSERT INTO `party_goers` (`party_id`, `user_id`) VALUES (1, 2);
-INSERT INTO `party_goers` (`party_id`, `user_id`) VALUES (2, 2);
+INSERT INTO `party_goer` (`party_id`, `user_id`) VALUES (1, 2);
+INSERT INTO `party_goer` (`party_id`, `user_id`) VALUES (2, 2);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `friend_status`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `watchpartydb`;
+INSERT INTO `friend_status` (`id`, `name`) VALUES (1, 'pending');
+INSERT INTO `friend_status` (`id`, `name`) VALUES (2, 'accepted');
+INSERT INTO `friend_status` (`id`, `name`) VALUES (3, 'declined');
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `friend`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `watchpartydb`;
+INSERT INTO `friend` (`user_id`, `friend_id`, `friend_status_id`) VALUES (1, 2, 2);
 
 COMMIT;
 
