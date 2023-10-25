@@ -1,6 +1,7 @@
 package com.skilldistillery.watchparty.entities;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -210,6 +211,21 @@ public class User {
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
+	}
+	
+	public void addFriend(Friend friend) {
+		if(friends == null) {
+			friends = new ArrayList<>();
+		}
+		if(! friends.contains(friend)) {
+			friends.add(friend);
+		}
+	}
+	
+	public void removeFriend(Friend friend) {
+		if (friends != null && friends.contains(friend)) {
+			friends.remove(friend);
+		}
 	}
 
 	@Override

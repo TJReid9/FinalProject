@@ -2,6 +2,7 @@ package com.skilldistillery.watchparty.controllers;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,10 +53,13 @@ public class VenueController {
 	}
 	
 	@PostMapping("venues")
-	public Venue create(@RequestBody Venue venue,HttpServletResponse res) {
+	public Venue create(@RequestBody Venue venue,HttpServletResponse res, HttpServletRequest req) {
 		try {
 			venue = venueService.create(venue);
 			res.setStatus(201);
+			StringBuffer url = req.getRequestURL();
+			url.append("/").append(venue.getId());
+			res.setHeader("Location", url.toString());
 		} catch (Exception e) {
 			e.printStackTrace();
 			res.setStatus(400);
@@ -67,8 +71,11 @@ public class VenueController {
 	@DeleteMapping("venues/{venueId}")
 	public void delete(@PathVariable Integer venueId,HttpServletResponse res) {
 		try {
-			venueService.destroy(venueId);
+			if (venueService.destroy(venueId)) {
 			res.setStatus(204);
+			} else {
+				res.setStatus(404);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			res.setStatus(400);

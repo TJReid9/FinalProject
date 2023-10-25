@@ -80,7 +80,7 @@ public class AddressController {
 	}
 
 //  DELETE addresss/{tid}
-	@DeleteMapping("addresss/{tid}")
+	@DeleteMapping("addresses/{tid}")
 	public void destroy(HttpServletRequest req, HttpServletResponse res, @PathVariable int tid) {
 
 		if (addressService.destroy( tid)) {
