@@ -13,6 +13,6 @@ public interface VenueService {
 	
 	Venue update(Venue venue, int id);
 	
-	void destroy(int id);
+	boolean destroy(int id);
 	
 }
