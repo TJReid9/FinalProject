@@ -34,11 +34,11 @@ public class VenueRating{
 	private LocalDate updateDate;
 	
 	@ManyToOne
-	@JoinColumn(name = "venue_id")
+	@JoinColumn(name = "venue_id", insertable = false, updatable = false)
 	private Venue venue;
 	
 	@ManyToOne
-	@JoinColumn(name = "user_id")
+	@JoinColumn(name = "user_id", insertable = false, updatable = false)
 	private User user;
 	
 

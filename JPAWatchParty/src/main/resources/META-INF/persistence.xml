@@ -14,7 +14,6 @@
     <class>com.skilldistillery.watchparty.entities.FriendStatus</class>
     <class>com.skilldistillery.watchparty.entities.Team</class>
     <class>com.skilldistillery.watchparty.entities.User</class>
-
     <class>com.skilldistillery.watchparty.entities.Party</class>
     <class>com.skilldistillery.watchparty.entities.PartyComment</class>
     <class>com.skilldistillery.watchparty.entities.Friend</class>

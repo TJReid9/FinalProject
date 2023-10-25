@@ -19,9 +19,9 @@ public class Friend {
 	private FriendStatus friendStatus;
 	
 	@ManyToOne
-	@JoinColumn(name = "friend_id")
+	@JoinColumn(name = "friend_id", insertable = false, updatable = false)
 	@MapsId(value = "friendId")
-	private Friend friend;
+	private User friend;
 	
 	@ManyToOne
 	@JoinColumn(name = "user_id")
@@ -53,11 +53,11 @@ public class Friend {
 		this.friendStatus = friendStatus;
 	}
 
-	public Friend getFriend() {
+	public User getFriend() {
 		return friend;
 	}
 
-	public void setFriend(Friend friend) {
+	public void setFriend(User friend) {
 		this.friend = friend;
 	}
 
