@@ -213,20 +213,18 @@ public class User {
 		return Objects.hash(id);
 	}
 	
-	public void addFriend(User friend) {
+	public void addFriend(Friend friend) {
 		if(friends == null) {
 			friends = new ArrayList<>();
 		}
 		if(! friends.contains(friend)) {
 			friends.add(friend);
-			friend.addFriend(this);
 		}
 	}
 	
-	public void removeFriend(User friend) {
+	public void removeFriend(Friend friend) {
 		if (friends != null && friends.contains(friend)) {
 			friends.remove(friend);
-			friend.removeFriend(this);
 		}
 	}
 
