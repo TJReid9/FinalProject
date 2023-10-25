@@ -45,5 +45,12 @@ class VenueTest {
 		assertNotNull(venue);
 		assertEquals("Josh's Bar & Grill", venue.getName());
 	}
+	
+	@Test
+	void test_venue_relational_mapping_to_address(){
+		Address address = venue.getAddress();
+		assertNotNull(address);
+	}
+	
 
 }
