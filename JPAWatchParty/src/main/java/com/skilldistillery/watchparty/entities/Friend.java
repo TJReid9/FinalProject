@@ -1,10 +1,13 @@
 package com.skilldistillery.watchparty.entities;
 
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 
@@ -18,10 +21,17 @@ public class Friend {
 	@JoinColumn(name = "friend_status_id")
 	private FriendStatus friendStatus;
 	
+//	@ManyToMany
+//	@JoinTable(
+//		name = "friend",
+//		joinColumns = @JoinColumn(name = "user_id"),
+//		inverseJoinColumns = @JoinColumn(name = "friend_id", insertable = false, updatable = false))
+//	private List<User> friends;
+	
 	@ManyToOne
 	@JoinColumn(name = "friend_id")
 	@MapsId(value = "friendId")
-	private Friend friend;
+	private User friend;
 	
 	@ManyToOne
 	@JoinColumn(name = "user_id")
@@ -53,13 +63,21 @@ public class Friend {
 		this.friendStatus = friendStatus;
 	}
 
-	public Friend getFriend() {
+	public User getFriend() {
 		return friend;
 	}
 
-	public void setFriend(Friend friend) {
+	public void setFriend(User friend) {
 		this.friend = friend;
 	}
+
+//	public List<User> getFriends() {
+//		return friends;
+//	}
+//
+//	public void setFriends(List<User> friends) {
+//		this.friends = friends;
+//	}
 
 	@Override
 	public int hashCode() {
@@ -80,7 +98,7 @@ public class Friend {
 
 	@Override
 	public String toString() {
-		return "Friend [id=" + id + ", friendStatus=" + friendStatus + ", friend=" + friend + ", user=" + user + "]";
+		return "Friend [id=" + id + ", friendStatus=" + friendStatus + ", friends=" + "]";
 	}
 	
 	

@@ -11,20 +11,22 @@
     <class>com.skilldistillery.watchparty.entities.DirectMessage</class>
     <class>com.skilldistillery.watchparty.entities.FavoriteTeam</class>
     <class>com.skilldistillery.watchparty.entities.FavoriteTeamId</class>
-    <class>com.skilldistillery.watchparty.entities.FriendStatus</class>
-    <class>com.skilldistillery.watchparty.entities.Team</class>
-    <class>com.skilldistillery.watchparty.entities.User</class>
-
-    <class>com.skilldistillery.watchparty.entities.Party</class>
-    <class>com.skilldistillery.watchparty.entities.PartyComment</class>
     <class>com.skilldistillery.watchparty.entities.Friend</class>
     <class>com.skilldistillery.watchparty.entities.FriendId</class>
+    <class>com.skilldistillery.watchparty.entities.FriendStatus</class>
+    <class>com.skilldistillery.watchparty.entities.Party</class>
+    <class>com.skilldistillery.watchparty.entities.PartyComment</class>
+    <class>com.skilldistillery.watchparty.entities.PartyGoers</class>
+    <class>com.skilldistillery.watchparty.entities.PartyGoersId</class>
+    <class>com.skilldistillery.watchparty.entities.PartyRating</class>
     <class>com.skilldistillery.watchparty.entities.PartyRatingId</class>
     <class>com.skilldistillery.watchparty.entities.Sport</class>
+    <class>com.skilldistillery.watchparty.entities.Team</class>
+    <class>com.skilldistillery.watchparty.entities.User</class>
+    <class>com.skilldistillery.watchparty.entities.UserComment</class>
     <class>com.skilldistillery.watchparty.entities.Venue</class>
     <class>com.skilldistillery.watchparty.entities.VenueRating</class>
     <class>com.skilldistillery.watchparty.entities.VenueRatingId</class>
-    <class>com.skilldistillery.watchparty.entities.UserComment</class>
 
     <!-- end entities -->
 
