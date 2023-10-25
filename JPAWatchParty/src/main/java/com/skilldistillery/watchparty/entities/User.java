@@ -1,6 +1,7 @@
 package com.skilldistillery.watchparty.entities;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -55,7 +56,7 @@ public class User {
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "friend")
-	private List<Friend> friends;
+	private List<User> friends;
 
 	public User() {
 		super();
@@ -195,13 +196,13 @@ public class User {
 
 
 
-	public List<Friend> getFriends() {
+	public List<User> getFriends() {
 		return friends;
 	}
 
 
 
-	public void setFriends(List<Friend> friends) {
+	public void setFriends(List<User> friends) {
 		this.friends = friends;
 	}
 
@@ -210,6 +211,23 @@ public class User {
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
+	}
+	
+	public void addFriend(User friend) {
+		if(friends == null) {
+			friends = new ArrayList<>();
+		}
+		if(! friends.contains(friend)) {
+			friends.add(friend);
+			friend.addFriend(this);
+		}
+	}
+	
+	public void removeFriend(User friend) {
+		if (friends != null && friends.contains(friend)) {
+			friends.remove(friend);
+			friend.removeFriend(this);
+		}
 	}
 
 	@Override
