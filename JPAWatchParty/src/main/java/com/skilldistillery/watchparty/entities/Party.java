@@ -10,6 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -42,6 +44,20 @@ public class Party {
 	@Column(name="update_date")
 	@UpdateTimestamp
 	private LocalDate updateDate;
+	
+	@ManyToOne
+	@JoinColumn(name = "venue_id")
+	private Venue venue;
+	
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	private User user;
+	
+	@ManyToOne
+	@JoinColumn(name = "team_id")
+	private Team team;
+	
+	
 
 	public Party() {
 		super();
@@ -119,11 +135,36 @@ public class Party {
 		this.updateDate = updateDate;
 	}
 
+	public Venue getVenue() {
+		return venue;
+	}
+
+	public void setVenue(Venue venue) {
+		this.venue = venue;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Team getTeam() {
+		return team;
+	}
+
+	public void setTeam(Team team) {
+		this.team = team;
+	}
+
 	@Override
 	public String toString() {
 		return "Party [id=" + id + ", title=" + title + ", partyDate=" + partyDate + ", startTime=" + startTime
 				+ ", description=" + description + ", completed=" + completed + ", enabled=" + enabled + ", createDate="
-				+ createDate + ", updateDate=" + updateDate + "]";
+				+ createDate + ", updateDate=" + updateDate + ", venue=" + venue + ", user=" + user + ", team=" + team
+				+ "]";
 	}
 
 	@Override

@@ -6,6 +6,9 @@ import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -27,6 +30,16 @@ public class PartyRating{
 	
 	@Column(name = "last_update")
 	private LocalDate lastUpdate;
+	
+	@ManyToOne
+	@JoinColumn(name = "party_id")
+	@MapsId(value = "partyId")
+	private Party party;
+	
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	@MapsId(value = "userId")
+	private User user;
 
 	public PartyRating() {
 		super();
@@ -76,6 +89,26 @@ public class PartyRating{
 	}
 
 
+	public Party getParty() {
+		return party;
+	}
+
+
+	public void setParty(Party party) {
+		this.party = party;
+	}
+
+
+	public User getUser() {
+		return user;
+	}
+
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -98,7 +131,7 @@ public class PartyRating{
 	@Override
 	public String toString() {
 		return "PartyRating [id=" + id + ", comment=" + comment + ", rating=" + rating + ", createDate=" + createDate
-				+ ", lastUpdate=" + lastUpdate + "]";
+				+ ", lastUpdate=" + lastUpdate + ", party=" + party + ", user=" + user + "]";
 	}
 
 	

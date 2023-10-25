@@ -7,6 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Venue {
@@ -28,6 +31,10 @@ public class Venue {
 	
 	@Column(name="website_url")
 	private String websiteUrl;
+	
+	@OneToOne
+	@JoinColumn(name = "address_id")
+	private Address address;
 
 	public Venue() {
 		super();
@@ -89,6 +96,14 @@ public class Venue {
 		this.websiteUrl = websiteUrl;
 	}
 
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -109,7 +124,8 @@ public class Venue {
 	@Override
 	public String toString() {
 		return "Venue [id=" + id + ", name=" + name + ", phone=" + phone + ", description=" + description
-				+ ", imageUrl=" + imageUrl + ", enabled=" + enabled + ", websiteUrl=" + websiteUrl + "]";
+				+ ", imageUrl=" + imageUrl + ", enabled=" + enabled + ", websiteUrl=" + websiteUrl + ", address="
+				+ address + "]";
 	}
 	
 	

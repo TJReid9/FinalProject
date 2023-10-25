@@ -4,12 +4,29 @@ import java.util.Objects;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
 
 @Entity
 public class Friend {
 
 	@EmbeddedId
 	private FriendId id;
+	
+	@ManyToOne
+	@JoinColumn(name = "friend_status_id")
+	private FriendStatus friendStatus;
+	
+	@ManyToOne
+	@JoinColumn(name = "friend_id")
+	@MapsId(value = "friendId")
+	private Friend friend;
+	
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	@MapsId(value = "userId")
+	private User user;
 
 	public Friend(FriendId id) {
 		super();
@@ -26,6 +43,22 @@ public class Friend {
 
 	public void setId(FriendId id) {
 		this.id = id;
+	}
+
+	public FriendStatus getFriendStatus() {
+		return friendStatus;
+	}
+
+	public void setFriendStatus(FriendStatus friendStatus) {
+		this.friendStatus = friendStatus;
+	}
+
+	public Friend getFriend() {
+		return friend;
+	}
+
+	public void setFriend(Friend friend) {
+		this.friend = friend;
 	}
 
 	@Override
@@ -47,7 +80,7 @@ public class Friend {
 
 	@Override
 	public String toString() {
-		return "Friend [id=" + id + "]";
+		return "Friend [id=" + id + ", friendStatus=" + friendStatus + ", friend=" + friend + ", user=" + user + "]";
 	}
 	
 	

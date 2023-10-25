@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -35,6 +37,14 @@ public class UserComment {
 	@Column(name = "update_date")
 	@UpdateTimestamp
 	private LocalDate updateDate;
+	
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	private User user;
+	
+	@ManyToOne
+	@JoinColumn(name = "in_reply_to_id")
+	private UserComment userCommentReply;
 
 	public UserComment() {
 		super();
@@ -88,6 +98,22 @@ public class UserComment {
 		this.updateDate = updateDate;
 	}
 
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public UserComment getUserCommentReply() {
+		return userCommentReply;
+	}
+
+	public void setUserCommentReply(UserComment userCommentReply) {
+		this.userCommentReply = userCommentReply;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -108,7 +134,8 @@ public class UserComment {
 	@Override
 	public String toString() {
 		return "UserComment [id=" + id + ", comment=" + comment + ", photoUrl=" + photoUrl + ", enabled=" + enabled
-				+ ", createDate=" + createDate + ", updateDate=" + updateDate + "]";
+				+ ", createDate=" + createDate + ", updateDate=" + updateDate + ", user=" + user + ", userCommentReply="
+				+ userCommentReply + "]";
 	}
 	
 	
