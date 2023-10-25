@@ -46,5 +46,12 @@ class UserTest {
 		assertEquals("admin", user.getUsername());
 		assertEquals("James", user.getFirstName());
 	}
+	
+	@Test
+	void test_user_relational_mapping_to_address(){
+		Address address = user.getAddress();
+		assertNotNull(address);
+		assertEquals("Hampton", address.getCity());
+	}
 
 }

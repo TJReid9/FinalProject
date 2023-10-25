@@ -60,6 +60,15 @@ public class Friend {
 	public void setFriend(User friend) {
 		this.friend = friend;
 	}
+	
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
 
 	@Override
 	public int hashCode() {
@@ -80,7 +89,7 @@ public class Friend {
 
 	@Override
 	public String toString() {
-		return "Friend [id=" + id + ", friendStatus=" + friendStatus + ", friends=" + "]";
+		return "Friend [id=" + id + ", friendStatus=" + friendStatus + ", friend=" + friend + ", user=" + user + "]";
 	}
 	
 	

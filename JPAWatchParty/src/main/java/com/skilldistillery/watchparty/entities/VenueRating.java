@@ -1,6 +1,6 @@
 package com.skilldistillery.watchparty.entities;
 
-import java.io.Serializable;
+
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -9,6 +9,7 @@ import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -34,11 +35,13 @@ public class VenueRating{
 	private LocalDate updateDate;
 	
 	@ManyToOne
-	@JoinColumn(name = "venue_id", insertable = false, updatable = false)
+	@JoinColumn(name = "venue_id")
+	@MapsId(value = "venueId")
 	private Venue venue;
 	
 	@ManyToOne
-	@JoinColumn(name = "user_id", insertable = false, updatable = false)
+	@JoinColumn(name = "user_id")
+	@MapsId(value = "userId")
 	private User user;
 	
 
@@ -92,6 +95,15 @@ public class VenueRating{
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+	
+
+	public Venue getVenue() {
+		return venue;
+	}
+
+	public void setVenue(Venue venue) {
+		this.venue = venue;
 	}
 
 	@Override

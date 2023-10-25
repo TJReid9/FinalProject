@@ -49,5 +49,17 @@ class VenueRatingTest {
 		assertNotNull(venueRating);
 		assertEquals("One of my favorite places to go, best burgers in town and $2 TACOS on Tuesday!!!!", venueRating.getComment());
 	}
-
+	
+	@Test
+	void test_VenueRating_relational_mapping_to_user() {
+		User user = venueRating.getUser();
+		assertNotNull(user);
+		assertEquals("admin", user.getUsername());
+	}
+	
+	@Test
+	void test_VenueRating_relational_mapping_to_Venue() {
+		Venue venue = venueRating.getVenue();
+		assertNotNull(venue);
+	}
 }

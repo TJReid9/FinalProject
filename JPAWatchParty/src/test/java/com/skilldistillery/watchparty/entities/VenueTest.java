@@ -50,6 +50,7 @@ class VenueTest {
 	void test_venue_relational_mapping_to_address(){
 		Address address = venue.getAddress();
 		assertNotNull(address);
+		assertEquals("Hampton", address.getCity());
 	}
 	
 

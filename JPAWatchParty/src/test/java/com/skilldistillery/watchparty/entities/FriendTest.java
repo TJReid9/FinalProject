@@ -49,5 +49,26 @@ class FriendTest {
 		assertEquals(1, friend.getId().getUserId());
 
 	}
+	
+	@Test
+	void test_friend_relational_mapping_to_user() {
+		User user = friend.getUser();
+		assertNotNull(user);
+		assertEquals("admin", user.getUsername());
+	}
+	
+	@Test
+	void test_friend_relational_mapping_to_User_friend() {
+		User user = friend.getFriend();
+		assertNotNull(user);
+		assertEquals("thejet", user.getUsername());
+	}
+	
+	@Test
+	void test_friend_relational_mapping_to_FriendStatus() {
+		FriendStatus fs = friend.getFriendStatus();
+		assertNotNull(fs);
+		assertEquals("accepted", fs.getName());
+	}
 
 }
