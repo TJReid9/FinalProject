@@ -31,8 +31,8 @@ public class Team {
 	@JoinColumn(name = "sport_id")
 	private Sport sport;
 	
-	@OneToMany
-	List<FavoriteTeam> favoriteTeams;
+//	@OneToMany
+//	List<FavoriteTeam> favoriteTeams;
 
 	public Team() {
 		super();
@@ -78,13 +78,13 @@ public class Team {
 		this.sport = sport;
 	}
 
-	public List<FavoriteTeam> getFavoriteTeams() {
-		return favoriteTeams;
-	}
-
-	public void setFavoriteTeams(List<FavoriteTeam> favoriteTeams) {
-		this.favoriteTeams = favoriteTeams;
-	}
+//	public List<FavoriteTeam> getFavoriteTeams() {
+//		return favoriteTeams;
+//	}
+//
+//	public void setFavoriteTeams(List<FavoriteTeam> favoriteTeams) {
+//		this.favoriteTeams = favoriteTeams;
+//	}
 
 	@Override
 	public int hashCode() {
