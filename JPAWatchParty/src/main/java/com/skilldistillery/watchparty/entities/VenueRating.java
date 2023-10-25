@@ -16,7 +16,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 @Entity
 @Table(name= "venue_rating")
-public class VenueRating implements Serializable{
+public class VenueRating{
 
 	@EmbeddedId
 	private VenueRatingId id;
