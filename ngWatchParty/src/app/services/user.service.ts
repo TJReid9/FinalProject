@@ -11,14 +11,14 @@ import { Observable, catchError, throwError } from 'rxjs';
 })
 export class UserService {
 
-  private url = environment.baseUrl + 'api/';
+  private url = environment.baseUrl + 'api/watchparties/';
   constructor(
     private http: HttpClient,
     private auth: AuthService
   ) { }
 
   index(): Observable<User[]> {
-    return this.http.get<User[]>(this.url + 'watchparties').pipe(
+    return this.http.get<User[]>(this.url + 'users/').pipe(
       catchError((err: any) => {
         console.log(err);
         return throwError(

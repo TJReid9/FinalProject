@@ -1,2 +1,32 @@
 <p>users works!</p>
-{{loggedInUser.username}}
+<div *ngIf="!editUser">
+  <div class="col-12 col-md-6 col-lg-4">
+    <div class="card bg-transparent" style="margin-bottom: 10px" >
+      <img [src]="loggedInUser.photoUrl" (click)="setEditUser()" height="20%" width="20%"/>
+      <h3>{{loggedInUser.username}}</h3>
+    </div>
+  </div>
+  Created: {{loggedInUser.createDate}} <br>
+  Name: {{loggedInUser.firstName}} <br>
+  Located at: {{loggedInUser.address?.city}}, {{loggedInUser.address?.state}}<br>
+  <hr>
+  lastUpdated: {{loggedInUser.updateDate}}
+
+  <button class="btn btn-primary" (click)="setEditUser()">Edit</button>
+
+
+</div>
+
+<div *ngIf="editUser" class="container">
+  <form id="updateUser">
+    <label for="firstName"></label>
+    <input class="form-control" type="text" name="firstName" [(ngModel)]="editUser.firstName">
+
+    <label for="photoUrl"></label>
+    <input class="form-control" type="text" name="photoUrl" [(ngModel)]="editUser.photoUrl">
+
+
+  </form>
+
+
+</div>

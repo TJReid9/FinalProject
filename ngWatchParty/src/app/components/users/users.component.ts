@@ -1,3 +1,4 @@
+import { Address } from './../../models/address';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Component } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
@@ -11,8 +12,10 @@ import { User } from 'src/app/models/user';
 })
 export class UsersComponent {
 
-loggedInUser: User = new User;
+loggedInUser: User = new User();
 selectedUser: User | null = null;
+editUser: User | null = null;
+
 
 constructor(
   private userService: UserService,
@@ -59,4 +62,33 @@ setLoggedInUser(){
   });
 }
 
+setEditUser(){
+  this.editUser = Object.assign({}, this.loggedInUser);
+}
+
+updateUser(user: User){
+  this.userService.update(user.id, user).subscribe({
+    next: (updatedUser) => {
+      this.editUser = null;
+      this.setLoggedInUser();
+    },
+    error: (problem) => {
+      console.error('UsersComponenet error')
+      console.log(problem);
+    }
+  });
+}
+
+
+deleteUser(id: number){
+  this.userService.destroy(id).subscribe({
+    next: (result) => {
+      this.router.navigateByUrl('/home');
+    },
+    error: (err) => {
+      console.error('Users Componenet: could not delete users')
+      console.log(err)
+    }
+  })
+}
 }
