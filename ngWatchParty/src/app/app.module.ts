@@ -11,6 +11,8 @@ import { LoginComponent } from './components/login/login.component';
 import { LogoutComponent } from './components/logout/logout.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { UsersComponent } from './components/users/users.component';
+import { HomeComponent } from './components/home/home.component';
+import { CarouselBasicComponent } from './components/carousel-basic/carousel-basic.component';
 
 @NgModule({
   declarations: [
@@ -19,14 +21,16 @@ import { UsersComponent } from './components/users/users.component';
     LoginComponent,
     LogoutComponent,
     NotFoundComponent,
-    UsersComponent
+    UsersComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    NgbModule
+    NgbModule,
+    CarouselBasicComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

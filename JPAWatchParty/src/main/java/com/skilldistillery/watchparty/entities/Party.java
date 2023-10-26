@@ -37,6 +37,9 @@ public class Party {
 	
 	private Boolean enabled;
 	
+	@Column(name = "image_url")
+	private String imageUrl;
+	
 	@Column(name="create_date")
 	@CreationTimestamp
 	private LocalDate createDate;
@@ -119,6 +122,14 @@ public class Party {
 		this.enabled = enabled;
 	}
 
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
+
 	public LocalDate getCreateDate() {
 		return createDate;
 	}
@@ -162,9 +173,9 @@ public class Party {
 	@Override
 	public String toString() {
 		return "Party [id=" + id + ", title=" + title + ", partyDate=" + partyDate + ", startTime=" + startTime
-				+ ", description=" + description + ", completed=" + completed + ", enabled=" + enabled + ", createDate="
-				+ createDate + ", updateDate=" + updateDate + ", venue=" + venue + ", user=" + user + ", team=" + team
-				+ "]";
+				+ ", description=" + description + ", completed=" + completed + ", enabled=" + enabled + ", imageUrl="
+				+ imageUrl + ", createDate=" + createDate + ", updateDate=" + updateDate + ", venue=" + venue
+				+ ", user=" + user + ", team=" + team + "]";
 	}
 
 	@Override
