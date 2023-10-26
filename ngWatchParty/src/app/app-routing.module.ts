@@ -4,6 +4,7 @@ import { LoginComponent } from './components/login/login.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { UsersComponent } from './components/users/users.component';
 import { HomeComponent } from './components/home/home.component';
+import { PartiesComponent } from './components/parties/parties.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home' },
@@ -11,7 +12,8 @@ const routes: Routes = [
   { path: 'users', component: UsersComponent },
   // { path: 'users/:usersId', component: TodoListComponent },
   // { path: 'venues', component: AboutComponent },
-  // { path: 'parties', component: ContactComponent },
+   { path: 'parties', component: PartiesComponent },
+   { path: 'parties/:partyId', component: PartiesComponent },
   // { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
   { path: '**', component: NotFoundComponent },

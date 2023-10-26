@@ -6,15 +6,15 @@
   [attr.aria-expanded]="!isCollapsed">
   <span class="navbar-toggler-icon"></span>
 </button>
-<div class="collapse navbar-collapse" id="navbarNavAltMarkup"
+<div class="collapse navbar-collapse " id="navbarNavAltMarkup"
 [ngbCollapse]='isCollapsed'>
-<div class="navbar-nav">
+<div class="navbar-nav ">
   <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
-  <li class="nav-item">
-  <a class="navbar-brand" href="/#/home"><img src="assets/images/wplogo.png" width="75" height="75"></a>
+  <li class="nav-item ">
+  <a class="navbar-brand " href="/#/home"><img src="assets/images/wplogo.png" width="75" height="75"></a>
   </li>
-    <li class="nav-item" *ngIf="loggedIn()">
+    <li class="nav-item " *ngIf="loggedIn()">
      <a class="nav-item nav-link" [routerLink]="['/users']">Profile</a>
     </li>
     <li class="nav-item">
@@ -50,7 +50,7 @@
     <app-login></app-login>
 
  </span>
- <span class="nav-item" *ngIf="!loggedIn()"> <button class="btn btn-dark mx-1" (click)="goToRegister()">Register</button></span>
+ <span class="nav-item " *ngIf="!loggedIn()"> <button class="btn btn-dark mx-1" (click)="goToRegister()">Register</button></span>
  <span class="nav-item" *ngIf="loggedIn()">
   <app-logout></app-logout>
 </span>
