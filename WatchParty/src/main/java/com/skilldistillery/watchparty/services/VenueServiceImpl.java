@@ -38,9 +38,14 @@ public class VenueServiceImpl implements VenueService {
 	}
 
 	@Override
-	public void destroy(int id) {
-		venueRepo.deleteById(id);
-		
+	public boolean destroy(int id) {
+		boolean deleted = false;
+		Venue venueDeleted = venueRepo.findById(id);
+		if (venueDeleted != null) {
+			venueRepo.deleteById(venueDeleted.getId());
+			deleted = true;
+		}
+		return deleted;
 	}
 
 	@Override

@@ -56,7 +56,7 @@ public class User {
 	
 	@JsonIgnore
 	@OneToMany(mappedBy = "friend")
-	private List<User> friends;
+	private List<Friend> friends;
 
 	public User() {
 		super();
@@ -196,13 +196,13 @@ public class User {
 
 
 
-	public List<User> getFriends() {
+	public List<Friend> getFriends() {
 		return friends;
 	}
 
 
 
-	public void setFriends(List<User> friends) {
+	public void setFriends(List<Friend> friends) {
 		this.friends = friends;
 	}
 
@@ -213,20 +213,18 @@ public class User {
 		return Objects.hash(id);
 	}
 	
-	public void addFriend(User friend) {
+	public void addFriend(Friend friend) {
 		if(friends == null) {
 			friends = new ArrayList<>();
 		}
 		if(! friends.contains(friend)) {
 			friends.add(friend);
-			friend.addFriend(this);
 		}
 	}
 	
-	public void removeFriend(User friend) {
+	public void removeFriend(Friend friend) {
 		if (friends != null && friends.contains(friend)) {
 			friends.remove(friend);
-			friend.removeFriend(this);
 		}
 	}
 
