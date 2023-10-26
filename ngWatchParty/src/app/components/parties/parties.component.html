@@ -1,6 +1,6 @@
 <h1 *ngIf="!selectedParty">Watch Parties</h1>
 
-<div class="container" *ngIf="!selectedParty">
+<div class="container" *ngIf="!selectedParty && !addNewParty">
   <div class="row" *ngFor="let party of parties">
     <div class="col-12 col-md-6 col-lg-4">
       <div class="card bg-transparent" style="margin-bottom: 10px" >
@@ -10,10 +10,11 @@
       </div>
     </div>
   </div>
+  <button *ngIf="loggedIn()" (click)="displayAddNewWorkout(newParty)" class="btn btn-success">Add</button>
 </div>
 
 <div *ngIf="selectedParty && !editParty ">
-  <button class="btn btn-danger" (click)="displayAllParties()">Back</button>
+  <button class="btn btn-warning" (click)="displayAllParties()">Back</button>
   <button *ngIf="loggedIn()" class="btn btn-outline-primary" type="submit"  (click)="setEditParty()">Edit</button>
 
   <button *ngIf="loggedIn()" (click)="deleteParty(selectedParty.id)" class="btn btn-danger">Delete</button>
@@ -40,7 +41,7 @@
 </div>
 
 <div *ngIf="editParty" class="container" >
-  <form id="updateParty">
+  <form id="updateParty" name="updatePartyForm">
 
     <label for="title">Title</label>
     <input class="form-control" type="text" name="title" [(ngModel)]="editParty.title" >
@@ -50,18 +51,74 @@
     <input type="date" aria-label="Date" class="form-control"  name="partyDate" [(ngModel)]="editParty.partyDate">
     <input type="time" aria-label="time" class="form-control"  name="startTime" [(ngModel)]="editParty.startTime">
   </div>
-
+  <label for="completed">Completed</label>
+  <input  type="checkbox" name="completed" value="" class="form-check-input" [(ngModel)]="editParty.completed" >
+  <br>
     <label for="imageUrl">Image Url</label>
     <input class="form-control" type="text" name="imageUrl" [(ngModel)]="editParty.imageUrl" >
     <br>
 
-    <label for="completed">Completed</label>
-    <input  type="checkbox" name="completed" value="" class="form-check-input" [(ngModel)]="editParty.completed" >
-    <br>
+
 
     <button class="btn btn-success" type="submit"  (click)="updateParty(editParty, editParty.id)">Save</button>
 
     <button class="btn btn-danger" type="submit" (click)="editParty = null">Cancel</button>
 
   </form>
+</div>
+
+<div *ngIf="addNewParty && !selectedParty && !editParty">
+<form name="newPartyForm">
+
+
+
+
+  <label for="title">Title</label>
+  <input class="form-control" type="text" name="title" [(ngModel)]="newParty.title" >
+  <br>
+<div class="input-group">
+  <span class="input-group-text">Date and Time</span>
+  <input type="date" aria-label="Date" class="form-control"  name="partyDate" [(ngModel)]="newParty.partyDate">
+  <input type="time" aria-label="time" class="form-control"  name="startTime" [(ngModel)]="newParty.startTime">
+</div>
+
+  <label for="imageUrl">Image Url</label>
+  <input class="form-control" type="text" name="imageUrl" [(ngModel)]="newParty.imageUrl" >
+  <br>
+
+  <label for="completed">Completed</label>
+  <input  type="checkbox" name="completed" value="" class="form-check-input" [(ngModel)]="newParty.completed" >
+  <br>
+
+
+
+  <div class="mb-3">
+    <label for="venue">Venues:</label>
+    <select name="venue" [(ngModel)]="newParty.venue.id">
+      <option *ngFor="let venue of venues" value="{{venue.id}}">{{venue.name}}</option>
+    </select>
+  </div>
+  <h3>Add New Venue:</h3>
+  <div class="mb-3">
+    <label for="description" class="form-label">Description:</label>
+    <input type="text" class="form-control" name="description" [(ngModel)]="newParty.venue.description" />
+  </div>
+  <div class="mb-3">
+    <label for="city" class="form-label">City:</label>
+    <input type="text" class="form-control" name="city" [(ngModel)]="newParty.venue.phone" />
+  </div>
+  <div class="mb-3">
+    <label for="state" class="form-label">State:</label>
+    <input type="text" class="form-control" name="state" [(ngModel)]="newParty.venue.imageUrl" />
+  </div>
+  <div class="mb-3">
+    <label for="state" class="form-label">State:</label>
+    <input type="text" class="form-control" name="state" [(ngModel)]="newParty.venue.websiteUrl" />
+  </div>
+
+</form>
+<button class="btn btn-success" type="submit"  (click)="addParty(newParty)">Save</button>
+
+  <button class="btn btn-danger" type="submit" (click)="addNewParty = null">Cancel</button>
+
 </div>
