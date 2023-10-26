@@ -74,20 +74,20 @@
             Use Bootstrap carousel in Angular 8 Project
         </div>
     </div>
-    <div class='col-12'>
-        <ngb-carousel>
+    <div class='col-12' >
+        <ngb-carousel *ngFor="let party of parties">
             <ng-template ngbSlide>
-                <img src="parties[0].imageUrl" alt="Delhi Metro">
+                <img [src]=party.imageUrl alt="Delhi Metro" height="100%" width="100%">
                 <div class="carousel-caption">
                     <h3 style="color: yellow">Delhi Metro</h3>
                 </div>
             </ng-template>
-            <ng-template ngbSlide>
+            <!-- <ng-template ngbSlide>
                 <img src="{{parties[1].imageUrl}}" alt="Bangalore Metro">
                 <div class="carousel-caption">
                     <h3 style="color: yellow">Bangalore Metro</h3>
                 </div>
-            </ng-template>
+            </ng-template> -->
             <!-- <ng-template ngbSlide>
                 <img src="../assets/Images/m4.jpg" alt="Channai Metro">
                 <div class="carousel-caption">
