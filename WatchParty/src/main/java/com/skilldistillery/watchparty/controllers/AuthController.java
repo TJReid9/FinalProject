@@ -21,7 +21,7 @@ public class AuthController {
   @Autowired
   private AuthService authService;
   
-  @PostMapping("register")
+  @PostMapping("watchparties/register")
 	public User register(@RequestBody User user, HttpServletResponse res) {
 	  if (user == null) {
 	     res.setStatus(400);
@@ -31,7 +31,7 @@ public class AuthController {
 	  return user;
 	}
 	 
-	@GetMapping("authenticate")
+	@GetMapping("watchparties/authenticate")
 	public User authenticate(Principal principal, HttpServletResponse res) {
 	  if (principal == null) { // no Authorization header sent
 	     res.setStatus(401);

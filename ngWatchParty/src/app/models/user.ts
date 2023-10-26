@@ -19,7 +19,7 @@ export class User {
     address: Address | null = null
   ){
     this.id = id;
-    this.username = username
+    this.username = username;
     this.password = password;
     this.email = email;
     this.enabled = enabled;

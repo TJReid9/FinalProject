@@ -27,12 +27,12 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
-	@GetMapping("users")
+	@GetMapping("watchparties/users")
 	public List<User> listUsers(HttpServletResponse resp) {
 		return userService.getAllUsers();
 	}
 	
-	@GetMapping("users/{userId}")
+	@GetMapping("watchparties/users/{userId}")
 	public User retrieveUser(@PathVariable int userId, HttpServletResponse resp) {
 		User user = userService.retrieveUser(userId);
 		if (user == null ) {
@@ -41,7 +41,7 @@ public class UserController {
 		return user;
 	}
 	
-	@PostMapping("users")
+	@PostMapping("watchparties/users")
 	public User create(@RequestBody User newUser, HttpServletResponse res, HttpServletRequest req) {
 		User createdUser = null;
 		try {
@@ -58,7 +58,7 @@ public class UserController {
 		return createdUser;
 	}
 	
-	@PutMapping("users/{userId}")
+	@PutMapping("watchparties/users/{userId}")
 	public User update(@PathVariable Integer userId, @RequestBody User updatingUser, HttpServletResponse res) {
 		User updatedUser = null;
 		try {
@@ -73,7 +73,7 @@ public class UserController {
 		return updatedUser;
 	}
 	
-	@DeleteMapping("users/{userId}")
+	@DeleteMapping("watchparties/users/{userId}")
 	public void delete(@PathVariable Integer userId, HttpServletResponse res) {
 		try {
 			userService.delete(userId);

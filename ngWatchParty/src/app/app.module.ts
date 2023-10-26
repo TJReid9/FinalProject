@@ -12,6 +12,7 @@ import { LogoutComponent } from './components/logout/logout.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { UsersComponent } from './components/users/users.component';
 import { HomeComponent } from './components/home/home.component';
+import { VenueComponent } from './components/venue/venue.component';
 import { CarouselBasicComponent } from './components/carousel-basic/carousel-basic.component';
 import { PartiesComponent } from './components/parties/parties.component';
 import { RegisterComponent } from './components/register/register.component';
@@ -25,6 +26,7 @@ import { RegisterComponent } from './components/register/register.component';
     NotFoundComponent,
     UsersComponent,
     HomeComponent,
+    VenueComponent,
     PartiesComponent,
     RegisterComponent
   ],
@@ -34,7 +36,6 @@ import { RegisterComponent } from './components/register/register.component';
     FormsModule,
     HttpClientModule,
     NgbModule,
-    CarouselBasicComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

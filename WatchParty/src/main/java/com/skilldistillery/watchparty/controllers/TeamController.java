@@ -27,12 +27,12 @@ public class TeamController {
 	@Autowired
 	private TeamService teamService;
 
-	@GetMapping("teams")
+	@GetMapping("watchparties/teams")
 	public List<Team> getTeamList() {
 		return teamService.getAllTeams();
 	}
 
-	@GetMapping("teams/{teamId}")
+	@GetMapping("watchparties/teams/{teamId}")
 	public Team getTeamById(@PathVariable int teamId, HttpServletResponse res) {
 		Team team = teamService.getTeam(teamId);
 		if (team == null) {
@@ -41,7 +41,7 @@ public class TeamController {
 		return team;
 	}
 
-	@PostMapping("teams")
+	@PostMapping("watchparties/teams")
 	public Team createTeam(@RequestBody Team team, HttpServletResponse res, HttpServletRequest req) {
 		Team newTeam = null;
 		try {
@@ -60,7 +60,7 @@ public class TeamController {
 		return newTeam;
 	}
 	
-	@PutMapping("teams/{teamId}")
+	@PutMapping("watchparties/teams/{teamId}")
 	public Team updateTeam(@RequestBody Team team, @PathVariable int teamId, HttpServletResponse res) {
 		Team updatedTeam = null;
 		try {
@@ -75,7 +75,7 @@ public class TeamController {
 		return updatedTeam;
 	}
 	
-	@DeleteMapping("teams/{teamId}")
+	@DeleteMapping("watchparties/teams/{teamId}")
 	public void deleteTeam(@PathVariable int teamId, HttpServletResponse res) {
 		try {
 			if(teamService.deleteTeam(teamId)) {

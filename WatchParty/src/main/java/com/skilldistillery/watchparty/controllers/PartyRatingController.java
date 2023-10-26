@@ -27,12 +27,12 @@ public class PartyRatingController {
 	@Autowired
 	private PartyRatingService partyRatingService;
 
-	@GetMapping("partyRatings")
+	@GetMapping("watchparties/partyRatings")
 	public List<PartyRating> getPartyRatingList() {
 		return partyRatingService.getAllPartyRatings();
 	}
 
-	@GetMapping("partyRatings/{partyRatingId}")
+	@GetMapping("watchparties/partyRatings/{partyRatingId}")
 	public PartyRating getPartyRatingById(@PathVariable int partyRatingId, HttpServletResponse res) {
 		PartyRating partyRating = partyRatingService.getPartyRating(partyRatingId);
 		if (partyRating == null) {
@@ -41,7 +41,7 @@ public class PartyRatingController {
 		return partyRating;
 	}
 
-	@PostMapping("partyRatings")
+	@PostMapping("watchparties/partyRatings")
 	public PartyRating createPartyRating(@RequestBody PartyRating partyRating, HttpServletResponse res, HttpServletRequest req) {
 		PartyRating newPartyRating = null;
 		try {
@@ -60,7 +60,7 @@ public class PartyRatingController {
 		return newPartyRating;
 	}
 	
-	@PutMapping("partyRatings/{partyRatingId}")
+	@PutMapping("watchparties/partyRatings/{partyRatingId}")
 	public PartyRating updatePartyRating(@RequestBody PartyRating partyRating, @PathVariable int partyRatingId, HttpServletResponse res) {
 		PartyRating updatedPartyRating = null;
 		try {
@@ -75,7 +75,7 @@ public class PartyRatingController {
 		return updatedPartyRating;
 	}
 	
-	@DeleteMapping("partyRatings/{partyRatingId}")
+	@DeleteMapping("watchparties/partyRatings/{partyRatingId}")
 	public void deletePartyRating(@PathVariable int partyRatingId, HttpServletResponse res) {
 		try {
 			if(partyRatingService.deletePartyRating(partyRatingId)) {
