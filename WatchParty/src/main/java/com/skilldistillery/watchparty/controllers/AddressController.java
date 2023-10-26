@@ -29,23 +29,23 @@ public class AddressController {
 
 	private String username = "shaun";
 
-	@GetMapping("addresses")
+	@GetMapping("watchparties/addresses")
 	public List<Address> index(HttpServletRequest req, HttpServletResponse res) {
 		return addressService.index();
 	}
 
-//  GET addresss/{tid}
-	@GetMapping("addresses/{tid}")
-	public Address show(HttpServletRequest req, HttpServletResponse res,@PathVariable int tid) {
-		Address address = addressService.show( tid);
+//  GET address/{addId}
+	@GetMapping("watchparties/addresses/{addId}")
+	public Address show(HttpServletRequest req, HttpServletResponse res,@PathVariable int addId) {
+		Address address = addressService.show( addId);
 		if (address == null) {
 			res.setStatus(404);
 		}
 		return address;
 	}
 
-//  POST addresss
-	@PostMapping("addresses")
+//  POST address
+	@PostMapping("watchparties/addresses")
 	public Address create(HttpServletRequest req, HttpServletResponse res,@RequestBody Address address) {
 		Address createdAddress = null;
 		try {
@@ -62,12 +62,12 @@ public class AddressController {
 		return createdAddress;
 	}
 
-//  PUT addresss/{tid}
-	@PutMapping("addresses/{tid}")
-	public Address update(HttpServletRequest req, HttpServletResponse res,@PathVariable int tid,@RequestBody Address address) {
+//  PUT address/{addId}
+	@PutMapping("watchparties/addresses/{addId}")
+	public Address update(HttpServletRequest req, HttpServletResponse res,@PathVariable int addId,@RequestBody Address address) {
 		Address updated = null;
 		try {
-			updated = addressService.update( tid, address);
+			updated = addressService.update( addId, address);
 			if( updated == null) {
 				res.setStatus(404);
 			}
@@ -79,11 +79,11 @@ public class AddressController {
 		return updated;
 	}
 
-//  DELETE addresss/{tid}
-	@DeleteMapping("addresses/{tid}")
-	public void destroy(HttpServletRequest req, HttpServletResponse res, @PathVariable int tid) {
+//  DELETE address/{addId}
+	@DeleteMapping("watchparties/addresses/{addId}")
+	public void destroy(HttpServletRequest req, HttpServletResponse res, @PathVariable int addId) {
 
-		if (addressService.destroy( tid)) {
+		if (addressService.destroy( addId)) {
 			res.setStatus(204);
 		}
 		else {

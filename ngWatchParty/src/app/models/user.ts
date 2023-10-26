@@ -13,7 +13,7 @@ export class User {
     role: string =''
   ){
     this.id = id;
-    this.username = username
+    this.username = username;
     this.password = password;
     this.enabled = enabled;
     this.role = role;
