@@ -1,3 +1,5 @@
+import { Venue } from "./venue";
+
 export class Party {
   id: number;
   title: string;
@@ -9,6 +11,7 @@ export class Party {
   imageUrl: string;
   createDate: string;
   updateDate: string;
+  venue: Venue;
 
   constructor(
     id: number = 0,
@@ -20,7 +23,9 @@ export class Party {
     enabled: boolean = true,
     imageUrl: string = '',
     createDate: string = '',
-    updateDate: string = ''
+    updateDate: string = '',
+    venue: Venue = new Venue()
+
 
   ){
     this.id = id;
@@ -33,6 +38,7 @@ export class Party {
     this.imageUrl = imageUrl;
     this.createDate = createDate;
     this.updateDate = updateDate;
+    this.venue = venue;
 
   }
 }
