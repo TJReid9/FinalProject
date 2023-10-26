@@ -27,7 +27,7 @@ import { RegisterComponent } from './components/register/register.component';
     HomeComponent,
     VenueComponent,
     PartiesComponent,
-    RegisterComponent
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,
