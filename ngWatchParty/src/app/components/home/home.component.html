@@ -1,111 +1,18 @@
-<div class="container-fluid">
-<h1>Home Page</h1>
-</div>
 
-  <!-- <div id="carouselExampleCaptions" class="carousel slide">
-    <div class="carousel-indicators">
-      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
-    </div>
-   <div class="carousel-inner active">
-    <div class="carousel-item" *ngFor="let party of parties;let index = index" [ngClass]="{active: index == 0}">
-      <img [(ngModel)]="party.imageUrl" class="d-block w-100" [alt]="party.title">
-      <div class="carousel-caption d-none d-md-block">
-        <h5 [textContent]="party.title"></h5>
-        <p [textContent]="party.description"></p>
-      </div>
-    </div>
-  </div>
-   <div class="carousel-inner">
-    <div class="carousel-item" *ngFor="let party of parties;let index = index;let isFirst = first" [ngClass]="{active:isFirst}">
-      <img [(ngModel)]="party.imageUrl" class="d-block w-100" [alt]="party.title">
-      <div class="carousel-caption d-none d-md-block">
-        <h5 [textContent]="party.title"></h5>
-        <p [textContent]="party.description"></p>
-      </div>
-    </div>
-  </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Next</span>
-    </button>
-  </div> -->
-
-<!-- <ngb-carousel >
-    <ng-template ngbSlide>
-      <div class="picsum-img-wrapper">
-        <img [src]="/assets/images/nebvsnw.avif" alt="Random first slide" />
-      </div>
-      <div class="carousel-caption">
-        <h3>First slide label</h3>
-        <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-      </div>
-    </ng-template>
-    <ng-template ngbSlide>
-      <div class="picsum-img-wrapper">
-        <img [src]="parties[1]" alt="Random second slide" />
-      </div>
-      <div class="carousel-caption">
-        <h3>Second slide label</h3>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-      </div>
-    </ng-template>
-     <ng-template ngbSlide>
-      <div class="picsum-img-wrapper">
-        <img [src]="parties[2].imageUrl" alt="Random third slide" />
-      </div>
-      <div class="carousel-caption">
-        <h3>Third slide label</h3>
-        <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-      </div>
-    </ng-template>
-  </ngb-carousel> -->
-{{parties.length}}
-
-
-  <div class='container-fluid'>
+  <div class='container'>
     <div class="row" style="padding: 20px;">
-        <div class="col-sm-12 btn btn-success">
-            Use Bootstrap carousel in Angular 8 Project
+        <div class="col-sm-12 btn btn-dark">
+            Watch Party
         </div>
     </div>
     <div class='col-12'>
-        <ngb-carousel>
-            <ng-template ngbSlide>
-                <img [src]="parties[0].imageUrl" alt="Delhi Metro">
+        <ngb-carousel >
+            <ng-template ngbSlide *ngFor="let party of parties">
+                <img [src]=party.imageUrl alt=party.title height="100%" width="100%">
                 <div class="carousel-caption">
-                    <h3 style="color: yellow">Delhi Metro</h3>
+                    <h3 style="color: white">{{parties[0].title}}</h3>
                 </div>
             </ng-template>
-            <ng-template ngbSlide>
-                <img src="{{parties[1].imageUrl}}" alt="Bangalore Metro">
-                <div class="carousel-caption">
-                    <h3 style="color: yellow">Bangalore Metro</h3>
-                </div>
-            </ng-template>
-            <!-- <ng-template ngbSlide>
-                <img src="../assets/Images/m4.jpg" alt="Channai Metro">
-                <div class="carousel-caption">
-                    <h3 style="color: yellow">Channai Metro</h3>
-                </div>
-            </ng-template>
-            <ng-template ngbSlide>
-                <img src="../assets/Images/m5.jpg" alt="Jaipur Metro">
-                <div class="carousel-caption">
-                    <h3 style="color: yellow">Jaipur Metro</h3>
-                </div>
-            </ng-template>
-            <ng-template ngbSlide>
-                <img src="../assets/Images/m3.jpg" alt="Mumbai Metro">
-                <div class="carousel-caption">
-                    <h3 style="color: yellow">Mumbai Metro</h3>
-                </div>
-            </ng-template> -->
         </ngb-carousel>
     </div>
 
