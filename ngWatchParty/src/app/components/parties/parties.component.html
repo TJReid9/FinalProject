@@ -1,0 +1,65 @@
+<h1 *ngIf="!selectedParty">Watch Parties</h1>
+
+<div class="container" *ngIf="!selectedParty">
+  <div class="row" *ngFor="let party of parties">
+    <div class="col-12 col-md-6 col-lg-4">
+      <div class="card bg-transparent" style="margin-bottom: 10px" >
+        <img [src]="party.imageUrl" (click)="displayParty(party)"/>
+        <h3 class="card-title" > <a href="/#/parties/{{party.id}}">{{party.title}}</a> </h3>
+        <p>{{party.partyDate}}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="selectedParty && !editParty ">
+  <button class="btn btn-danger" (click)="displayAllParties()">Back</button>
+  <button *ngIf="loggedIn()" class="btn btn-outline-primary" type="submit"  (click)="setEditParty()">Edit</button>
+  <button (click)="deleteParty(selectedParty.id)" class="btn btn-danger">Delete</button>
+
+  <p>
+   ID: {{selectedParty.id}}
+  </p>
+  <h3>
+    {{selectedParty.title}}
+  </h3>
+  <p>
+    Date: {{selectedParty.partyDate}}
+  </p>
+  <p>
+    Start Time: {{selectedParty.startTime}}
+   </p>
+   <img [src]="selectedParty.imageUrl">
+   <br>
+   <p>
+    Completed: {{selectedParty.completed}}
+   </p>
+
+</div>
+
+<div *ngIf="editParty" class="container" >
+  <form id="updateParty">
+
+    <label for="title">Title</label>
+    <input class="form-control" type="text" name="title" [(ngModel)]="editParty.title" >
+    <br>
+  <div class="input-group">
+    <span class="input-group-text">Date and Time</span>
+    <input type="date" aria-label="Date" class="form-control"  name="partyDate" [(ngModel)]="editParty.partyDate">
+    <input type="time" aria-label="time" class="form-control"  name="startTime" [(ngModel)]="editParty.startTime">
+  </div>
+
+    <label for="imageUrl">Image Url</label>
+    <input class="form-control" type="text" name="imageUrl" [(ngModel)]="editParty.imageUrl" >
+    <br>
+
+    <label for="completed">Completed</label>
+    <input  type="checkbox" name="completed" value="" class="form-check-input" [(ngModel)]="editParty.completed" >
+    <br>
+
+    <button class="btn btn-success" type="submit"  (click)="updateParty(editParty, editParty.id)">Save</button>
+
+    <button class="btn btn-danger" type="submit" (click)="editParty = null">Cancel</button>
+
+  </form>
+</div>
