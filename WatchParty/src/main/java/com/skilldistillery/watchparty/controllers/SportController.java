@@ -27,12 +27,12 @@ public class SportController {
 	@Autowired
 	private SportService sportService;
 
-	@GetMapping("sports")
+	@GetMapping("watchparties/sports")
 	public List<Sport> getSportList() {
 		return sportService.getAllSports();
 	}
 
-	@GetMapping("sports/{sportId}")
+	@GetMapping("watchparties/sports/{sportId}")
 	public Sport getSportById(@PathVariable int sportId, HttpServletResponse res) {
 		Sport sport = sportService.getSport(sportId);
 		if (sport == null) {
@@ -41,7 +41,7 @@ public class SportController {
 		return sport;
 	}
 
-	@PostMapping("sports")
+	@PostMapping("watchparties/sports")
 	public Sport createSport(@RequestBody Sport sport, HttpServletResponse res, HttpServletRequest req) {
 		Sport newSport = null;
 		try {
@@ -60,7 +60,7 @@ public class SportController {
 		return newSport;
 	}
 	
-	@PutMapping("sports/{sportId}")
+	@PutMapping("watchparties/sports/{sportId}")
 	public Sport updateSport(@RequestBody Sport sport, @PathVariable int sportId, HttpServletResponse res) {
 		Sport updatedSport = null;
 		try {
@@ -75,7 +75,7 @@ public class SportController {
 		return updatedSport;
 	}
 	
-	@DeleteMapping("sports/{sportId}")
+	@DeleteMapping("watchparties/sports/{sportId}")
 	public void deleteSport(@PathVariable int sportId, HttpServletResponse res) {
 		try {
 			if(sportService.deleteSport(sportId)) {

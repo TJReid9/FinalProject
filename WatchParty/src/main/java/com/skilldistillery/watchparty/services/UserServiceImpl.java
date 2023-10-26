@@ -5,11 +5,16 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.skilldistillery.watchparty.entities.Address;
 import com.skilldistillery.watchparty.entities.User;
+import com.skilldistillery.watchparty.repositories.AddressRepository;
 import com.skilldistillery.watchparty.repositories.UserRepository;
 
 @Service
 public class UserServiceImpl implements UserService {
+	
+	@Autowired
+	private AddressRepository addressRepo;
 	
 	@Autowired
 	private UserRepository userRepo;
@@ -27,6 +32,8 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User create(User user) {
 		if(user != null) {
+			Address address = addressRepo.searchById(1);
+			user.setAddress(address);
 			return userRepo.saveAndFlush(user);
 		}
 		return null;

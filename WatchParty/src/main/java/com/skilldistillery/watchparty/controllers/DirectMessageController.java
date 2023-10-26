@@ -27,12 +27,12 @@ public class DirectMessageController {
 	@Autowired
 	private DirectMessageService directMessageService;
 
-	@GetMapping("directMessages")
+	@GetMapping("watchparties/directMessages")
 	public List<DirectMessage> getDirectMessageList() {
 		return directMessageService.getAllDirectMessages();
 	}
 
-	@GetMapping("directMessages/{directMessageId}")
+	@GetMapping("watchparties/directMessages/{directMessageId}")
 	public DirectMessage getDirectMessageById(@PathVariable int directMessageId, HttpServletResponse res) {
 		DirectMessage directMessage = directMessageService.getDirectMessage(directMessageId);
 		if (directMessage == null) {
@@ -41,7 +41,7 @@ public class DirectMessageController {
 		return directMessage;
 	}
 
-	@PostMapping("directMessages")
+	@PostMapping("watchparties/directMessages")
 	public DirectMessage createDirectMessage(@RequestBody DirectMessage directMessage, HttpServletResponse res, HttpServletRequest req) {
 		DirectMessage newDirectMessage = null;
 		try {
@@ -60,7 +60,7 @@ public class DirectMessageController {
 		return newDirectMessage;
 	}
 	
-	@PutMapping("directMessages/{directMessageId}")
+	@PutMapping("watchparties/directMessages/{directMessageId}")
 	public DirectMessage updateDirectMessage(@RequestBody DirectMessage directMessage, @PathVariable int directMessageId, HttpServletResponse res) {
 		DirectMessage updatedDirectMessage = null;
 		try {
@@ -75,7 +75,7 @@ public class DirectMessageController {
 		return updatedDirectMessage;
 	}
 	
-	@DeleteMapping("directMessages/{directMessageId}")
+	@DeleteMapping("watchparties/directMessages/{directMessageId}")
 	public void deleteDirectMessage(@PathVariable int directMessageId, HttpServletResponse res) {
 		try {
 			if(directMessageService.deleteDirectMessage(directMessageId)) {

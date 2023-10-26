@@ -28,7 +28,7 @@ public class VenueController {
 	private VenueService venueService;
 	
 	
-	@GetMapping("venues")
+	@GetMapping("watchparties/venues")
 	public List<Venue> listVenues(HttpServletResponse res){
 		List<Venue> venues = null;
 		try {
@@ -41,7 +41,7 @@ public class VenueController {
 		return venues;		
 	}
 	
-	@GetMapping("venues/{venueId}")
+	@GetMapping("watchparties/venues/{venueId}")
 	public Venue show(@PathVariable int venueId, HttpServletResponse res) {
 		Venue venue = venueService.showVenueById(venueId);
 		if (venue == null) {
@@ -52,7 +52,7 @@ public class VenueController {
 		return venue;
 	}
 	
-	@PostMapping("venues")
+	@PostMapping("watchparties/venues")
 	public Venue create(@RequestBody Venue venue,HttpServletResponse res, HttpServletRequest req) {
 		try {
 			venue = venueService.create(venue);
@@ -68,7 +68,7 @@ public class VenueController {
 	}
 	
 	
-	@DeleteMapping("venues/{venueId}")
+	@DeleteMapping("watchparties/venues/{venueId}")
 	public void delete(@PathVariable Integer venueId,HttpServletResponse res) {
 		try {
 			if (venueService.destroy(venueId)) {
@@ -82,7 +82,7 @@ public class VenueController {
 		}
 	}
 	
-	@PutMapping("venues/{venueId}")
+	@PutMapping("watchparties/venues/{venueId}")
 	public Venue update(@PathVariable int venueId, @RequestBody Venue venue,HttpServletResponse res) {
 		Venue updatedVenue = null;
 		try {

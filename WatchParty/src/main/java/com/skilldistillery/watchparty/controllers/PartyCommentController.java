@@ -27,12 +27,12 @@ public class PartyCommentController {
 	@Autowired
 	private PartyCommentService partyCommentService;
 
-	@GetMapping("partyComments")
+	@GetMapping("watchparties/partyComments")
 	public List<PartyComment> getPartyCommentList() {
 		return partyCommentService.getAllPartyComments();
 	}
 
-	@GetMapping("partyComments/{partyCommentId}")
+	@GetMapping("watchparties/partyComments/{partyCommentId}")
 	public PartyComment getPartyCommentById(@PathVariable int partyCommentId, HttpServletResponse res) {
 		PartyComment partyComment = partyCommentService.getPartyComment(partyCommentId);
 		if (partyComment == null) {
@@ -41,7 +41,7 @@ public class PartyCommentController {
 		return partyComment;
 	}
 
-	@PostMapping("partyComments")
+	@PostMapping("watchparties/partyComments")
 	public PartyComment createPartyComment(@RequestBody PartyComment partyComment, HttpServletResponse res, HttpServletRequest req) {
 		PartyComment newPartyComment = null;
 		try {
@@ -60,7 +60,7 @@ public class PartyCommentController {
 		return newPartyComment;
 	}
 	
-	@PutMapping("partyComments/{partyCommentId}")
+	@PutMapping("watchparties/partyComments/{partyCommentId}")
 	public PartyComment updatePartyComment(@RequestBody PartyComment partyComment, @PathVariable int partyCommentId, HttpServletResponse res) {
 		PartyComment updatedPartyComment = null;
 		try {
@@ -75,7 +75,7 @@ public class PartyCommentController {
 		return updatedPartyComment;
 	}
 	
-	@DeleteMapping("partyComments/{partyCommentId}")
+	@DeleteMapping("watchparties/partyComments/{partyCommentId}")
 	public void deletePartyComment(@PathVariable int partyCommentId, HttpServletResponse res) {
 		try {
 			if(partyCommentService.deletePartyComment(partyCommentId)) {
