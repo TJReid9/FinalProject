@@ -29,6 +29,21 @@
       <li class="nav-item" *ngIf="!loggedIn()">
         <a class="nav-item nav-link" [routerLink]="['/register']">Register</a>
        </li>
+      <li class="nav-item" *ngIf="!loggedIn()">
+        <a class="nav-item nav-link" [routerLink]="['/login']">Log In</a>
+      </li>
+      <li class="nav-item" *ngIf="loggedIn()">
+        <app-logout></app-logout>
+      </li>
+
+      <!-- <app-login></app-login> -->
+
+  </ul>
+    </div>
+
+ </div>
+
+
       <!-- <li class="nav-item" *ngIf="!loggedIn()">
         <a class="nav-item nav-link" [routerLink]="['/login']">Log In</a>
         <span><app-login></app-login></span>
@@ -36,14 +51,11 @@
       <!-- <li class="nav-item" *ngIf="loggedIn()">
         <app-logout></app-logout>
       </li> -->
-  </ul>
 
 
 
 
-    </div>
 
- </div>
  <span class="nav-item" *ngIf="!loggedIn()">
 
    <!-- <button class="btn btn-dark mx-1" (click)="goToLogin()">Login</button> -->
