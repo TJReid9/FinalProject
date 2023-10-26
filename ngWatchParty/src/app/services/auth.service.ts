@@ -20,7 +20,7 @@ export class AuthService {
 
   register(user: User): Observable<User> {
     // Create POST request to register a new account
-    return this.http.post<User>(this.url + 'register', user).pipe(
+    return this.http.post<User>(this.url + 'watchparties/register', user).pipe(
       catchError((err: any) => {
         console.log(err);
         return throwError(
@@ -42,7 +42,7 @@ export class AuthService {
     };
 
     // Create GET request to authenticate credentials
-    return this.http.get<User>(this.url + 'authenticate', httpOptions).pipe(
+    return this.http.get<User>(this.url + 'watchparties/authenticate', httpOptions).pipe(
       tap((newUser) => {
         // While credentials are stored in browser localStorage, we consider
         // ourselves logged in.
