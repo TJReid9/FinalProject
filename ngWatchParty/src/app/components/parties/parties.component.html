@@ -15,7 +15,9 @@
 <div *ngIf="selectedParty && !editParty ">
   <button class="btn btn-danger" (click)="displayAllParties()">Back</button>
   <button *ngIf="loggedIn()" class="btn btn-outline-primary" type="submit"  (click)="setEditParty()">Edit</button>
-  <button (click)="deleteParty(selectedParty.id)" class="btn btn-danger">Delete</button>
+
+  <button *ngIf="loggedIn()" (click)="deleteParty(selectedParty.id)" class="btn btn-danger">Delete</button>
+
 
   <p>
    ID: {{selectedParty.id}}
