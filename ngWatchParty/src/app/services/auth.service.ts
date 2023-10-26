@@ -75,7 +75,7 @@ export class AuthService {
       },
     };
     return this.http
-      .get<User>(this.url + 'authenticate', httpOptions)
+      .get<User>(this.url + 'watchparties/authenticate', httpOptions)
       .pipe(
         catchError((err: any) => {
           console.log(err);
