@@ -19,6 +19,7 @@ export class NavigationComponent {
   }
 
 
+
   goToLogin() {
     this.router.navigateByUrl('/login')
   }
