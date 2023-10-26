@@ -13,6 +13,8 @@ import { NotFoundComponent } from './components/not-found/not-found.component';
 import { UsersComponent } from './components/users/users.component';
 import { HomeComponent } from './components/home/home.component';
 import { VenueComponent } from './components/venue/venue.component';
+import { PartiesComponent } from './components/parties/parties.component';
+import { RegisterComponent } from './components/register/register.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,9 @@ import { VenueComponent } from './components/venue/venue.component';
     NotFoundComponent,
     UsersComponent,
     HomeComponent,
-    VenueComponent
+    VenueComponent,
+    PartiesComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,

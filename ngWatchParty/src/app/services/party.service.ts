@@ -30,7 +30,7 @@ export class PartyService {
 
 
   show(partyId: number): Observable<Party> {
-    return this.http.get<Party>(this.url + 'watchparties/'+ partyId).pipe(
+    return this.http.get<Party>(this.url + 'watchparties/'+ partyId, this.getHttpOptions()).pipe(
       catchError((err: any) => {
         console.log(err);
         return throwError(
@@ -42,7 +42,7 @@ export class PartyService {
 
   create(party: Party): Observable<Party> {
     console.log(party)
-    return this.http.post<Party>(this.url + 'watchparties', party).pipe(
+    return this.http.post<Party>(this.url + 'watchparties', party, this.getHttpOptions()).pipe(
       catchError((err: any) => {
         console.error(err);
         return throwError(
@@ -53,7 +53,7 @@ export class PartyService {
   }
 
   update(partyId: number, party: Party): Observable<Party> {
-    return this.http.put<Party>(this.url + 'watchparties/' + partyId, party).pipe(
+    return this.http.put<Party>(this.url + 'watchparties/' + partyId, party ,this.getHttpOptions()).pipe(
       catchError((err: any) => {
         console.error(err);
         return throwError(
@@ -64,7 +64,7 @@ export class PartyService {
   }
 
   destroy(partyId: number) : Observable<void> {
-    return this.http.delete<void>(this.url + 'watchparties/'+ partyId).pipe(
+    return this.http.delete<void>(this.url + 'watchparties/'+ partyId, this.getHttpOptions()).pipe(
       catchError((err: any) => {
         console.error(err);
         return throwError(
