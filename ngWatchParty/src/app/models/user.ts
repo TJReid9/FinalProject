@@ -9,7 +9,7 @@ export class User {
     id: number = 0,
     username: string = '',
     password: string ='',
-    enabled: boolean = false,
+    enabled: boolean = true,
     role: string =''
   ){
     this.id = id;

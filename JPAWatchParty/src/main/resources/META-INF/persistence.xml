@@ -16,8 +16,8 @@
     <class>com.skilldistillery.watchparty.entities.FriendStatus</class>
     <class>com.skilldistillery.watchparty.entities.Party</class>
     <class>com.skilldistillery.watchparty.entities.PartyComment</class>
-    <class>com.skilldistillery.watchparty.entities.PartyGoers</class>
-    <class>com.skilldistillery.watchparty.entities.PartyGoersId</class>
+    <class>com.skilldistillery.watchparty.entities.PartyGoer</class>
+    <class>com.skilldistillery.watchparty.entities.PartyGoerId</class>
     <class>com.skilldistillery.watchparty.entities.PartyRating</class>
     <class>com.skilldistillery.watchparty.entities.PartyRatingId</class>
     <class>com.skilldistillery.watchparty.entities.Sport</class>
