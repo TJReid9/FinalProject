@@ -18,7 +18,7 @@ export class PartyService {
   ) { }
 
   index(): Observable<Party[]> {
-    return this.http.get<Party[]>(this.url + 'watchparties', this.getHttpOptions()).pipe(
+    return this.http.get<Party[]>(this.url + 'watchparties').pipe(
       catchError((err: any) => {
         console.log(err);
         return throwError(
