@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
 import { Party } from '../models/party';
 import { environment } from 'src/environments/environment.development';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,10 +14,11 @@ export class PartyService {
 
   constructor(
     private http: HttpClient,
+    private auth: AuthService
   ) { }
 
   index(): Observable<Party[]> {
-    return this.http.get<Party[]>(this.url + 'watchparties').pipe(
+    return this.http.get<Party[]>(this.url + 'watchparties', this.getHttpOptions()).pipe(
       catchError((err: any) => {
         console.log(err);
         return throwError(
@@ -70,6 +72,16 @@ export class PartyService {
         );
       })
     );
+  }
+
+  getHttpOptions() {
+    let options = {
+      headers: {
+        Authorization: 'Basic ' + this.auth.getCredentials(),
+        'X-Requested-With': 'XMLHttpRequest',
+      },
+    };
+    return options;
   }
 
 }
