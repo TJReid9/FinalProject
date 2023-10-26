@@ -14,6 +14,7 @@ import { UsersComponent } from './components/users/users.component';
 import { HomeComponent } from './components/home/home.component';
 import { CarouselBasicComponent } from './components/carousel-basic/carousel-basic.component';
 import { PartiesComponent } from './components/parties/parties.component';
+import { RegisterComponent } from './components/register/register.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { PartiesComponent } from './components/parties/parties.component';
     NotFoundComponent,
     UsersComponent,
     HomeComponent,
-    PartiesComponent
+    PartiesComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
