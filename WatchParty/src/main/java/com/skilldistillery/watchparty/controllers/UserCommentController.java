@@ -27,12 +27,12 @@ public class UserCommentController {
 	@Autowired
 	private UserCommentService userCommentService;
 
-	@GetMapping("userComments")
+	@GetMapping("watchparties/userComments")
 	public List<UserComment> getUserCommentList() {
 		return userCommentService.getAllUserComments();
 	}
 
-	@GetMapping("userComments/{userCommentId}")
+	@GetMapping("watchparties/userComments/{userCommentId}")
 	public UserComment getUserCommentById(@PathVariable int userCommentId, HttpServletResponse res) {
 		UserComment userComment = userCommentService.getUserComment(userCommentId);
 		if (userComment == null) {
@@ -41,7 +41,7 @@ public class UserCommentController {
 		return userComment;
 	}
 
-	@PostMapping("userComments")
+	@PostMapping("watchparties/userComments")
 	public UserComment createUserComment(@RequestBody UserComment userComment, HttpServletResponse res, HttpServletRequest req) {
 		UserComment newUserComment = null;
 		try {
@@ -60,7 +60,7 @@ public class UserCommentController {
 		return newUserComment;
 	}
 	
-	@PutMapping("userComments/{userCommentId}")
+	@PutMapping("watchparties/userComments/{userCommentId}")
 	public UserComment updateUserComment(@RequestBody UserComment userComment, @PathVariable int userCommentId, HttpServletResponse res) {
 		UserComment updatedUserComment = null;
 		try {
@@ -75,7 +75,7 @@ public class UserCommentController {
 		return updatedUserComment;
 	}
 	
-	@DeleteMapping("userComments/{userCommentId}")
+	@DeleteMapping("watchparties/userComments/{userCommentId}")
 	public void deleteUserComment(@PathVariable int userCommentId, HttpServletResponse res) {
 		try {
 			if(userCommentService.deleteUserComment(userCommentId)) {

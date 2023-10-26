@@ -1,24 +1,24 @@
+import { User } from 'src/app/models/user';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, throwError } from 'rxjs';
-import { Party } from '../models/party';
 import { environment } from 'src/environments/environment.development';
 import { AuthService } from './auth.service';
+import { Observable, catchError, throwError } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root'
 })
-export class PartyService {
+export class UserService {
 
   private url = environment.baseUrl + 'api/';
-
   constructor(
     private http: HttpClient,
     private auth: AuthService
   ) { }
 
-  index(): Observable<Party[]> {
-    return this.http.get<Party[]>(this.url + 'watchparties').pipe(
+  index(): Observable<User[]> {
+    return this.http.get<User[]>(this.url + 'watchparties').pipe(
       catchError((err: any) => {
         console.log(err);
         return throwError(
@@ -29,8 +29,8 @@ export class PartyService {
   }
 
 
-  show(partyId: number): Observable<Party> {
-    return this.http.get<Party>(this.url + 'watchparties/'+ partyId, this.getHttpOptions()).pipe(
+  show(userId: number): Observable<User> {
+    return this.http.get<User>(this.url + 'users/'+ userId).pipe(
       catchError((err: any) => {
         console.log(err);
         return throwError(
@@ -40,31 +40,31 @@ export class PartyService {
     );
   }
 
-  create(party: Party): Observable<Party> {
+  create(party: User): Observable<User> {
     console.log(party)
-    return this.http.post<Party>(this.url + 'watchparties', party, this.getHttpOptions()).pipe(
+    return this.http.post<User>(this.url + 'users/', party).pipe(
       catchError((err: any) => {
         console.error(err);
         return throwError(
-           () => new Error( 'PartyService.create(): error creating Party: ' + err )
+           () => new Error( 'UserService.create(): error creating Party: ' + err )
         );
       })
     );
   }
 
-  update(partyId: number, party: Party): Observable<Party> {
-    return this.http.put<Party>(this.url + 'watchparties/' + partyId, party ,this.getHttpOptions()).pipe(
+  update(userId: number, user: User): Observable<User> {
+    return this.http.put<User>(this.url + 'users/' + userId, user).pipe(
       catchError((err: any) => {
         console.error(err);
         return throwError(
-           () => new Error( 'PartyService.update(): error updating Party: ' + err )
+           () => new Error( 'UserService.update(): error updating User: ' + err )
         );
       })
     );
   }
 
-  destroy(partyId: number) : Observable<void> {
-    return this.http.delete<void>(this.url + 'watchparties/'+ partyId, this.getHttpOptions()).pipe(
+  destroy(userId: number) : Observable<void> {
+    return this.http.delete<void>(this.url + 'users/'+ userId).pipe(
       catchError((err: any) => {
         console.error(err);
         return throwError(
@@ -85,3 +85,4 @@ export class PartyService {
   }
 
 }
+

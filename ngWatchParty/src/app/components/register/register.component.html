@@ -1,0 +1,21 @@
+<h1>Welcome to Watch Party!</h1>
+<h3>Registration:</h3>
+<div class="container-fluid">
+  <form name="registerForm">
+    <div class="row">
+      <input type="hidden" name="role" [(ngModel)]="newUser.role" value="user">
+      <label class="col-auto form-label" for="username"></label>
+     <input [(ngModel)]="newUser.username" name="username" type="text" class="form-control" placeholder="username" aria-label="Username" aria-describedby="basic-addon1">
+    </div>
+    <div class="row">
+      <label class="col-auto form-label" for="email"></label>
+      <input [(ngModel)]="newUser.email" type="text" class="form-control" placeholder="email" aria-label="Email" aria-describedby="basic-addon1">
+    </div>
+    <div class="row">
+      <label class="col-auto form-label" for="password"></label>
+      <input [(ngModel)]="newUser.password" name="password" type="text" class="form-control" placeholder="password" aria-label="Password" aria-describedby="basic-addon1">
+    </div>
+    <br>
+    <button class="btn btn-dark" (click)="register(newUser)" >Submit</button>
+  </form>
+</div>
