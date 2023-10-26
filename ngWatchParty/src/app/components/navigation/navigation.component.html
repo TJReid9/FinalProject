@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-expand-md navbar-light bg-light">
+<nav class="navbar navbar-expand-sm navbar-expand-md navbar-light bg-light">
   <button class="navbar-toggler" type="button" data-toggle="collapse"
   data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
   aria-expanded="false" aria-label="Toggle navigation"
@@ -12,7 +12,7 @@
   <ul class="navbar-nav me-auto mb-2 mb-lg-0">
 
   <li class="nav-item">
-  <a class="navbar-brand" href="/#/home">Home</a>
+  <a class="navbar-brand" href="/#/home"><img src="assets/images/wplogo.png" width="75" height="75"></a>
   </li>
     <li class="nav-item" *ngIf="loggedIn()">
      <a class="nav-item nav-link" [routerLink]="['/users']">Profile</a>
@@ -44,4 +44,26 @@
  </div>
 
 
+      <!-- <li class="nav-item" *ngIf="!loggedIn()">
+        <a class="nav-item nav-link" [routerLink]="['/login']">Log In</a>
+        <span><app-login></app-login></span>
+      </li> -->
+      <!-- <li class="nav-item" *ngIf="loggedIn()">
+        <app-logout></app-logout>
+      </li> -->
+
+
+
+
+
+ <span class="nav-item" *ngIf="!loggedIn()">
+
+   <!-- <button class="btn btn-dark mx-1" (click)="goToLogin()">Login</button> -->
+    <app-login></app-login>
+
+ </span>
+ <span class="nav-item" *ngIf="!loggedIn()"> <button class="btn btn-dark mx-1" (click)="goToRegister()">Register</button></span>
+ <span class="nav-item" *ngIf="loggedIn()">
+  <app-logout></app-logout>
+</span>
 </nav>

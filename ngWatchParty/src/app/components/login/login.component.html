@@ -1,7 +1,5 @@
 <div id="login form" class="container">
-  <form class="card">
-    <input [(ngModel)]="loginUser.username" type="text" name="username" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
+    <input [(ngModel)]="loginUser.username" type="text" name="username" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" >
     <input [(ngModel)]="loginUser.password" type="text" name="password" placeholder="Password" aria-label="Password" aria-describedby="basic-addon1">
-    <button (click)="login(loginUser)">Log In</button>
-  </form>
+    <button (click)="login(loginUser)" class="btn btn-dark mx-1">Log In</button>
   </div>
