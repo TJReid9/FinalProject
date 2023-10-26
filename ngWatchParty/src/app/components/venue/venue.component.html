@@ -1,1 +1,67 @@
-<p>venue works!</p>
+<h1 *ngIf="!selectedVenue">Watch Venues</h1>
+
+<div class="container" *ngIf="!selectedVenue">
+  <div class="row" *ngFor="let venue of venues">
+    <div class="col-12 col-md-6 col-lg-4">
+      <div class="card bg-transparent" style="margin-bottom: 10px" >
+        <img [src]="venue.imageUrl" (click)="displayVenue(venue)"/>
+        <h3 class="card-title" > <a href="/#/venues/{{venue.id}}">{{venue.name}}</a> </h3>
+        <p>{{venue.description}}</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="selectedVenue && !editVenue ">
+  <button class="btn btn-danger" (click)="displayAllVenues()">Back</button>
+  <button *ngIf="loggedIn()" class="btn btn-outline-primary" type="submit"  (click)="setEditVenue()">Edit</button>
+
+  <button *ngIf="loggedIn()" (click)="deleteVenue(selectedVenue.id)" class="btn btn-danger">Delete</button>
+
+
+  <p>
+   ID: {{selectedVenue.id}}
+  </p>
+  <h3>
+    {{selectedVenue.name}}
+  </h3>
+  <p>
+    Date: {{selectedVenue.phone}}
+  </p>
+  <p>
+    Start Time: {{selectedVenue.description}}
+   </p>
+   <img [src]="selectedVenue.imageUrl">
+   <br>
+   <p>
+    Enabled: {{selectedVenue.enabled}}
+   </p>
+
+</div>
+
+<div *ngIf="editVenue" class="container" >
+  <form id="updateVenue">
+
+    <label for="name">Venue Name</label>
+    <input class="form-control" type="text" name="name" [(ngModel)]="editVenue.name" >
+    <br>
+    <label for="phone">Phone Number</label>
+    <input class="form-control" type="text" name="phone" [(ngModel)]="editVenue.phone" >
+    <br>
+    <label for="description">Description</label>
+    <input class="form-control" type="text" name="description" [(ngModel)]="editVenue.description" >
+    <br>
+    <label for="imageUrl">Image Url</label>
+    <input class="form-control" type="text" name="imageUrl" [(ngModel)]="editVenue.imageUrl" >
+    <br>
+    <label for="enabled">Enabled</label>
+    <input  type="checkbox" name="enabled" value="" class="form-check-input" [(ngModel)]="editVenue.enabled" >
+    <br>
+
+    <button class="btn btn-success" type="submit"  (click)="updateVenue(editVenue.id, editVenue)">Save</button>
+
+    <button class="btn btn-danger" type="submit" (click)="editVenue = null">Cancel</button>
+
+  </form>
+</div>
+
