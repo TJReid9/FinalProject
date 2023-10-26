@@ -41,6 +41,7 @@ public class PartyServiceImpl implements PartyService {
 			dbParty.setDescription(party.getDescription());
 			dbParty.setCompleted(party.getCompleted());
 			dbParty.setEnabled(party.getEnabled());
+			dbParty.setImageUrl(party.getImageUrl());
 			dbParty.setVenue(party.getVenue());
 			dbParty.setTeam(party.getTeam());
 			partyRepo.saveAndFlush(dbParty);

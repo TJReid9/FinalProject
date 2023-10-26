@@ -135,6 +135,7 @@ CREATE TABLE IF NOT EXISTS `party` (
   `create_date` DATE NULL,
   `update_date` DATE NULL,
   `team_id` INT NOT NULL,
+  `image_url` VARCHAR(2000) NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_party_location1_idx` (`venue_id` ASC),
   INDEX `fk_party_user1_idx` (`user_id` ASC),
@@ -479,8 +480,8 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `watchpartydb`;
-INSERT INTO `party` (`id`, `title`, `party_date`, `start_time`, `description`, `completed`, `enabled`, `venue_id`, `user_id`, `create_date`, `update_date`, `team_id`) VALUES (1, 'Huskers vs Northwestern', '2023-10-21', '1330', 'Nebraska seeks to avenge last seasons opening game loss in Ireland, and get back to back Big Ten wins ', 1, 1, 1, 1, '2023-10-01', '2023-10-01', 1);
-INSERT INTO `party` (`id`, `title`, `party_date`, `start_time`, `description`, `completed`, `enabled`, `venue_id`, `user_id`, `create_date`, `update_date`, `team_id`) VALUES (2, 'Huskers vs Purdue', '2023-10-28', '1330', 'Nebraska goes for 3 strait Big 10 wins and tries to get one win closer to that all important 6 win mark on the season come watch your Huskers take on Purdue Pete\'s Boilermakers ', 0, 1, 1, 1, '2023-10-24', '2023-10-24', 1);
+INSERT INTO `party` (`id`, `title`, `party_date`, `start_time`, `description`, `completed`, `enabled`, `venue_id`, `user_id`, `create_date`, `update_date`, `team_id`, `image_url`) VALUES (1, 'Huskers vs Northwestern', '2023-10-21', '1330', 'Nebraska seeks to avenge last seasons opening game loss in Ireland, and get back to back Big Ten wins ', 1, 1, 1, 1, '2023-10-01', '2023-10-01', 1, 'https://gray-koln-prod.cdn.arcpublishing.com/resizer/4jMoVkE2sfw-0WMJTrVMk53PBI0=/1200x675/smart/filters:quality(85)/cloudfront-us-east-1.images.arcpublishing.com/gray/DBWR2S6HI5BCHAWNJPKAR3XER4.jpg');
+INSERT INTO `party` (`id`, `title`, `party_date`, `start_time`, `description`, `completed`, `enabled`, `venue_id`, `user_id`, `create_date`, `update_date`, `team_id`, `image_url`) VALUES (2, 'Huskers vs Purdue', '2023-10-28', '1330', 'Nebraska goes for 3 strait Big 10 wins and tries to get one win closer to that all important 6 win mark on the season come watch your Huskers take on Purdue Pete\'s Boilermakers ', 0, 1, 1, 1, '2023-10-24', '2023-10-24', 1, 'https://gray-koln-prod.cdn.arcpublishing.com/resizer/KXnrPMr7FNT4VSSdtrxoMNCD4N4=/1200x675/smart/filters:quality(85)/cloudfront-us-east-1.images.arcpublishing.com/gray/XF42WISYSNEUVPTBECMIFX3MMM.jpg');
 
 COMMIT;
 
