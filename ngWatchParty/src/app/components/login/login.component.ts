@@ -19,7 +19,7 @@ export class LoginComponent {
     console.log(loginUser);
     this.auth.login(loginUser.username, loginUser.password).subscribe({
       next: (loggedInUser) => {
-        this.router.navigateByUrl('/home');
+        this.router.navigateByUrl('/users');
       },
 
       error: (denied) => {
