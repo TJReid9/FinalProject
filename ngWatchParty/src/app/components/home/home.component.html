@@ -77,18 +77,18 @@
     <div class='col-12'>
         <ngb-carousel>
             <ng-template ngbSlide>
-                <img src="{{parties[0].imageUrl}}" alt="Delhi Metro">
+                <img src="parties[0].imageUrl" alt="Delhi Metro">
                 <div class="carousel-caption">
                     <h3 style="color: yellow">Delhi Metro</h3>
                 </div>
             </ng-template>
             <ng-template ngbSlide>
-                <img src="../assets/Images/m1.jpg" alt="Bangalore Metro">
+                <img src="{{parties[1].imageUrl}}" alt="Bangalore Metro">
                 <div class="carousel-caption">
                     <h3 style="color: yellow">Bangalore Metro</h3>
                 </div>
             </ng-template>
-            <ng-template ngbSlide>
+            <!-- <ng-template ngbSlide>
                 <img src="../assets/Images/m4.jpg" alt="Channai Metro">
                 <div class="carousel-caption">
                     <h3 style="color: yellow">Channai Metro</h3>
@@ -105,7 +105,7 @@
                 <div class="carousel-caption">
                     <h3 style="color: yellow">Mumbai Metro</h3>
                 </div>
-            </ng-template>
+            </ng-template> -->
         </ngb-carousel>
     </div>
 
