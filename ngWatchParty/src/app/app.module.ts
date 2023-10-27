@@ -15,6 +15,7 @@ import { HomeComponent } from './components/home/home.component';
 import { VenueComponent } from './components/venue/venue.component';
 import { PartiesComponent } from './components/parties/parties.component';
 import { RegisterComponent } from './components/register/register.component';
+import { TeamsComponent } from './components/teams/teams.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { RegisterComponent } from './components/register/register.component';
     VenueComponent,
     PartiesComponent,
     RegisterComponent,
+    TeamsComponent,
   ],
   imports: [
     BrowserModule,
