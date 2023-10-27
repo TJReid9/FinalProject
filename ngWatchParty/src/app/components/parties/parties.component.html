@@ -51,14 +51,14 @@
     <input type="date" aria-label="Date" class="form-control"  name="partyDate" [(ngModel)]="editParty.partyDate">
     <input type="time" aria-label="time" class="form-control"  name="startTime" [(ngModel)]="editParty.startTime">
   </div>
-  <label for="completed">Completed</label>
-  <input  type="checkbox" name="completed" value="" class="form-check-input" [(ngModel)]="editParty.completed" >
-  <br>
+
     <label for="imageUrl">Image Url</label>
     <input class="form-control" type="text" name="imageUrl" [(ngModel)]="editParty.imageUrl" >
     <br>
 
-
+    <label for="completed">Completed</label>
+    <input  type="checkbox" name="completed" value="" class="form-check-input" [(ngModel)]="editParty.completed" >
+    <br>
 
     <button class="btn btn-success" type="submit"  (click)="updateParty(editParty, editParty.id)">Save</button>
 
@@ -93,7 +93,7 @@
 
 
   <div class="mb-3">
-    <label for="venue">Venues:</label>
+    <label for="venue">Venue:</label>
     <select name="venue" [(ngModel)]="newParty.venue.id">
       <option *ngFor="let venue of venues" value="{{venue.id}}">{{venue.name}}</option>
     </select>
