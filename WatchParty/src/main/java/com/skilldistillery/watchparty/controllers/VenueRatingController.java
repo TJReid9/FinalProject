@@ -27,12 +27,12 @@ public class VenueRatingController {
 	@Autowired
 	private VenueRatingService venueRatingService;
 
-	@GetMapping("venueRatings")
+	@GetMapping("watchparties/venueRatings")
 	public List<VenueRating> getVenueRatingList() {
 		return venueRatingService.getAllVenueRatings();
 	}
 
-	@GetMapping("venueRatings/{venueRatingId}")
+	@GetMapping("watchparties/venueRatings/{venueRatingId}")
 	public VenueRating getVenueRatingById(@PathVariable int venueRatingId, HttpServletResponse res) {
 		VenueRating venueRating = venueRatingService.getVenueRating(venueRatingId);
 		if (venueRating == null) {
@@ -41,7 +41,7 @@ public class VenueRatingController {
 		return venueRating;
 	}
 
-	@PostMapping("venueRatings")
+	@PostMapping("watchparties/venueRatings")
 	public VenueRating createVenueRating(@RequestBody VenueRating venueRating, HttpServletResponse res, HttpServletRequest req) {
 		VenueRating newVenueRating = null;
 		try {
@@ -60,7 +60,7 @@ public class VenueRatingController {
 		return newVenueRating;
 	}
 	
-	@PutMapping("venueRatings/{venueRatingId}")
+	@PutMapping("watchparties/venueRatings/{venueRatingId}")
 	public VenueRating updateVenueRating(@RequestBody VenueRating venueRating, @PathVariable int venueRatingId, HttpServletResponse res) {
 		VenueRating updatedVenueRating = null;
 		try {
@@ -75,7 +75,7 @@ public class VenueRatingController {
 		return updatedVenueRating;
 	}
 	
-	@DeleteMapping("venueRatings/{venueRatingId}")
+	@DeleteMapping("watchparties/venueRatings/{venueRatingId}")
 	public void deleteVenueRating(@PathVariable int venueRatingId, HttpServletResponse res) {
 		try {
 			if(venueRatingService.deleteVenueRating(venueRatingId)) {

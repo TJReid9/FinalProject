@@ -18,7 +18,7 @@ export class UserService {
   ) { }
 
   index(): Observable<User[]> {
-    return this.http.get<User[]>(this.url + 'watchparties').pipe(
+    return this.http.get<User[]>(this.url + 'watchparties/users').pipe(
       catchError((err: any) => {
         console.log(err);
         return throwError(
@@ -30,30 +30,30 @@ export class UserService {
 
 
   show(userId: number): Observable<User> {
-    return this.http.get<User>(this.url + 'users/'+ userId).pipe(
+    return this.http.get<User>(this.url + 'watchparties/users/'+ userId).pipe(
       catchError((err: any) => {
         console.log(err);
         return throwError(
-          () => new Error('PartyService.show(): error retrieving Party: ' + err)
+          () => new Error('UserService.show(): error retrieving User: ' + err)
         );
       })
     );
   }
 
-  create(party: User): Observable<User> {
-    console.log(party)
-    return this.http.post<User>(this.url + 'users/', party).pipe(
+  create(user: User): Observable<User> {
+    console.log(user)
+    return this.http.post<User>(this.url + 'watchparties/users/', user).pipe(
       catchError((err: any) => {
         console.error(err);
         return throwError(
-           () => new Error( 'UserService.create(): error creating Party: ' + err )
+           () => new Error( 'UserService.create(): error creating User: ' + err )
         );
       })
     );
   }
 
   update(userId: number, user: User): Observable<User> {
-    return this.http.put<User>(this.url + 'users/' + userId, user).pipe(
+    return this.http.put<User>(this.url + 'watchparties/users/' + userId, user).pipe(
       catchError((err: any) => {
         console.error(err);
         return throwError(
@@ -64,7 +64,7 @@ export class UserService {
   }
 
   destroy(userId: number) : Observable<void> {
-    return this.http.delete<void>(this.url + 'users/'+ userId).pipe(
+    return this.http.delete<void>(this.url + 'watchparties/users/'+ userId).pipe(
       catchError((err: any) => {
         console.error(err);
         return throwError(

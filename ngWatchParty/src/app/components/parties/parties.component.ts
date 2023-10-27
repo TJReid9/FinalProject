@@ -6,6 +6,7 @@ import { Venue } from 'src/app/models/venue';
 import { AddressService } from 'src/app/services/address.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { PartyService } from 'src/app/services/party.service';
+import { TeamService } from 'src/app/services/team.service';
 import { VenueService } from 'src/app/services/venue.service';
 
 @Component({
@@ -20,13 +21,15 @@ export class PartiesComponent implements OnInit{
   editParty: Party | null = null;
   addNewParty: Party | null = null;
   newParty: Party = new Party();
+  newAddress: Address = new Address();
+  newVenue: Venue = new Venue();
   venues: Venue[] = [];
   addresses: Address[] = [];
 
 
   constructor(private partyService: PartyService,
     private activatedRoute: ActivatedRoute,
-    private router: Router, private auth: AuthService, private venueService: VenueService, private addressService: AddressService){}
+    private router: Router, private auth: AuthService, private venueService: VenueService, private addressService: AddressService,private teamService: TeamService){}
 
     loggedIn(): boolean {
       return this.auth.checkLogin();
@@ -172,17 +175,5 @@ deleteParty(id: number) {
   });
 }
 
-addAddressVenueParty(address: Address,venue: Venue, party: Party): void {
-  this.addressService.create(address).subscribe({
-    next: (result) => {
-      this.reload();
-      this.newParty = new Party();
-    },
-    error: (nojoy) => {
-      console.error('PartiesComponent.reload(): error loading party: ');
-      console.error(nojoy);
-    },
-  });
-}
 
 }

@@ -54,7 +54,7 @@ export class VenueService {
   }
 
   update(venueId: number, venue: Venue): Observable<Venue> {
-    return this.http.put<Venue>(this.url + 'watchparties/venues' + venueId, venue, this.getHttpOptions()).pipe(
+    return this.http.put<Venue>(this.url + 'watchparties/venues/' + venueId, venue, this.getHttpOptions()).pipe(
       catchError((err: any) => {
         console.error(err);
         return throwError(
