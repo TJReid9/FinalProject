@@ -1,3 +1,5 @@
+import { Address } from "./address";
+
 export class Venue {
   id: number;
   name: string;
@@ -6,6 +8,7 @@ export class Venue {
   imageUrl: string;
   enabled: boolean;
   websiteUrl: boolean;
+  address: Address;
 
   constructor(
     id: number = 0,
@@ -14,7 +17,8 @@ export class Venue {
     description: string = '',
     imageUrl: string = '',
     enabled: boolean = true,
-    websiteUrl: boolean = true
+    websiteUrl: boolean = true,
+    address: Address = new Address
 
   ){
     this.id = id;
@@ -24,5 +28,6 @@ export class Venue {
     this.imageUrl = imageUrl;
     this.enabled = enabled;
     this.websiteUrl = websiteUrl;
+    this.address = address;
   }
 }

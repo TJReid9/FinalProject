@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Address } from 'src/app/models/address';
 import { Venue } from 'src/app/models/venue';
+import { AddressService } from 'src/app/services/address.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { VenueService } from 'src/app/services/venue.service';
 
@@ -14,7 +16,8 @@ export class VenueComponent implements OnInit{
   constructor(private venueService: VenueService,
               private activatedRoute: ActivatedRoute,
               private router: Router,
-              private auth: AuthService
+              private auth: AuthService,
+              private addressService: AddressService
               ) {}
 
   selectedVenue: Venue|null = null;
@@ -22,12 +25,15 @@ export class VenueComponent implements OnInit{
   editVenue: Venue|null = null;
   showCompleted: boolean = false;
   venues: Venue[] = [];
+  addresses: Address [] = [];
+  addNewVenue: Venue | null = null;
 
   ngOnInit(): void{
     if(!this.auth.checkLogin()){
       this.router.navigateByUrl('/invalidURL');
     }
-    this.reload();
+    this.loadAddress();
+    this.loadVenue();
     this.activatedRoute.paramMap.subscribe(
       {
         next: (params) => {
@@ -73,7 +79,7 @@ export class VenueComponent implements OnInit{
     this.venueService.create(venue).subscribe({
       next: (result) => {
         this.newVenue = new Venue();
-        this.reload();
+        this.loadVenue();
       },
       error: (nojoy) => {
         console.error('VenueListHttpComponent.addVenue(): error creating Venue:');
@@ -94,7 +100,7 @@ export class VenueComponent implements OnInit{
     this.venueService.update(id,venue).subscribe({
       next: (result) => {
         this.newVenue = new Venue();
-        this.reload();
+        this.loadVenue();
       },
       error: (nojoy) => {
         console.error('VenueListHttpComponent.addVenue(): error updating Venue:');
@@ -106,7 +112,7 @@ export class VenueComponent implements OnInit{
   deleteVenue(id: number) {
     this.venueService.destroy(id).subscribe({
       next: (result) => {
-        this.reload();
+        this.loadVenue();
       },
       error: (nojoy) => {
         console.error('VenueListHttpComponent.addVenue(): error deleting Venue:');
@@ -115,14 +121,28 @@ export class VenueComponent implements OnInit{
     });
   }
 
-  reload(): void {
+  loadVenue(): void {
     this.venueService.index().subscribe(
       {
         next: (venues) => {
           this.venues = venues;
         },
         error: (problem) => {
-          console.error('VenueListComponent.reload(): error loading venues:');
+          console.error('VenueListComponent.loadVenue(): error loading venues:');
+          console.error(problem);
+        }
+      }
+    );
+  }
+
+  loadAddress(): void {
+    this.addressService.index().subscribe(
+      {
+        next: (addresses) => {
+          this.addresses = addresses;
+        },
+        error: (problem) => {
+          console.error('VenueListComponent.loadVenue(): error loading venues:');
           console.error(problem);
         }
       }
