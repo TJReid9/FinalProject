@@ -7,16 +7,18 @@ import { HomeComponent } from './components/home/home.component';
 import { VenueComponent } from './components/venue/venue.component';
 import { PartiesComponent } from './components/parties/parties.component';
 import { RegisterComponent } from './components/register/register.component';
-
+import { TeamsComponent } from './components/teams/teams.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'home' },
   { path: 'home', component: HomeComponent },
   { path: 'users', component: UsersComponent },
   { path: 'venues', component: VenueComponent },
+  { path: 'venues/:venueId', component: VenueComponent },
   { path: 'parties', component: PartiesComponent },
   { path: 'parties/:partyId', component: PartiesComponent },
-  { path: 'venues/:venueId', component: VenueComponent },
+  { path: 'teams', component: TeamsComponent },
+  { path: 'teams/:teamId', component: TeamsComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
   { path: '**', component: NotFoundComponent }

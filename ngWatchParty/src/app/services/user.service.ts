@@ -32,7 +32,7 @@ export class UserService {
 
 
   show(userId: number): Observable<User> {
-    return this.http.get<User>(this.url + 'watchparties/users/'+ userId, this.getHttpOptions()).pipe(
+    return this.http.get<User>(this.url + 'watchparties/users/'+ userId).pipe(
       catchError((err: any) => {
         console.log(err);
         return throwError(
@@ -55,7 +55,6 @@ export class UserService {
   }
 
   update(userId: number, user: User): Observable<User> {
-
     return this.http.put<User>(this.url + 'watchparties/users/' + userId, user, this.getHttpOptions()).pipe(
       catchError((err: any) => {
         console.error(err);
@@ -67,7 +66,6 @@ export class UserService {
   }
 
   destroy(userId: number) : Observable<void> {
-
     return this.http.delete<void>(this.url + 'watchparties/users/'+ userId, this.getHttpOptions()).pipe(
 
       catchError((err: any) => {
