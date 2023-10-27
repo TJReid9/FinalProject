@@ -6,12 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.skilldistillery.watchparty.entities.Venue;
+import com.skilldistillery.watchparty.repositories.AddressRepository;
 import com.skilldistillery.watchparty.repositories.VenueRepository;
 
 
 @Service
 public class VenueServiceImpl implements VenueService {
 	
+	@Autowired
+	AddressRepository addressRepo;
 	@Autowired 
 	VenueRepository venueRepo;
 	
@@ -33,7 +36,7 @@ public class VenueServiceImpl implements VenueService {
 
 	@Override
 	public Venue create(Venue venue) {
-		
+		addressRepo.saveAndFlush(venue.getAddress());
 		return venueRepo.saveAndFlush(venue);
 	}
 

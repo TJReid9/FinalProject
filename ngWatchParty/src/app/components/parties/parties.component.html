@@ -1,25 +1,26 @@
 <h1 *ngIf="!selectedParty">Watch Parties</h1>
-
 <div class="container" *ngIf="!selectedParty && !addNewParty" >
+  <button *ngIf="loggedIn()" (click)="displayAddParty(newParty)" class="btn btn-outline-dark">Add Party</button>
+<hr>
   <div class="row" >
-    <div class="col-12 col-md-6 col-lg-4" *ngFor="let party of parties">
-      <div class="card bg-transparent" style="margin-bottom: 10px" >
-        <img [src]="party.imageUrl" (click)="displayParty(party)"/>
-        <h3 class="card-title" > <a href="/#/parties/{{party.id}}">{{party.title}}</a> </h3>
+    <div class="col-12 col-md-6 col-sm-4" *ngFor="let party of parties">
+      <div class="card bg-transparent" style="margin-bottom: 5px" >
+        <img [src]="party.imageUrl" (click)="displayParty(party)" height="100%" width="100%"/>
+        <h3 class="card-title" > <hr><a href="/#/parties/{{party.id}}">{{party.title}}</a> </h3>
         <p>{{party.partyDate}}</p>
       </div>
     </div>
   </div>
-  <button *ngIf="loggedIn()" (click)="displayAddNewWorkout(newParty)" class="btn btn-success">Add</button>
+
 </div>
 
 <div *ngIf="selectedParty && !editParty ">
-  <button class="btn btn-warning" (click)="displayAllParties()">Back</button>
-  <button *ngIf="loggedIn()" class="btn btn-outline-primary" type="submit"  (click)="setEditParty()">Edit</button>
+  <button class="btn btn-outline-dark" (click)="displayAllParties()">Back</button>
+  <button *ngIf="loggedIn()" class="btn btn-outline-dark" type="submit"  (click)="setEditParty()">Edit</button>
 
-  <button *ngIf="loggedIn()" (click)="deleteParty(selectedParty.id)" class="btn btn-danger">Delete</button>
+  <button *ngIf="loggedIn()" (click)="deleteParty(selectedParty.id)" class="btn btn-outline-dark">Delete</button>
 
-
+<hr>
 
   <h3>
     {{selectedParty.title}}
@@ -35,6 +36,7 @@
    </blockquote>
    <img [src]="selectedParty.imageUrl">
    <br>
+   <hr>
    <p>
     Completed: {{selectedParty.completed}}
    </p>

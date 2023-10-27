@@ -414,7 +414,7 @@ SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `watchpartydb`;
-INSERT INTO `address` (`id`, `street`, `city`, `state`, `zip`, `enabled`) VALUES (1, '533 Old Point Ave', 'Hampton', 'Va', '23663', 1);
+INSERT INTO `address` (`id`, `street`, `city`, `state`, `zip`, `enabled`) VALUES (1, '123 All Star St', 'Sport City', 'USA', '00001', 1);
 INSERT INTO `address` (`id`, `street`, `city`, `state`, `zip`, `enabled`) VALUES (2, '1938 E Pembroke Ave', 'Hampton', 'Va', '23663', 1);
 INSERT INTO `address` (`id`, `street`, `city`, `state`, `zip`, `enabled`) VALUES (3, '1 Stadium Dr', 'Lincoln', 'Ne', '68588', 1);
 INSERT INTO `address` (`id`, `street`, `city`, `state`, `zip`, `enabled`) VALUES (4, '585 South Boulder Rd', 'Louisville', 'Co', '80027', 1);

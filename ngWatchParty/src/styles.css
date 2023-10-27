@@ -9,4 +9,13 @@ hr{
   border-color: #000000;
 }
 
+a{
+   text-decoration: none;
+   color: rgb(242, 245, 242);
+}
 
+a:hover {
+  color: red;
+  background-color: transparent;
+  text-decoration: underline;
+}
