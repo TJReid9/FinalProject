@@ -14,10 +14,9 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'users', component: UsersComponent },
   { path: 'venues', component: VenueComponent },
-  // { path: 'register', component: RegisterComponent },
-   { path: 'parties', component: PartiesComponent },
-   { path: 'parties/:partyId', component: PartiesComponent },
-   { path: 'venues/:venueId', component: VenueComponent },
+  { path: 'parties', component: PartiesComponent },
+  { path: 'parties/:partyId', component: PartiesComponent },
+  { path: 'venues/:venueId', component: VenueComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
   { path: '**', component: NotFoundComponent }
