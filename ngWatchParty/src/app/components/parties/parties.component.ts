@@ -147,7 +147,7 @@ setEditParty() {
   this.editParty = Object.assign({}, this.selectedParty);
 }
 
-displayAddNewWorkout(party: Party){
+displayAddParty(party: Party){
   this.addNewParty = party;
 }
 
@@ -168,7 +168,6 @@ updateParty(party: Party, id: number) {
 }
 
 addParty(party: Party): void {
-  party.user.id = this.loggedInUser.id;
   console.log(party);
   this.partyService.create(party).subscribe({
     next: (result) => {
@@ -176,6 +175,7 @@ addParty(party: Party): void {
      this.newVenue = new Venue();
       this.newParty = new Party();
       this.reload();
+      this.addNewParty = null;
     },
     error: (nojoy) => {
       console.error('PartiesComponent.reload(): error loading party: ');
