@@ -28,7 +28,7 @@ export class UserCommentService {
   }
 
   index(): Observable<UserComment[]> {
-    return this.http.get<UserComment[]>(this.url + 'watchparties/userComments').pipe(
+    return this.http.get<UserComment[]>(this.url + 'watchparties/userComments', this.getHttpOptions()).pipe(
       catchError((err: any) => {
         console.log(err);
         return throwError(
@@ -39,7 +39,7 @@ export class UserCommentService {
   }
 
   show(userCommentId: number): Observable<UserComment> {
-    return this.http.get<UserComment>(this.url + 'watchparties/userComments/'+ userCommentId).pipe(
+    return this.http.get<UserComment>(this.url + 'watchparties/userComments/'+ userCommentId, this.getHttpOptions()).pipe(
       catchError((err: any) => {
         console.log(err);
         return throwError(
@@ -51,7 +51,7 @@ export class UserCommentService {
 
   create(userComment: UserComment): Observable<UserComment> {
     console.log(userComment)
-    return this.http.post<UserComment>(this.url + 'watchparties/userComments/', userComment).pipe(
+    return this.http.post<UserComment>(this.url + 'watchparties/userComments/', userComment, this.getHttpOptions()).pipe(
       catchError((err: any) => {
         console.error(err);
         return throwError(
@@ -62,7 +62,7 @@ export class UserCommentService {
   }
 
   update(userCommentId: number, userComment: UserComment): Observable<UserComment> {
-    return this.http.put<UserComment>(this.url + 'watchparties/userComments/' + userCommentId, userComment).pipe(
+    return this.http.put<UserComment>(this.url + 'watchparties/userComments/' + userCommentId, userComment, this.getHttpOptions()).pipe(
       catchError((err: any) => {
         console.error(err);
         return throwError(
@@ -73,7 +73,7 @@ export class UserCommentService {
   }
 
   destroy(userCommentId: number) : Observable<void> {
-    return this.http.delete<void>(this.url + 'watchparties/userComments/'+ userCommentId).pipe(
+    return this.http.delete<void>(this.url + 'watchparties/userComments/'+ userCommentId, this.getHttpOptions()).pipe(
       catchError((err: any) => {
         console.error(err);
         return throwError(
