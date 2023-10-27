@@ -18,7 +18,7 @@ export class UserService {
   ) { }
 
   index(): Observable<User[]> {
-    return this.http.get<User[]>(this.url + 'users/').pipe(
+    return this.http.get<User[]>(this.url + 'users').pipe(
       catchError((err: any) => {
         console.log(err);
         return throwError(
@@ -53,7 +53,7 @@ export class UserService {
   }
 
   update(userId: number, user: User): Observable<User> {
-    return this.http.put<User>(this.url + 'users/' + userId, user).pipe(
+    return this.http.put<User>(this.url + 'users/' + userId, user, this.getHttpOptions()).pipe(
       catchError((err: any) => {
         console.error(err);
         return throwError(
@@ -64,7 +64,7 @@ export class UserService {
   }
 
   destroy(userId: number) : Observable<void> {
-    return this.http.delete<void>(this.url + 'users/'+ userId).pipe(
+    return this.http.delete<void>(this.url + 'users/'+ userId, this.getHttpOptions()).pipe(
       catchError((err: any) => {
         console.error(err);
         return throwError(

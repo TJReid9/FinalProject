@@ -28,7 +28,7 @@ export class AddressService {
   }
 
   index(): Observable<Address[]> {
-    return this.http.get<Address[]>(this.url + 'watchparties').pipe(
+    return this.http.get<Address[]>(this.url + 'watchparties/addresses').pipe(
       catchError((err: any) => {
         console.log(err);
         return throwError(
@@ -39,7 +39,7 @@ export class AddressService {
   }
 
   show(addressId: number): Observable<Address> {
-    return this.http.get<Address>(this.url + 'watchparties/'+ addressId, this.getHttpOptions()).pipe(
+    return this.http.get<Address>(this.url + 'watchparties/addresses'+ addressId, this.getHttpOptions()).pipe(
       catchError((err: any) => {
         console.log(err);
         return throwError(
@@ -51,7 +51,7 @@ export class AddressService {
 
   create(address: Address): Observable<Address> {
     console.log(address)
-    return this.http.post<Address>(this.url + 'watchparties', address, this.getHttpOptions()).pipe(
+    return this.http.post<Address>(this.url + 'watchparties/addresses/', address, this.getHttpOptions()).pipe(
       catchError((err: any) => {
         console.error(err);
         return throwError(
@@ -62,7 +62,7 @@ export class AddressService {
   }
 
   update(addressId: number, address: Address): Observable<Address> {
-    return this.http.put<Address>(this.url + 'watchparties/' + addressId, address ,this.getHttpOptions()).pipe(
+    return this.http.put<Address>(this.url + 'watchparties/addresses/' + addressId, address , this.getHttpOptions()).pipe(
       catchError((err: any) => {
         console.error(err);
         return throwError(
@@ -73,7 +73,7 @@ export class AddressService {
   }
 
   destroy(addressId: number) : Observable<void> {
-    return this.http.delete<void>(this.url + 'watchparties/'+ addressId, this.getHttpOptions()).pipe(
+    return this.http.delete<void>(this.url + 'watchparties/addresses/'+ addressId, this.getHttpOptions()).pipe(
       catchError((err: any) => {
         console.error(err);
         return throwError(

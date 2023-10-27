@@ -20,7 +20,7 @@ export class User {
     password: string ='',
     email: string = '',
     enabled: boolean = true,
-    role: string = 'stadard',
+    role: string = 'standard',
     address: Address | null = null,
     firstName: string = '',
     photoUrl: string = '',
