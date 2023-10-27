@@ -167,12 +167,12 @@
     <label for="websiteUrl" class="form-label">Website Url:</label>
     <input type="text" class="form-control" name="websiteUrl" [(ngModel)]="newParty.venue.websiteUrl" />
   </div>
-  <div class="mb-3">
+  <!-- <div class="mb-3">
     <label for="venue">Address:</label>
     <select name="venue" [(ngModel)]="newParty.venue">
       <option *ngFor="let address of addresses" value="{{address.id}}">{{address.street}}</option>
     </select>
-  </div>
+  </div> -->
 </form>
 <button class="btn btn-success" type="submit"  (click)="addParty(newParty)">Save</button>
 

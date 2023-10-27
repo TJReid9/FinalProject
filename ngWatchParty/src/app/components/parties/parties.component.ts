@@ -33,9 +33,11 @@ export class PartiesComponent implements OnInit{
     }
 
   ngOnInit(): void {
-    this.loadParties();
-    this.loadVenue();
     this.loadAddress();
+    this.loadVenue();
+    this.loadParties();
+
+
     console.log(this.venues)
     this.activatedRoute.paramMap.subscribe({
       next: (params) => {
@@ -169,4 +171,18 @@ deleteParty(id: number) {
     },
   });
 }
+
+addAddressVenueParty(address: Address,venue: Venue, party: Party): void {
+  this.addressService.create(address).subscribe({
+    next: (result) => {
+      this.reload();
+      this.newParty = new Party();
+    },
+    error: (nojoy) => {
+      console.error('PartiesComponent.reload(): error loading party: ');
+      console.error(nojoy);
+    },
+  });
+}
+
 }
