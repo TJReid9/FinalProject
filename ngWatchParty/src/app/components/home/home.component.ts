@@ -64,5 +64,7 @@ loadParties() {
     },
   });
 }
-
+displayParty(party: Party): void {
+  this.selectedParty = party;
+}
 }
