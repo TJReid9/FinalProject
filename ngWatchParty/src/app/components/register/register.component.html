@@ -15,10 +15,6 @@
       <label class="col-auto form-label" for="email"></label>
       <input [(ngModel)]="newUser.email" name="email" type="text" class="form-control" placeholder="email" aria-label="Email" aria-describedby="basic-addon1">
     </div>
-    <div class="row">
-      <label class="col-auto form-label" for="address"></label>
-      <input [(ngModel)]="newUser.address" name="address" type="text" class="form-control" placeholder="address" aria-label="Address" aria-describedby="basic-addon1">
-    </div>
     <br>
     <button class="btn btn-dark" (click)="register(newUser)" >Submit</button>
   </form>

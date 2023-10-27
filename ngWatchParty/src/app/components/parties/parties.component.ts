@@ -172,7 +172,7 @@ addParty(party: Party): void {
   this.partyService.create(party).subscribe({
     next: (result) => {
       this.newTeam = new Team();
-     this.newVenue = new Venue();
+      this.newVenue = new Venue();
       this.newParty = new Party();
       this.reload();
       this.addNewParty = null;
