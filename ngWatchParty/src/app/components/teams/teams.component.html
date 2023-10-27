@@ -2,8 +2,8 @@
 <h1 *ngIf="!selectedTeam">Teams</h1>
 
 <div class="container" *ngIf="!selectedTeam && !addNewTeam">
-  <div class="row" *ngFor="let team of teams">
-    <div class="col-12 col-md-6 col-lg-4">
+  <div class="row">
+    <div class="col-12 col-md-6 col-lg-4" *ngFor="let team of teams">
       <div class="card bg-transparent" style="margin-bottom: 10px" >
         <img [src]="team.logoUrl" (click)="displayTeam(team)"/>
         <h3 class="card-name" > <a href="/#/teams/{{team.id}}">{{team.name}}</a> </h3>
