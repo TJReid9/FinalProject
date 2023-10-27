@@ -4,10 +4,15 @@ export class User {
   id: number;
   username: string;
   password: string;
+  firstName: string;
+  photoUrl: string;
   email: string;
   enabled: boolean;
   role: string;
   address: Address | null = null;
+  createDate: string;
+  updateDate: string;
+
 
   constructor(
     id: number = 0,
@@ -15,8 +20,12 @@ export class User {
     password: string ='',
     email: string = '',
     enabled: boolean = true,
-    role: string = '',
-    address: Address | null = null
+    role: string = 'standard',
+    address: Address | null = null,
+    firstName: string = '',
+    photoUrl: string = '',
+    createDate: string = '',
+    updateDate: string = ''
   ){
     this.id = id;
     this.username = username;
@@ -25,5 +34,9 @@ export class User {
     this.enabled = enabled;
     this.role = role;
     this.address = address;
+    this.createDate = createDate;
+    this.updateDate = updateDate;
+    this.firstName = firstName;
+    this.photoUrl = photoUrl;
   }
 }
