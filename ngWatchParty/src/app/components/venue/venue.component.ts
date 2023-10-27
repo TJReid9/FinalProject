@@ -27,6 +27,7 @@ export class VenueComponent implements OnInit{
   venues: Venue[] = [];
   addresses: Address [] = [];
   addNewVenue: Venue | null = null;
+  newAddress: Address = new Address;
 
   ngOnInit(): void{
     if(!this.auth.checkLogin()){
@@ -71,6 +72,10 @@ export class VenueComponent implements OnInit{
     return this.venues.length;
   }
 
+  displayAddNewVenue(venue: Venue){
+    this.addNewVenue = venue;
+  }
+
   displayTable() {
     this.selectedVenue = null;
   }
@@ -78,6 +83,8 @@ export class VenueComponent implements OnInit{
   addVenue(venue: Venue) {
     this.venueService.create(venue).subscribe({
       next: (result) => {
+        this.newAddress = new Address();
+        this.addressService.create(this.newAddress);
         this.newVenue = new Venue();
         this.loadVenue();
       },
