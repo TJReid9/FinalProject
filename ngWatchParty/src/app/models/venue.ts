@@ -5,7 +5,7 @@ export class Venue {
   description: string;
   imageUrl: string;
   enabled: boolean;
-  websiteUrl: boolean;
+  websiteUrl: string;
 
   constructor(
     id: number = 0,
@@ -14,7 +14,7 @@ export class Venue {
     description: string = '',
     imageUrl: string = '',
     enabled: boolean = true,
-    websiteUrl: boolean = true
+    websiteUrl: string = ''
 
   ){
     this.id = id;

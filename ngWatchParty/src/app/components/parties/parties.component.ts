@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Address } from 'src/app/models/address';
 import { Party } from 'src/app/models/party';
 import { Venue } from 'src/app/models/venue';
+import { AddressService } from 'src/app/services/address.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { PartyService } from 'src/app/services/party.service';
 import { VenueService } from 'src/app/services/venue.service';
@@ -19,11 +21,12 @@ export class PartiesComponent implements OnInit{
   addNewParty: Party | null = null;
   newParty: Party = new Party();
   venues: Venue[] = [];
-  // venue: Venue | null = new Venue();
+  addresses: Address[] = [];
+
 
   constructor(private partyService: PartyService,
     private activatedRoute: ActivatedRoute,
-    private router: Router, private auth: AuthService, private venueService: VenueService){}
+    private router: Router, private auth: AuthService, private venueService: VenueService, private addressService: AddressService){}
 
     loggedIn(): boolean {
       return this.auth.checkLogin();
@@ -32,6 +35,7 @@ export class PartiesComponent implements OnInit{
   ngOnInit(): void {
     this.loadParties();
     this.loadVenue();
+    this.loadAddress();
     console.log(this.venues)
     this.activatedRoute.paramMap.subscribe({
       next: (params) => {
@@ -81,6 +85,19 @@ loadVenue() {
     },
   });
 }
+
+loadAddress() {
+  this.addressService.index().subscribe({
+    next: (addresses) => {
+      this.addresses = addresses;
+    },
+    error: (problem) => {
+      console.error('HomeComponent.loadParties(): error loading Parties:');
+      console.error(problem);
+    },
+  });
+}
+
 
 reload(): void{
  this.partyService.index().subscribe({

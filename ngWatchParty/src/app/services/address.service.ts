@@ -28,7 +28,7 @@ export class AddressService {
   }
 
   index(): Observable<Address[]> {
-    return this.http.get<Address[]>(this.url + 'watchparties').pipe(
+    return this.http.get<Address[]>(this.url + 'watchparties', this.getHttpOptions()).pipe(
       catchError((err: any) => {
         console.log(err);
         return throwError(
