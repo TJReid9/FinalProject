@@ -1,5 +1,6 @@
 package com.skilldistillery.watchparty.controllers;
 
+import java.security.Principal;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -42,13 +43,14 @@ public class PartyController {
 	}
 
 	@PostMapping("watchparties")
-	public Party createParty(@RequestBody Party party, HttpServletResponse res, HttpServletRequest req) {
+	public Party createParty(@RequestBody Party party, HttpServletResponse res, HttpServletRequest req, Principal principal) {
 		Party newParty = null;
+		System.out.println(principal.getName());
 		try {
 			if (newParty == null) {
 				res.setStatus(404);
 			}
-			newParty = partyService.createParty(party);
+			newParty = partyService.createParty(party, principal.getName());
 			res.setStatus(201);
 			StringBuffer url = req.getRequestURL();
 			url.append("/").append(newParty.getId());

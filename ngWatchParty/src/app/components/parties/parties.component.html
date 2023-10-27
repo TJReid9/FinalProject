@@ -1,8 +1,8 @@
 <h1 *ngIf="!selectedParty">Watch Parties</h1>
 
-<div class="container" *ngIf="!selectedParty && !addNewParty">
-  <div class="row" *ngFor="let party of parties">
-    <div class="col-12 col-md-6 col-lg-4">
+<div class="container" *ngIf="!selectedParty && !addNewParty" >
+  <div class="row" >
+    <div class="col-12 col-md-6 col-lg-4" *ngFor="let party of parties">
       <div class="card bg-transparent" style="margin-bottom: 10px" >
         <img [src]="party.imageUrl" (click)="displayParty(party)"/>
         <h3 class="card-title" > <a href="/#/parties/{{party.id}}">{{party.title}}</a> </h3>
@@ -20,9 +20,7 @@
   <button *ngIf="loggedIn()" (click)="deleteParty(selectedParty.id)" class="btn btn-danger">Delete</button>
 
 
-  <p>
-   ID: {{selectedParty.id}}
-  </p>
+
   <h3>
     {{selectedParty.title}}
   </h3>
@@ -32,10 +30,19 @@
   <p>
     Start Time: {{selectedParty.startTime}}
    </p>
+   <blockquote>
+    Description: {{selectedParty.description}}
+   </blockquote>
    <img [src]="selectedParty.imageUrl">
    <br>
    <p>
     Completed: {{selectedParty.completed}}
+   </p>
+   <p>
+    Created Date: {{selectedParty.createDate}}
+   </p>
+   <p>
+    Last updated: {{selectedParty.updateDate}}
    </p>
 
 </div>
@@ -51,20 +58,58 @@
     <input type="date" aria-label="Date" class="form-control"  name="partyDate" [(ngModel)]="editParty.partyDate">
     <input type="time" aria-label="time" class="form-control"  name="startTime" [(ngModel)]="editParty.startTime">
   </div>
-  <label for="completed">Completed</label>
-  <input  type="checkbox" name="completed" value="" class="form-check-input" [(ngModel)]="editParty.completed" >
+
+  <label for="partyDescription">Description</label>
+  <input class="form-control" type="text" name="partyDescription" [(ngModel)]="editParty.description" >
   <br>
+
     <label for="imageUrl">Image Url</label>
     <input class="form-control" type="text" name="imageUrl" [(ngModel)]="editParty.imageUrl" >
     <br>
 
+    <label for="completed">Completed</label>
+    <input  type="checkbox" name="completed" value="" class="form-check-input" [(ngModel)]="editParty.completed" >
+    <br>
+
+    <hr>
+
+    <div class="mb-3">
+
+      <label for="venue">Venue:</label>
+      <select name="venue" [(ngModel)]="editParty.venue.id">
+        <option *ngFor="let venue of venues" value="{{venue.id}}">{{venue.name}}</option>
+      </select>
+    </div>
+    <h3>Add New Venue:</h3>
+    <div class="mb-3">
+      <label for="name" class="form-label">Venue Name:</label>
+      <input type="text" class="form-control" name="name" [(ngModel)]="editParty.venue.name" />
+    </div>
+    <div class="mb-3">
+      <label for="venueDescription" class="form-label">Description:</label>
+      <input type="text" class="form-control" name="venueDescription" [(ngModel)]="editParty.venue.description" />
+    </div>
+    <div class="mb-3">
+      <label for="phone" class="form-label">Phone:</label>
+      <input type="text" class="form-control" name="phone" [(ngModel)]="editParty.venue.phone" />
+    </div>
+    <div class="mb-3">
+      <label for="imageUrl" class="form-label">Image Url:</label>
+      <input type="text" class="form-control" name="imageUrl" [(ngModel)]="editParty.venue.imageUrl" />
+    </div>
+    <div class="mb-3">
+      <label for="websiteUrl" class="form-label">Website Url:</label>
+      <input type="text" class="form-control" name="websiteUrl" [(ngModel)]="editParty.venue.websiteUrl" />
+    </div>
 
 
     <button class="btn btn-success" type="submit"  (click)="updateParty(editParty, editParty.id)">Save</button>
 
     <button class="btn btn-danger" type="submit" (click)="editParty = null">Cancel</button>
-
   </form>
+
+
+
 </div>
 
 <div *ngIf="addNewParty && !selectedParty && !editParty">
@@ -72,9 +117,11 @@
 
 
 
-
   <label for="title">Title</label>
   <input class="form-control" type="text" name="title" [(ngModel)]="newParty.title" >
+  <br>
+  <label for="description">Description</label>
+  <input class="form-control" type="text" name="description" [(ngModel)]="newParty.description" >
   <br>
 <div class="input-group">
   <span class="input-group-text">Date and Time</span>
@@ -90,35 +137,23 @@
   <input  type="checkbox" name="completed" value="" class="form-check-input" [(ngModel)]="newParty.completed" >
   <br>
 
-
-
   <div class="mb-3">
-    <label for="venue">Venues:</label>
+    <label for="venue">Venue:</label>
     <select name="venue" [(ngModel)]="newParty.venue.id">
       <option *ngFor="let venue of venues" value="{{venue.id}}">{{venue.name}}</option>
     </select>
   </div>
-  <h3>Add New Venue:</h3>
-  <div class="mb-3">
-    <label for="description" class="form-label">Description:</label>
-    <input type="text" class="form-control" name="description" [(ngModel)]="newParty.venue.description" />
-  </div>
-  <div class="mb-3">
-    <label for="city" class="form-label">City:</label>
-    <input type="text" class="form-control" name="city" [(ngModel)]="newParty.venue.phone" />
-  </div>
-  <div class="mb-3">
-    <label for="state" class="form-label">State:</label>
-    <input type="text" class="form-control" name="state" [(ngModel)]="newParty.venue.imageUrl" />
-  </div>
-  <div class="mb-3">
-    <label for="state" class="form-label">State:</label>
-    <input type="text" class="form-control" name="state" [(ngModel)]="newParty.venue.websiteUrl" />
-  </div>
+   <div class="mb-3">
+    <label for="venue">Team:</label>
+    <select name="venue" [(ngModel)]="newParty.team.id">
+      <option *ngFor="let team of teams" value="{{team.id}}">{{team.name}}</option>
+    </select>
+    </div>
 
-</form>
+
+
 <button class="btn btn-success" type="submit"  (click)="addParty(newParty)">Save</button>
 
   <button class="btn btn-danger" type="submit" (click)="addNewParty = null">Cancel</button>
-
+</form>
 </div>

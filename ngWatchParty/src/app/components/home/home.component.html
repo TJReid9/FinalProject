@@ -6,11 +6,11 @@
         </div>
     </div>
     <div class='col-12'>
-        <ngb-carousel >
+        <ngb-carousel>
             <ng-template ngbSlide *ngFor="let party of parties">
-                <img [src]=party.imageUrl alt=party.title height="100%" width="100%">
+                <img [src]=party.imageUrl alt=party.title height="100%" width="100%" (click)="displayParty(party)">
                 <div class="carousel-caption">
-                    <h3 style="color: white">{{parties[0].title}}</h3>
+                  <a href="/#/parties/{{party.id}}" style="text-decoration:none"><h3 style="color: white">{{party.title}}</h3></a>
                 </div>
             </ng-template>
         </ngb-carousel>
