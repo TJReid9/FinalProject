@@ -41,6 +41,7 @@ export class TeamService {
 
 
   show(teamId: number): Observable<Team> {
+
     return this.http.get<Team>(this.url + 'watchparties/teams/'+ teamId, this.getHttpOptions()).pipe(
       catchError((err: any) => {
         console.log(err);

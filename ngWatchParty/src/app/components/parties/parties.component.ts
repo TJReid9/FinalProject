@@ -1,13 +1,16 @@
+import { UserService } from 'src/app/services/user.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Address } from 'src/app/models/address';
 import { Party } from 'src/app/models/party';
+import { Team } from 'src/app/models/team';
 import { Venue } from 'src/app/models/venue';
 import { AddressService } from 'src/app/services/address.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { PartyService } from 'src/app/services/party.service';
 import { TeamService } from 'src/app/services/team.service';
 import { VenueService } from 'src/app/services/venue.service';
+import { User } from 'src/app/models/user';
 
 @Component({
   selector: 'app-parties',
@@ -24,12 +27,15 @@ export class PartiesComponent implements OnInit{
   newAddress: Address = new Address();
   newVenue: Venue = new Venue();
   venues: Venue[] = [];
+  teams: Team[] = [];
   addresses: Address[] = [];
+  loggedInUser: User = new User();
+  newTeam: Team = new Team();
 
 
   constructor(private partyService: PartyService,
     private activatedRoute: ActivatedRoute,
-    private router: Router, private auth: AuthService, private venueService: VenueService, private addressService: AddressService,private teamService: TeamService){}
+    private router: Router, private auth: AuthService, private venueService: VenueService, private addressService: AddressService,private teamService: TeamService, private userService: UserService){}
 
     loggedIn(): boolean {
       return this.auth.checkLogin();
@@ -39,7 +45,7 @@ export class PartiesComponent implements OnInit{
     this.loadAddress();
     this.loadVenue();
     this.loadParties();
-
+    this.loadTeams();
 
     console.log(this.venues)
     this.activatedRoute.paramMap.subscribe({
@@ -71,6 +77,18 @@ loadParties() {
   this.partyService.index().subscribe({
     next: (parties) => {
       this.parties = parties;
+    },
+    error: (problem) => {
+      console.error('HomeComponent.loadParties(): error loading Parties:');
+      console.error(problem);
+    },
+  });
+}
+
+loadTeams() {
+  this.teamService.index().subscribe({
+    next: (teams) => {
+      this.teams = teams;
     },
     error: (problem) => {
       console.error('HomeComponent.loadParties(): error loading Parties:');
@@ -150,10 +168,14 @@ updateParty(party: Party, id: number) {
 }
 
 addParty(party: Party): void {
+  party.user.id = this.loggedInUser.id;
+  console.log(party);
   this.partyService.create(party).subscribe({
     next: (result) => {
-      this.reload();
+      this.newTeam = new Team();
+     this.newVenue = new Venue();
       this.newParty = new Party();
+      this.reload();
     },
     error: (nojoy) => {
       console.error('PartiesComponent.reload(): error loading party: ');

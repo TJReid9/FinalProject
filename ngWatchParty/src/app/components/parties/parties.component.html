@@ -59,8 +59,8 @@
     <input type="time" aria-label="time" class="form-control"  name="startTime" [(ngModel)]="editParty.startTime">
   </div>
 
-  <label for="imageUrl">Description</label>
-  <input class="form-control" type="text" name="imageUrl" [(ngModel)]="editParty.description" >
+  <label for="partyDescription">Description</label>
+  <input class="form-control" type="text" name="partyDescription" [(ngModel)]="editParty.description" >
   <br>
 
     <label for="imageUrl">Image Url</label>
@@ -86,8 +86,8 @@
       <input type="text" class="form-control" name="name" [(ngModel)]="editParty.venue.name" />
     </div>
     <div class="mb-3">
-      <label for="description" class="form-label">Description:</label>
-      <input type="text" class="form-control" name="description" [(ngModel)]="editParty.venue.description" />
+      <label for="venueDescription" class="form-label">Description:</label>
+      <input type="text" class="form-control" name="venueDescription" [(ngModel)]="editParty.venue.description" />
     </div>
     <div class="mb-3">
       <label for="phone" class="form-label">Phone:</label>
@@ -114,7 +114,6 @@
 
 <div *ngIf="addNewParty && !selectedParty && !editParty">
 <form name="newPartyForm">
-
 
 
 
@@ -146,8 +145,8 @@
   </div>
    <div class="mb-3">
     <label for="venue">Team:</label>
-    <select name="venue" [(ngModel)]="newParty.team">
-      <option *ngFor="let address of addresses" value="{{address.id}}">{{address.street}}</option>
+    <select name="venue" [(ngModel)]="newParty.team.id">
+      <option *ngFor="let team of teams" value="{{team.id}}">{{team.name}}</option>
     </select>
     </div>
 
