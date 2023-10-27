@@ -3,7 +3,7 @@
   <button *ngIf="loggedIn()" (click)="displayAddParty(newParty)" class="btn btn-outline-dark">Add Party</button>
 <hr>
   <div class="row" >
-    <div class="col-12 col-md-6 col-sm-4" *ngFor="let party of parties">
+    <div class="col-12 col-md-6 col-lg-4" *ngFor="let party of parties">
       <div class="card bg-transparent" style="margin-bottom: 5px" >
         <img [src]="party.imageUrl" (click)="displayParty(party)" height="100%" width="100%"/>
         <h3 class="card-title" > <hr><a href="/#/parties/{{party.id}}">{{party.title}}</a> </h3>
@@ -26,24 +26,31 @@
     {{selectedParty.title}}
   </h3>
   <p>
-    Date: {{selectedParty.partyDate}}
+     <strong>Date:</strong><br>
+    {{selectedParty.partyDate}}
   </p>
   <p>
-    Start Time: {{selectedParty.startTime}}
+     <strong>Start Time:</strong><br>
+    {{selectedParty.startTime}}
+   </p>
+   <p>
+    <strong>Venue:</strong><br>
+     <a href="/#/venues/{{selectedParty.id}}">{{selectedParty.venue.name}}</a>
    </p>
    <blockquote>
-    Description: {{selectedParty.description}}
+    <strong>Description:</strong><br>
+     {{selectedParty.description}}
    </blockquote>
    <img [src]="selectedParty.imageUrl">
    <br>
    <hr>
-   <p>
+   <p *ngIf="loggedIn()">
     Completed: {{selectedParty.completed}}
    </p>
-   <p>
+   <p *ngIf="loggedIn()">
     Created Date: {{selectedParty.createDate}}
    </p>
-   <p>
+   <p *ngIf="loggedIn()">
     Last updated: {{selectedParty.updateDate}}
    </p>
 
