@@ -1,2 +1,55 @@
-<p>users works!</p>
-{{loggedInUser.username}}
+
+<div *ngIf="!editUser">
+  <div class="col-12 col-md-6 col-lg-4">
+    <div class="card bg-transparent" style="margin-bottom: 10px" >
+      <img [src]="loggedInUser.photoUrl" (click)="setEditUser()" height="20%" width="20%"/>
+      <h3>{{loggedInUser.username}}</h3>
+    </div>
+  </div>
+  Created: {{loggedInUser.createDate}} <br>
+  Name: {{loggedInUser.firstName}} <br>
+  Located at: {{loggedInUser.address?.city}}, {{loggedInUser.address?.state}}<br>
+  <hr>
+  lastUpdated: {{loggedInUser.updateDate}}
+
+  <button class="btn btn-primary" (click)="setEditUser()">Edit</button>
+
+
+</div>
+
+<div *ngIf="editUser && editAddress.id == 0" class="container">
+  <form id="updateUser">
+    <label for="firstName">Name</label>
+    <input class="form-control" type="text" name="firstName" [(ngModel)]="editUser.firstName">
+
+    <label for="photoUrl">Profile Url</label>
+    <input class="form-control" type="text" name="photoUrl" [(ngModel)]="editUser.photoUrl">
+
+    <button class="btn btn-success" type="submit"  (click)="updateUser(editUser)">Save</button>
+    <button class="btn btn-primary" type="submit"  (click)="setEditAddress()">Edit Address</button>
+
+    <button class="btn btn-danger" type="submit" (click)="editUser = null">Cancel</button>
+
+  </form>
+
+
+</div>
+
+<div *ngIf="editAddress.id != 0">
+  <label for="street">Street</label>
+  {{editAddress.id}}
+  <input class="form-control" type="text" name="street" [(ngModel)]="editAddress.street">
+
+  <label for="city">City</label>
+  <input class="form-control" type="text" name="city" [(ngModel)]="editAddress.city">
+
+  <label for="state">State</label>
+  <input class="form-control" type="text" name="state" [(ngModel)]="editAddress.state">
+
+  <label for="zip">Zip</label>
+  <input class="form-control" type="text" name="zip" [(ngModel)]="editAddress.zip">
+
+  <button class="btn btn-success" type="submit"  (click)="updateAddress(editAddress)">Save</button>
+
+  <button class="btn btn-danger" type="submit" (click)="clearEditAddress()">Cancel</button>
+</div>
