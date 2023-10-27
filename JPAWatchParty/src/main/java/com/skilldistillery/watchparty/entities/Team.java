@@ -37,6 +37,19 @@ public class Team {
 	public Team() {
 		super();
 	}
+	
+	
+
+	public Team(int id, String name, String logoUrl, String teamWebsiteUrl, Sport sport) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.logoUrl = logoUrl;
+		this.teamWebsiteUrl = teamWebsiteUrl;
+		this.sport = sport;
+	}
+
+
 
 	public int getId() {
 		return id;

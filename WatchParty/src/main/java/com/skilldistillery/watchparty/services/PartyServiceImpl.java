@@ -7,12 +7,16 @@ import org.springframework.stereotype.Service;
 
 import com.skilldistillery.watchparty.entities.Party;
 import com.skilldistillery.watchparty.repositories.PartyRepository;
+import com.skilldistillery.watchparty.repositories.UserRepository;
 
 @Service
 public class PartyServiceImpl implements PartyService {
 	
 	@Autowired
 	private PartyRepository partyRepo;
+	
+	@Autowired
+	private UserRepository userRepo;
 	
 	@Override
 	public List<Party> getAllPartys() {
@@ -25,8 +29,9 @@ public class PartyServiceImpl implements PartyService {
 	}
 
 	@Override
-	public Party createParty(Party party) {
+	public Party createParty(Party party, String username) {
 //		locationRepo.saveAndFlush(party.getLocation());
+		party.setUser(userRepo.findByUsername(username));
 		return partyRepo.saveAndFlush(party);
 	}
 

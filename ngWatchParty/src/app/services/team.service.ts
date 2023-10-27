@@ -29,7 +29,7 @@ export class TeamService {
 
 
   index(): Observable<Team[]> {
-    return this.http.get<Team[]>(this.url + 'watchparties/Teams').pipe(
+    return this.http.get<Team[]>(this.url + 'watchparties/teams', this.getHttpOptions()).pipe(
       catchError((err: any) => {
         console.log(err);
         return throwError(
@@ -41,7 +41,8 @@ export class TeamService {
 
 
   show(teamId: number): Observable<Team> {
-    return this.http.get<Team>(this.url + 'watchparties/Teams/'+ teamId, this.getHttpOptions()).pipe(
+
+    return this.http.get<Team>(this.url + 'watchparties/teams/'+ teamId, this.getHttpOptions()).pipe(
       catchError((err: any) => {
         console.log(err);
         return throwError(
@@ -53,7 +54,7 @@ export class TeamService {
 
   create(team: Team): Observable<Team> {
     console.log(Team)
-    return this.http.post<Team>(this.url + 'watchparties/Teams/', team, this.getHttpOptions()).pipe(
+    return this.http.post<Team>(this.url + 'watchparties/teams/', team, this.getHttpOptions()).pipe(
       catchError((err: any) => {
         console.error(err);
         return throwError(
@@ -64,7 +65,7 @@ export class TeamService {
   }
 
   update(teamId: number, team: Team): Observable<Team> {
-    return this.http.put<Team>(this.url + 'watchparties/Teams/' + teamId, team, this.getHttpOptions()).pipe(
+    return this.http.put<Team>(this.url + 'watchparties/teams/' + teamId, team, this.getHttpOptions()).pipe(
       catchError((err: any) => {
         console.error(err);
         return throwError(
@@ -75,7 +76,7 @@ export class TeamService {
   }
 
   destroy(teamId: number) : Observable<void> {
-    return this.http.delete<void>(this.url + 'watchparties/Teams/'+ teamId, this.getHttpOptions()).pipe(
+    return this.http.delete<void>(this.url + 'watchparties/teams/'+ teamId, this.getHttpOptions()).pipe(
       catchError((err: any) => {
         console.error(err);
         return throwError(
