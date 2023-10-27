@@ -49,6 +49,7 @@ public class AddressServiceImpl implements AddressService {
 			existing.setState(address.getState());
 			existing.setStreet(address.getStreet());
 			existing.setZip(address.getZip());
+			addressRepo.saveAndFlush(existing);
 		}
 		return existing;
 	}

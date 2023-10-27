@@ -11,14 +11,16 @@ import { Observable, catchError, throwError } from 'rxjs';
 })
 export class UserService {
 
-  private url = environment.baseUrl + 'api/';
+  private url = environment.baseUrl + 'api/watchparties/';
   constructor(
     private http: HttpClient,
     private auth: AuthService
   ) { }
 
   index(): Observable<User[]> {
+
     return this.http.get<User[]>(this.url + 'watchparties/users').pipe(
+
       catchError((err: any) => {
         console.log(err);
         return throwError(
@@ -53,7 +55,7 @@ export class UserService {
   }
 
   update(userId: number, user: User): Observable<User> {
-    return this.http.put<User>(this.url + 'watchparties/users/' + userId, user).pipe(
+    return this.http.put<User>(this.url + 'watchparties/users/' + userId, user, this.getHttpOptions()).pipe(
       catchError((err: any) => {
         console.error(err);
         return throwError(
@@ -64,7 +66,8 @@ export class UserService {
   }
 
   destroy(userId: number) : Observable<void> {
-    return this.http.delete<void>(this.url + 'watchparties/users/'+ userId).pipe(
+    return this.http.delete<void>(this.url + 'watchparties/users/'+ userId, this.getHttpOptions()).pipe(
+
       catchError((err: any) => {
         console.error(err);
         return throwError(
