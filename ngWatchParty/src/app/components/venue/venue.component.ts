@@ -17,13 +17,11 @@ export class VenueComponent implements OnInit{
               private auth: AuthService
               ) {}
 
-  selected: Venue|null = null;
-
+  selectedVenue: Venue|null = null;
   newVenue: Venue = new Venue();
-
   editVenue: Venue|null = null;
-
   showCompleted: boolean = false;
+  venues: Venue[] = [];
 
   ngOnInit(): void{
     if(!this.auth.checkLogin()){
@@ -41,7 +39,7 @@ export class VenueComponent implements OnInit{
             } else {
               this.venueService.show(venueId).subscribe({
                 next: (venue) => {
-                  this.selected = venue;
+                  this.selectedVenue = venue;
                 },
                 error: (nojoy) => {
                   console.error('VenueListHttpComponent.show(): error getting Venue:');
@@ -56,17 +54,19 @@ export class VenueComponent implements OnInit{
   }
 
   displayVenue(venue: Venue){
-    this.selected = venue;
+    this.selectedVenue = venue;
   }
 
-  venues: Venue[] = [];
+  loggedIn(): boolean {
+    return this.auth.checkLogin();
+  }
 
   getVenueCount(): number {
     return this.venues.length;
   }
 
   displayTable() {
-    this.selected = null;
+    this.selectedVenue = null;
   }
 
   addVenue(venue: Venue) {
@@ -82,9 +82,12 @@ export class VenueComponent implements OnInit{
     });
   }
 
+  displayAllVenues(): void{
+    this.selectedVenue = null;
+  }
 
   setEditVenue() {
-    this.editVenue = Object.assign({}, this.selected);
+    this.editVenue = Object.assign({}, this.selectedVenue);
   }
 
   updateVenue(id: number,venue: Venue) {

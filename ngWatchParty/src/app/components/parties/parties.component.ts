@@ -1,24 +1,29 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Party } from 'src/app/models/party';
+import { Venue } from 'src/app/models/venue';
 import { AuthService } from 'src/app/services/auth.service';
 import { PartyService } from 'src/app/services/party.service';
+import { VenueService } from 'src/app/services/venue.service';
 
 @Component({
   selector: 'app-parties',
   templateUrl: './parties.component.html',
   styleUrls: ['./parties.component.css']
 })
-export class PartiesComponent {
+export class PartiesComponent implements OnInit{
 
   parties: Party[] = [];
   selectedParty: Party | null = null;
   editParty: Party | null = null;
+  addNewParty: Party | null = null;
   newParty: Party = new Party();
+  venues: Venue[] = [];
+  // venue: Venue | null = new Venue();
 
   constructor(private partyService: PartyService,
     private activatedRoute: ActivatedRoute,
-    private router: Router, private auth: AuthService){}
+    private router: Router, private auth: AuthService, private venueService: VenueService){}
 
     loggedIn(): boolean {
       return this.auth.checkLogin();
@@ -26,6 +31,8 @@ export class PartiesComponent {
 
   ngOnInit(): void {
     this.loadParties();
+    this.loadVenue();
+    console.log(this.venues)
     this.activatedRoute.paramMap.subscribe({
       next: (params) => {
         let partyIdStr = params.get('partyId');
@@ -63,6 +70,18 @@ loadParties() {
   });
 }
 
+loadVenue() {
+  this.venueService.index().subscribe({
+    next: (venues) => {
+      this.venues = venues;
+    },
+    error: (problem) => {
+      console.error('HomeComponent.loadParties(): error loading Parties:');
+      console.error(problem);
+    },
+  });
+}
+
 reload(): void{
  this.partyService.index().subscribe({
   next: (parties) => {
@@ -86,6 +105,10 @@ displayAllParties(): void{
 
 setEditParty() {
   this.editParty = Object.assign({}, this.selectedParty);
+}
+
+displayAddNewWorkout(party: Party){
+  this.addNewParty = party;
 }
 
 

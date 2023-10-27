@@ -17,6 +17,7 @@ const routes: Routes = [
   // { path: 'register', component: RegisterComponent },
    { path: 'parties', component: PartiesComponent },
    { path: 'parties/:partyId', component: PartiesComponent },
+   { path: 'venues/:venueId', component: VenueComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
   { path: '**', component: NotFoundComponent }
