@@ -1,8 +1,8 @@
 <h1 *ngIf="!selectedParty">Watch Parties</h1>
 
-<div class="container" *ngIf="!selectedParty && !addNewParty">
-  <div class="row" *ngFor="let party of parties">
-    <div class="col-12 col-md-6 col-lg-4">
+<div class="container" *ngIf="!selectedParty && !addNewParty" >
+  <div class="row" >
+    <div class="col-12 col-md-6 col-lg-4" *ngFor="let party of parties">
       <div class="card bg-transparent" style="margin-bottom: 10px" >
         <img [src]="party.imageUrl" (click)="displayParty(party)"/>
         <h3 class="card-title" > <a href="/#/parties/{{party.id}}">{{party.title}}</a> </h3>

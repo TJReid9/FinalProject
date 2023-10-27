@@ -8,7 +8,7 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./navigation.component.css']
 })
 export class NavigationComponent {
-  public isCollapsed = false;
+  public isCollapsed = true;
 
   constructor(
    private auth: AuthService, private router: Router
