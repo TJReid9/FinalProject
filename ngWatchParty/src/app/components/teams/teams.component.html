@@ -1,7 +1,23 @@
 
 <h1 *ngIf="!selectedTeam">Teams</h1>
 
-<div class="container" *ngIf="!selectedTeam && !addNewTeam">
+  <div class="container">
+  <ngb-carousel >
+      <ng-template  ngbSlide *ngFor="let team of teams | sportsFilter: 1" >
+        <div class="d-flex justify-content-center">
+          <img   [src]=team.logoUrl alt=team.name class="d-block"  height="25%" width="25%"  (click)="displayTeam(team)">
+        </div>
+          <div class="carousel-caption">
+            <a href="/#/teams/{{team.id}}" style="text-decoration:none"><h3 style="color: white">{{team.name}}</h3></a>
+          </div>
+      </ng-template>
+  </ngb-carousel>
+</div>
+
+
+
+
+<!-- <div class="container" *ngIf="!selectedTeam && !addNewTeam">
   <div class="row">
     <div class="col-12 col-md-6 col-lg-4" *ngFor="let team of teams">
       <div class="card bg-transparent" style="margin-bottom: 10px" >
@@ -11,7 +27,8 @@
     </div>
   </div>
   <button *ngIf="loggedIn()" (click)="displayTeam(newTeam)" class="btn btn-success">Add</button>
-</div>
+</div> -->
+
 
 <div *ngIf="selectedTeam && !editTeam ">
   <button class="btn btn-warning" (click)="displayAllTeams()">Back</button>
