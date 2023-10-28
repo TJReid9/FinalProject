@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Sport } from 'src/app/models/sport';
 import { Team } from 'src/app/models/team';
-import { Venue } from 'src/app/models/venue';
 import { AuthService } from 'src/app/services/auth.service';
+import { SportService } from 'src/app/services/sport.service';
 import { TeamService } from 'src/app/services/team.service';
 import { VenueService } from 'src/app/services/venue.service';
 
@@ -19,8 +20,10 @@ export class TeamsComponent {
   editTeam: Team | null = null;
   addNewTeam: Team | null = null;
   newTeam: Team = new Team();
+  sports: Sport[] = [];
 
   constructor(private teamService: TeamService,
+    private sportService: SportService,
     private activatedRoute: ActivatedRoute,
     private router: Router, private auth: AuthService, private venueService: VenueService){}
 
@@ -35,6 +38,17 @@ export class TeamsComponent {
         },
         error: (problem) => {
           console.error('TeamsComponent.loadTeams(): error loading Teams:');
+          console.error(problem);
+        },
+      });
+    }
+     loadSports() {
+      this.sportService.index().subscribe({
+        next: (sports) => {
+          this.sports = sports;
+        },
+        error: (problem) => {
+          console.error('SportsComponent.loadTeams(): error loading Sports:');
           console.error(problem);
         },
       });

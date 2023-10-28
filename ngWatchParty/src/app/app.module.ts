@@ -16,6 +16,7 @@ import { VenueComponent } from './components/venue/venue.component';
 import { PartiesComponent } from './components/parties/parties.component';
 import { RegisterComponent } from './components/register/register.component';
 import { TeamsComponent } from './components/teams/teams.component';
+import { SportsFilterPipe } from './pipes/sports-filter.pipe';
 import { IncompletePipe } from './pipes/incomplete.pipe';
 
 @NgModule({
@@ -31,6 +32,7 @@ import { IncompletePipe } from './pipes/incomplete.pipe';
     PartiesComponent,
     RegisterComponent,
     TeamsComponent,
+    SportsFilterPipe,
     IncompletePipe,
   ],
   imports: [
