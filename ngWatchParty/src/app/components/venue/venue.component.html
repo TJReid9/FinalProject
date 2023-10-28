@@ -1,11 +1,11 @@
 <h1 *ngIf="!selectedVenue">Watch Venues</h1>
 
 <div class="container" *ngIf="!addNewVenue && !selectedVenue">
-  <button *ngIf="loggedIn()" (click)="displayAddNewVenue(newVenue)" class="btn btn-success">Add</button>
+  <button *ngIf="loggedIn()" (click)="displayAddNewVenue(newVenue)" class="btn btn-outline-dark">Add</button>
   <div class="row">
     <div class="col-12 col-md-6 col-lg-4" *ngFor="let venue of venues">
       <div class="card bg-transparent" style="margin-bottom: 10px" >
-        <img [src]="venue.imageUrl" (click)="displayVenue(venue)"/>
+        <img [src]="venue.imageUrl" (click)="displayVenue(venue)" height="250px" width="100%"/>
         <h3 class="card-title" > <a href="/#/venues/{{venue.id}}">{{venue.name}}</a> </h3>
         <p>{{venue.description}}</p>
       </div>
@@ -14,29 +14,30 @@
 </div>
 
 <div *ngIf="selectedVenue && !editVenue ">
-  <button class="btn btn-danger" (click)="displayAllVenues()">Back</button>
-  <button *ngIf="loggedIn()" class="btn btn-outline-primary" type="submit"  (click)="setEditVenue()">Edit</button>
+  <button class="btn btn-outline-dark" (click)="displayAllVenues()">Back</button>
+  <button *ngIf="loggedIn()" class="btn btn-outline-dark" type="submit"  (click)="setEditVenue()">Edit</button>
 
-  <button *ngIf="loggedIn()" (click)="deleteVenue(selectedVenue.id)" class="btn btn-danger">Delete</button>
+  <button *ngIf="loggedIn()" (click)="deleteVenue(selectedVenue.id)" class="btn btn-outline-dark">Delete</button>
 
 
-  <p>
-   ID: {{selectedVenue.id}}
-  </p>
+
   <h3>
     {{selectedVenue.name}}
   </h3>
   <p>
-    Date: {{selectedVenue.phone}}
+   <strong>Phone:</strong><br>
+   {{selectedVenue.phone}}<br>
+    <strong>Address:</strong><br>
+    {{selectedVenue.address.street}}<br>
+    {{selectedVenue.address.city}} , {{selectedVenue.address.state}} {{selectedVenue.address.zip}}
   </p>
   <p>
-    Start Time: {{selectedVenue.description}}
+   <strong>Description:</strong><br>
+   {{selectedVenue.description}}
    </p>
    <img [src]="selectedVenue.imageUrl">
    <br>
-   <p>
-    Enabled: {{selectedVenue.enabled}}
-   </p>
+
 
 </div>
 

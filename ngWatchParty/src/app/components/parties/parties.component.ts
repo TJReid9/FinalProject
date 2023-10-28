@@ -11,6 +11,7 @@ import { PartyService } from 'src/app/services/party.service';
 import { TeamService } from 'src/app/services/team.service';
 import { VenueService } from 'src/app/services/venue.service';
 import { User } from 'src/app/models/user';
+import { IncompletePipe } from 'src/app/pipes/incomplete.pipe';
 
 @Component({
   selector: 'app-parties',
@@ -31,11 +32,12 @@ export class PartiesComponent implements OnInit{
   addresses: Address[] = [];
   loggedInUser: User = new User();
   newTeam: Team = new Team();
+  showComplete: boolean = false;
 
 
   constructor(private partyService: PartyService,
     private activatedRoute: ActivatedRoute,
-    private router: Router, private auth: AuthService, private venueService: VenueService, private addressService: AddressService,private teamService: TeamService, private userService: UserService){}
+    private router: Router, private auth: AuthService,private incompletePipe: IncompletePipe, private venueService: VenueService, private addressService: AddressService,private teamService: TeamService, private userService: UserService){}
 
     loggedIn(): boolean {
       return this.auth.checkLogin();
@@ -149,6 +151,11 @@ setEditParty() {
 
 displayAddParty(party: Party){
   this.addNewParty = party;
+}
+
+getPartyCount(): number {
+
+  return this.incompletePipe.transform(this.parties, false).length;
 }
 
 

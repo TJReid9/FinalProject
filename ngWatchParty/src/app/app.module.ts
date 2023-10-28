@@ -16,6 +16,7 @@ import { VenueComponent } from './components/venue/venue.component';
 import { PartiesComponent } from './components/parties/parties.component';
 import { RegisterComponent } from './components/register/register.component';
 import { TeamsComponent } from './components/teams/teams.component';
+import { IncompletePipe } from './pipes/incomplete.pipe';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { TeamsComponent } from './components/teams/teams.component';
     PartiesComponent,
     RegisterComponent,
     TeamsComponent,
+    IncompletePipe,
   ],
   imports: [
     BrowserModule,
@@ -38,7 +40,7 @@ import { TeamsComponent } from './components/teams/teams.component';
     HttpClientModule,
     NgbModule,
   ],
-  providers: [],
+  providers: [IncompletePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
