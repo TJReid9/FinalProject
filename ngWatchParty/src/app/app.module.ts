@@ -17,6 +17,7 @@ import { PartiesComponent } from './components/parties/parties.component';
 import { RegisterComponent } from './components/register/register.component';
 import { TeamsComponent } from './components/teams/teams.component';
 import { SportsFilterPipe } from './pipes/sports-filter.pipe';
+import { IncompletePipe } from './pipes/incomplete.pipe';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { SportsFilterPipe } from './pipes/sports-filter.pipe';
     RegisterComponent,
     TeamsComponent,
     SportsFilterPipe,
+    IncompletePipe,
   ],
   imports: [
     BrowserModule,
@@ -40,7 +42,7 @@ import { SportsFilterPipe } from './pipes/sports-filter.pipe';
     HttpClientModule,
     NgbModule,
   ],
-  providers: [],
+  providers: [IncompletePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
