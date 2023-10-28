@@ -41,12 +41,17 @@
    </p>
    <blockquote>
     <strong>Description:</strong><br>
-     {{selectedParty.description}}
+     <p>{{selectedParty.description}}</p>
    </blockquote>
-   <p>
-    <strong>Users attending Party: </strong><br>
-    {{selectedParty.user.username}}
-   </p>
+   <strong>Users attending Party: </strong><br>
+   <div *ngFor="let person of users">
+    <p >
+      <!-- <img [src]=person.photoUrl height="100px" width="100px"> -->
+      {{selectedParty.user.username}}
+     </p>
+
+   </div>
+
    <img [src]="selectedParty.imageUrl">
    <br>
    <hr>

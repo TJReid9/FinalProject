@@ -33,6 +33,7 @@ export class PartiesComponent implements OnInit{
   loggedInUser: User = new User();
   newTeam: Team = new Team();
   showComplete: boolean = false;
+  users: User[] = [];
 
 
   constructor(private partyService: PartyService,
@@ -48,6 +49,7 @@ export class PartiesComponent implements OnInit{
     this.loadVenue();
     this.loadParties();
     this.loadTeams();
+    this.loadUser();
 
     console.log(this.venues)
     this.activatedRoute.paramMap.subscribe({
@@ -115,6 +117,18 @@ loadAddress() {
   this.addressService.index().subscribe({
     next: (addresses) => {
       this.addresses = addresses;
+    },
+    error: (problem) => {
+      console.error('HomeComponent.loadParties(): error loading Parties:');
+      console.error(problem);
+    },
+  });
+}
+
+loadUser() {
+  this.userService.index().subscribe({
+    next: (users) => {
+      this.users = users;
     },
     error: (problem) => {
       console.error('HomeComponent.loadParties(): error loading Parties:');
