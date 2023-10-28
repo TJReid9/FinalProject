@@ -16,6 +16,7 @@ import { VenueComponent } from './components/venue/venue.component';
 import { PartiesComponent } from './components/parties/parties.component';
 import { RegisterComponent } from './components/register/register.component';
 import { TeamsComponent } from './components/teams/teams.component';
+import { SportsFilterPipe } from './pipes/sports-filter.pipe';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { TeamsComponent } from './components/teams/teams.component';
     PartiesComponent,
     RegisterComponent,
     TeamsComponent,
+    SportsFilterPipe,
   ],
   imports: [
     BrowserModule,
