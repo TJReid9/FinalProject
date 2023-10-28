@@ -29,7 +29,7 @@ export class TeamService {
 
 
   index(): Observable<Team[]> {
-    return this.http.get<Team[]>(this.url + 'watchparties/teams', this.getHttpOptions()).pipe(
+    return this.http.get<Team[]>(this.url + 'watchparties/teams').pipe(
       catchError((err: any) => {
         console.log(err);
         return throwError(
