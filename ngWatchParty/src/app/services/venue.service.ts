@@ -19,7 +19,7 @@ export class VenueService {
   ) { }
 
   index(): Observable<Venue[]> {
-    return this.http.get<Venue[]>(this.url + 'watchparties/venues', this.getHttpOptions()).pipe(
+    return this.http.get<Venue[]>(this.url + 'watchparties/venues').pipe(
       catchError((err: any) => {
         console.log(err);
         return throwError(

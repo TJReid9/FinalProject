@@ -30,9 +30,9 @@ export class VenueComponent implements OnInit{
   newAddress: Address = new Address;
 
   ngOnInit(): void{
-    if(!this.auth.checkLogin()){
-      this.router.navigateByUrl('/invalidURL');
-    }
+    // if(!this.auth.checkLogin()){
+    //   this.router.navigateByUrl('/invalidURL');
+    // }
     this.loadAddress();
     this.loadVenue();
     this.activatedRoute.paramMap.subscribe(
