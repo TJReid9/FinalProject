@@ -4,7 +4,6 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { LoginComponent } from './components/login/login.component';
@@ -18,6 +17,8 @@ import { RegisterComponent } from './components/register/register.component';
 import { TeamsComponent } from './components/teams/teams.component';
 import { SportsFilterPipe } from './pipes/sports-filter.pipe';
 import { IncompletePipe } from './pipes/incomplete.pipe';
+import { GoogleMapsModule } from '@angular/google-maps';
+import { FormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -36,11 +37,13 @@ import { IncompletePipe } from './pipes/incomplete.pipe';
     IncompletePipe,
   ],
   imports: [
+    GoogleMapsModule,
     BrowserModule,
     AppRoutingModule,
-    FormsModule,
     HttpClientModule,
     NgbModule,
+    FormsModule,
+
   ],
   providers: [IncompletePipe],
   bootstrap: [AppComponent]

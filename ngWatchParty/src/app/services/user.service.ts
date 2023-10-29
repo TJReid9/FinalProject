@@ -24,7 +24,7 @@ export class UserService {
       catchError((err: any) => {
         console.log(err);
         return throwError(
-          () => new Error('PartyService.index(): error retrieving List of Partys: ' + err)
+          () => new Error('UserService.index(): error retrieving List of Users: ' + err)
         );
       })
     );
