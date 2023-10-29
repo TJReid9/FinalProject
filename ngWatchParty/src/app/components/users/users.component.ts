@@ -1,63 +1,110 @@
+import { DirectMessagesService } from './../../services/direct-messages.service';
 import { AddressService } from './../../services/address.service';
 import { Address } from './../../models/address';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { User } from 'src/app/models/user';
+import { DirectMessage } from 'src/app/models/direct-message';
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.css']
 })
-export class UsersComponent {
+export class UsersComponent implements OnInit{
 
 loggedInUser: User = new User();
 selectedUser: User | null = null;
 editUser: User | null = null;
 editAddress: Address = new Address();
+messages: DirectMessage[] = []
+sortedMessage: DirectMessage[][] = [];
 
 constructor(
   private userService: UserService,
   private addressService: AddressService,
   private activatedRoute: ActivatedRoute,
   private router: Router,
-  private auth: AuthService
-){}
+  private auth: AuthService,
+  private dmService: DirectMessagesService
+  ){}
 
-ngOnInit(): void{
-  this.setLoggedInUser();
-  this.activatedRoute.paramMap.subscribe({
-    next: (params) => {
+  ngOnInit(): void{
+    this.setLoggedInUser();
+    this.activatedRoute.paramMap.subscribe({
+      next: (params) => {
 
-      let userIdStr = params.get('userId');
-      if (userIdStr){
-        let userId = parseInt(userIdStr);
-        if (isNaN(userId)){
-          this.router.navigateByUrl("/invalidUser");
-        }else{
-          this.userService.show(userId).subscribe({
-            next: (user) => {
-              this.selectedUser = user;
-            },
-            error: (err) => {
-              console.log('UserListHttpComponent.show(), error getting user');
-              this.router.navigateByUrl("/invalidUser");
-            }
+        let userIdStr = params.get('userId');
+        if (userIdStr){
+          let userId = parseInt(userIdStr);
+          if (isNaN(userId)){
+            this.router.navigateByUrl("/invalidUser");
+          }else{
+            this.userService.show(userId).subscribe({
+              next: (user) => {
+                this.selectedUser = user;
+              },
+              error: (err) => {
+                console.log('UserListHttpComponent.show(), error getting user');
+                this.router.navigateByUrl("/invalidUser");
+              }
 
-          })
+            })
+          }
         }
       }
+    })
+  }
+sortMessage(messages: DirectMessage[], user: User){
+  messages.forEach(message => {
+    console.log(user.id);
+    console.log(message.recipient.id);
+    if (message.sender.id == user.id || message.recipient.id ==  user.id){
+    console.log(message);
+    if (this.sortedMessage.length = 0){
+      let messageOfTwo: DirectMessage[] = [];
+        messageOfTwo.push(message);
+      this.sortedMessage.push(messageOfTwo);
+    }else{
+      this.sortedMessage.forEach(messages=> {
+        if((messages[0].recipient.id == message.recipient.id && messages[0].sender === message.recipient) ||
+        (messages[0].sender === message.recipient && messages[0].recipient === message.recipient)){
+          messages.push(message);
+        }else{
+          let messageOfTwo: DirectMessage[] = [];
+          messageOfTwo.push(message);
+          this.sortedMessage.push(messageOfTwo);
+        }
+
+      });
     }
-  })
+  }
+});
+
 }
+
+loadMessages() {
+  this.dmService.index().subscribe({
+    next: (messages) => {
+      this.messages = messages;
+      console.log(this.sortedMessage)
+    },
+    error: (problem) => {
+      console.error('userMessages.load(): error loading Messages:');
+      console.error(problem);
+    },
+  });
+}
+
 
 setLoggedInUser(){
   this.auth.getLoggedInUser().subscribe({
     next: (user) => {
       this.loggedInUser = user;
-      console.log(user);
+      this.loadMessages();
+      this.sortMessage(this.messages, user);
     },
     error: (err) => {
       console.error('UserComponent.setLoggedInUser: error getting logged in user')

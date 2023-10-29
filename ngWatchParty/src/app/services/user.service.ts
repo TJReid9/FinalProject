@@ -11,7 +11,7 @@ import { Observable, catchError, throwError } from 'rxjs';
 })
 export class UserService {
 
-  private url = environment.baseUrl + 'api/watchparties/';
+  private url = environment.baseUrl + 'api/';
   constructor(
     private http: HttpClient,
     private auth: AuthService
