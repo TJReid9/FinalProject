@@ -1,6 +1,5 @@
 package com.skilldistillery.watchparty.entities;
 
-import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Objects;

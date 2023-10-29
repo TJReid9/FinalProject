@@ -8,6 +8,15 @@ import { AuthService } from './services/auth.service';
 })
 export class AppComponent {
   title = 'ngWatchParty';
+  lat = 51.678418;
+  lng = 7.809007;
+
+  display: any;
+    center: google.maps.LatLngLiteral = {
+        lat: this.lat,
+        lng: this.lng,
+    };
+    zoom = 6;
 
   constructor(private auth: AuthService){}
   ngOnInit() {
