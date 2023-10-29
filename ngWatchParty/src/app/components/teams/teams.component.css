@@ -1,0 +1,13 @@
+.carousel > .carousel-inner > .carousel-item > img {
+  width: auto;
+  height: 275px;
+}
+
+.container {
+  text-align: center;
+  text-decoration: underline;
+}
+
+h1 {
+  text-align: center;
+}

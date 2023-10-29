@@ -1,3 +1,6 @@
+import { Address } from "./address";
+import { Team } from "./team";
+import { User } from "./user";
 import { Venue } from "./venue";
 
 export class Party {
@@ -12,7 +15,9 @@ export class Party {
   createDate: string;
   updateDate: string;
   venue: Venue;
-
+  address: Address;
+  team: Team;
+  user: User;
   constructor(
     id: number = 0,
     title: string = '',
@@ -24,7 +29,10 @@ export class Party {
     imageUrl: string = '',
     createDate: string = '',
     updateDate: string = '',
-    venue: Venue = new Venue()
+    venue: Venue = new Venue(),
+    address: Address = new Address(),
+    team: Team = new Team(),
+    user: User = new User(),
 
 
   ){
@@ -39,6 +47,9 @@ export class Party {
     this.createDate = createDate;
     this.updateDate = updateDate;
     this.venue = venue;
+    this.address = address;
+    this.team = team;
+    this.user = user;
 
   }
 }

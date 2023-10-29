@@ -8,7 +8,7 @@ public interface PartyService {
 	
 	List<Party> getAllPartys();
 	Party getParty(int partyId);
-	Party createParty(Party party);
+	Party createParty(Party party, String username);
 	Party updateParty(int partyId, Party party);
 	boolean deleteParty(int partyId);
 

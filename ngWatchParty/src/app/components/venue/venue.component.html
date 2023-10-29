@@ -1,11 +1,12 @@
 <h1 *ngIf="!selectedVenue">Watch Venues</h1>
 
-<div class="container" *ngIf="!selectedVenue">
-  <div class="row" *ngFor="let venue of venues">
-    <div class="col-12 col-md-6 col-lg-4">
-      <div class="card bg-transparent" style="margin-bottom: 10px" >
-        <img [src]="venue.imageUrl" (click)="displayVenue(venue)"/>
-        <h3 class="card-title" > <a href="/#/venues/{{venue.id}}">{{venue.name}}</a> </h3>
+<div class="container" *ngIf="!addNewVenue && !selectedVenue">
+  <button *ngIf="loggedIn()" (click)="displayAddNewVenue(newVenue)" class="btn btn-outline-dark">Add</button>
+  <div class="row">
+    <div class="col-12 col-md-6 col-lg-4" *ngFor="let venue of venues">
+      <div class="card bg-transparent" style="margin-bottom: 10px">
+        <img [src]="venue.imageUrl" (click)="displayVenue(venue);" height="250px" width="100%" />
+        <h3 class="card-title"> <a id="venueCards" (click)="displayVenue(venue)">{{venue.name}}</a> </h3>
         <p>{{venue.description}}</p>
       </div>
     </div>
@@ -13,33 +14,42 @@
 </div>
 
 <div *ngIf="selectedVenue && !editVenue ">
-  <button class="btn btn-danger" (click)="displayAllVenues()">Back</button>
-  <button *ngIf="loggedIn()" class="btn btn-outline-primary" type="submit"  (click)="setEditVenue()">Edit</button>
+  <button class="btn btn-outline-dark" (click)="displayAllVenues()">Back</button>
+  <button *ngIf="loggedIn()" class="btn btn-outline-dark" type="submit" (click)="setEditVenue()">Edit</button>
 
-  <button *ngIf="loggedIn()" (click)="deleteVenue(selectedVenue.id)" class="btn btn-danger">Delete</button>
+  <button *ngIf="loggedIn()" (click)="deleteVenue(selectedVenue.id)" class="btn btn-outline-dark">Delete</button>
 
 
-  <p>
-   ID: {{selectedVenue.id}}
-  </p>
+
   <h3>
     {{selectedVenue.name}}
   </h3>
   <p>
-    Date: {{selectedVenue.phone}}
+    <strong>Phone:</strong><br>
+    {{selectedVenue.phone}}<br>
+    <strong>Address:</strong><br>
+    {{selectedVenue.address.street}}<br>
+    {{selectedVenue.address.city}} , {{selectedVenue.address.state}} {{selectedVenue.address.zip}}
   </p>
   <p>
-    Start Time: {{selectedVenue.description}}
-   </p>
-   <img [src]="selectedVenue.imageUrl">
-   <br>
-   <p>
-    Enabled: {{selectedVenue.enabled}}
-   </p>
+    <strong>Description:</strong><br>
+    {{selectedVenue.description}}
+  </p>
+  <div class="image-table">
+    <table>
+      <tr>
+        <td><img [src]="selectedVenue.imageUrl" height="300px" width="100%"></td>
+        <td><google-map height="300px" width="250px" [center]="center" [zoom]="zoom" (mapClick)="moveMap($event)" (mapMousemove)="move($event)"/></td>
+      </tr>
+    </table>
 
-</div>
 
-<div *ngIf="editVenue" class="container" >
+  </div>
+  </div>
+
+<br>
+
+<div *ngIf="editVenue" class="container">
   <form id="updateVenue">
     <div class="mb-3">
     </div>
@@ -81,63 +91,63 @@
       <input type="text" class="form-control" name="websiteUrl" [(ngModel)]="editVenue.websiteUrl" />
     </div>
 
-    <button class="btn btn-success" type="submit"  (click)="updateVenue(editVenue.id, editVenue)">Save</button>
+    <button class="btn btn-success" type="submit" (click)="updateVenue(editVenue.id, editVenue)">Save</button>
 
     <button class="btn btn-danger" type="submit" (click)="editVenue = null">Cancel</button>
 
   </form>
 </div>
 
-<!-- <div *ngIf="addNewVenue && !selectedVenue && !editVenue">
+<div *ngIf="addNewVenue && !selectedVenue && !editVenue">
   <form name="newVenueForm">
 
-    <label for="title">Title</label>
-    <input class="form-control" type="text" name="title" [(ngModel)]="newVenue.title" >
-    <br>
-  <div class="input-group">
-    <span class="input-group-text">Date and Time</span>
-    <input type="date" aria-label="Date" class="form-control"  name="venueDate" [(ngModel)]="newVenue.venueDate">
-    <input type="time" aria-label="time" class="form-control"  name="startTime" [(ngModel)]="newVenue.startTime">
-  </div>
-
-    <label for="imageUrl">Image Url</label>
-    <input class="form-control" type="text" name="imageUrl" [(ngModel)]="newVenue.imageUrl" >
-    <br>
-
-    <label for="completed">Completed</label>
-    <input  type="checkbox" name="completed" value="" class="form-check-input" [(ngModel)]="newVenue.completed" >
-    <br> -->
-
-
-
-    <!-- <div class="mb-3">
+    <div class="mb-3">
       <label for="venue">Venues:</label>
-      <select name="venue" [(ngModel)]="newVenue.venue.id">
+      <select name="venue" [(ngModel)]="newVenue.id">
         <option *ngFor="let venue of venues" value="{{venue.id}}">{{venue.name}}</option>
       </select>
     </div>
     <h3>Add New Venue:</h3>
     <div class="mb-3">
+      <label for="name" class="form-label">Name:</label>
+      <input type="text" class="form-control" name="name" [(ngModel)]="newVenue.name" />
+    </div>
+    <div class="mb-3">
       <label for="description" class="form-label">Description:</label>
-      <input type="text" class="form-control" name="description" [(ngModel)]="newVenue.venue.description" />
+      <input type="text" class="form-control" name="description" [(ngModel)]="newVenue.description" />
+    </div>
+    <div class="mb-3">
+      <label for="phone" class="form-label">Phone:</label>
+      <input type="text" class="form-control" name="city" [(ngModel)]="newVenue.phone" />
+    </div>
+    <div class="mb-3">
+      <label for="street" class="form-label">Street:</label>
+      <input type="text" class="form-control" name="street" [(ngModel)]="newVenue.address.street" />
     </div>
     <div class="mb-3">
       <label for="city" class="form-label">City:</label>
-      <input type="text" class="form-control" name="city" [(ngModel)]="newVenue.venue.phone" />
+      <input type="text" class="form-control" name="city" [(ngModel)]="newVenue.address.city" />
     </div>
     <div class="mb-3">
       <label for="state" class="form-label">State:</label>
-      <input type="text" class="form-control" name="state" [(ngModel)]="newVenue.venue.imageUrl" />
+      <input type="text" class="form-control" name="state" [(ngModel)]="newVenue.address.state" />
     </div>
     <div class="mb-3">
-      <label for="state" class="form-label">State:</label>
-      <input type="text" class="form-control" name="state" [(ngModel)]="newVenue.venue.websiteUrl" />
+      <label for="zip" class="form-label">Zip Code:</label>
+      <input type="text" class="form-control" name="zip" [(ngModel)]="newVenue.address.zip" />
+    </div>
+    <div class="mb-3">
+      <label for="imageUrl" class="form-label">Image URL:</label>
+      <input type="text" class="form-control" name="imageUrl" [(ngModel)]="newVenue.imageUrl" />
+    </div>
+    <div class="mb-3">
+      <label for="websiteUrl" class="form-label">Website URL:</label>
+      <input type="text" class="form-control" name="websiteUrl" [(ngModel)]="newVenue.websiteUrl" />
     </div>
 
   </form>
-  <button class="btn btn-success" type="submit"  (click)="addVenue(newVenue)">Save</button>
+  <button class="btn btn-success" type="submit" (click)="addVenue(newVenue)">Save</button>
 
-    <button class="btn btn-danger" type="submit" (click)="addNewVenue = null">Cancel</button>
+  <button class="btn btn-danger" type="submit" (click)="addNewVenue = null">Cancel</button>
 
-  </div>
- -->
+</div>
