@@ -1,0 +1,12 @@
+#venueCards {
+  cursor: pointer;
+  text-decoration: underline;
+  color: whitesmoke;
+
+}
+
+#venueCards:hover  {
+  color: crimson;
+}
+
+

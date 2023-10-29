@@ -11,7 +11,7 @@ import { Observable, catchError, throwError } from 'rxjs';
 })
 export class UserService {
 
-  private url = environment.baseUrl + 'api/watchparties/';
+  private url = environment.baseUrl + 'api/';
   constructor(
     private http: HttpClient,
     private auth: AuthService
@@ -24,7 +24,7 @@ export class UserService {
       catchError((err: any) => {
         console.log(err);
         return throwError(
-          () => new Error('PartyService.index(): error retrieving List of Partys: ' + err)
+          () => new Error('UserService.index(): error retrieving List of Users: ' + err)
         );
       })
     );

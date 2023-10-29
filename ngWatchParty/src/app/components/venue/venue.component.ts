@@ -1,67 +1,123 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Address } from 'src/app/models/address';
 import { Venue } from 'src/app/models/venue';
 import { AddressService } from 'src/app/services/address.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { VenueService } from 'src/app/services/venue.service';
+import { MapGeocoder } from '@angular/google-maps';
 
 @Component({
   selector: 'app-venue',
   templateUrl: './venue.component.html',
-  styleUrls: ['./venue.component.css']
+  styleUrls: ['./venue.component.css'],
 })
-export class VenueComponent implements OnInit{
+export class VenueComponent implements OnInit, AfterViewInit {
+  constructor(
+    private venueService: VenueService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
+    private auth: AuthService,
+    private addressService: AddressService,
+    private geocoder: MapGeocoder
+  ) {}
 
-  constructor(private venueService: VenueService,
-              private activatedRoute: ActivatedRoute,
-              private router: Router,
-              private auth: AuthService,
-              private addressService: AddressService
-              ) {}
-
-  selectedVenue: Venue|null = null;
+  selectedVenue: Venue | null = null;
   newVenue: Venue = new Venue();
-  editVenue: Venue|null = null;
+  editVenue: Venue | null = null;
   showCompleted: boolean = false;
   venues: Venue[] = [];
-  addresses: Address [] = [];
+  addresses: Address[] = [];
   addNewVenue: Venue | null = null;
-  newAddress: Address = new Address;
+  newAddress: Address = new Address();
+  address = '';
+  latitude: number = 0;
+  longitude: number = 0;
+  display: any;
 
-  ngOnInit(): void{
-    // if(!this.auth.checkLogin()){
-    //   this.router.navigateByUrl('/invalidURL');
-    // }
+  center: google.maps.LatLngLiteral = {
+    lat: 24,
+    lng: 12,
+  };
+  zoom = 15;
+
+  moveMap(event: google.maps.MapMouseEvent) {
+    if (event.latLng != null) this.center = event.latLng.toJSON();
+  }
+
+  move(event: google.maps.MapMouseEvent) {
+    if (event.latLng != null) this.display = event.latLng.toJSON();
+  }
+
+  ngAfterViewInit(): void {
+    // this.center = {
+    //   lat: this.latitude,
+    //   lng: this.longitude,
+    // };
+    this.displayMap(this.address);
+
+  }
+
+  ngOnInit(): void {
     this.loadAddress();
     this.loadVenue();
-    this.activatedRoute.paramMap.subscribe(
-      {
-        next: (params) => {
-          let venueIdStr = params.get("venueId");
-          if(venueIdStr) {
-            let venueId = parseInt(venueIdStr);
-            if(isNaN(venueId)) {
-              this.router.navigateByUrl('/invalidVenueId');
-            } else {
-              this.venueService.show(venueId).subscribe({
-                next: (venue) => {
-                  this.selectedVenue = venue;
-                },
-                error: (nojoy) => {
-                  console.error('VenueListHttpComponent.show(): error getting Venue:');
-                  this.router.navigateByUrl('/invalidVenueId');
-                }
-              });
-            }
+
+    this.activatedRoute.paramMap.subscribe({
+      next: (params) => {
+        let venueIdStr = params.get('venueId');
+        if (venueIdStr) {
+          let venueId = parseInt(venueIdStr);
+          if (isNaN(venueId)) {
+            this.router.navigateByUrl('/invalidVenueId');
+          } else {
+            this.venueService.show(venueId).subscribe({
+              next: (venue) => {
+                this.selectedVenue = venue;
+              },
+              error: (nojoy) => {
+                console.error(
+                  'VenueListHttpComponent.show(): error getting Venue:'
+                );
+                this.router.navigateByUrl('/invalidVenueId');
+              },
+            });
           }
         }
-      }
+      },
+    });
+  }
+
+  displayMap(address: string) {
+    console.log('venue address ' + address);
+    this.geocoder.geocode({ address }).subscribe((results: any) => {
+      console.log(results);
+      let location = results.results[0].geometry.location;
+      console.log(location);
+      this.latitude = location.lat();
+      console.log(this.latitude);
+      this.longitude = location.lng();
+      console.log(this.longitude);
+      this.center = {lat: this.latitude, lng: this.longitude}
+    });
+  }
+
+  displayVenue(venue: Venue) {
+    this.selectedVenue = venue;
+
+    console.log(`${this.latitude} ${this.longitude}`);
+    this.displayMap(
+      venue.address.street +
+        ', ' +
+        venue.address.city +
+        ', ' +
+        venue.address.state +
+        ' ' +
+        venue.address.zip
     );
   }
 
-  displayVenue(venue: Venue){
-    this.selectedVenue = venue;
+  linkMap(event: Event, venue: Venue): void {
+    this.displayVenue(venue);
   }
 
   loggedIn(): boolean {
@@ -72,7 +128,7 @@ export class VenueComponent implements OnInit{
     return this.venues.length;
   }
 
-  displayAddNewVenue(venue: Venue){
+  displayAddNewVenue(venue: Venue) {
     this.addNewVenue = venue;
   }
 
@@ -89,13 +145,15 @@ export class VenueComponent implements OnInit{
         this.loadVenue();
       },
       error: (nojoy) => {
-        console.error('VenueListHttpComponent.addVenue(): error creating Venue:');
+        console.error(
+          'VenueListHttpComponent.addVenue(): error creating Venue:'
+        );
         console.error(nojoy);
       },
     });
   }
 
-  displayAllVenues(): void{
+  displayAllVenues(): void {
     this.selectedVenue = null;
   }
 
@@ -103,14 +161,16 @@ export class VenueComponent implements OnInit{
     this.editVenue = Object.assign({}, this.selectedVenue);
   }
 
-  updateVenue(id: number,venue: Venue) {
-    this.venueService.update(id,venue).subscribe({
+  updateVenue(id: number, venue: Venue) {
+    this.venueService.update(id, venue).subscribe({
       next: (result) => {
         this.newVenue = new Venue();
         this.loadVenue();
       },
       error: (nojoy) => {
-        console.error('VenueListHttpComponent.addVenue(): error updating Venue:');
+        console.error(
+          'VenueListHttpComponent.addVenue(): error updating Venue:'
+        );
         console.error(nojoy);
       },
     });
@@ -122,41 +182,35 @@ export class VenueComponent implements OnInit{
         this.loadVenue();
       },
       error: (nojoy) => {
-        console.error('VenueListHttpComponent.addVenue(): error deleting Venue:');
+        console.error(
+          'VenueListHttpComponent.addVenue(): error deleting Venue:'
+        );
         console.error(nojoy);
       },
     });
   }
 
   loadVenue(): void {
-    this.venueService.index().subscribe(
-      {
-        next: (venues) => {
-          this.venues = venues;
-        },
-        error: (problem) => {
-          console.error('VenueListComponent.loadVenue(): error loading venues:');
-          console.error(problem);
-        }
-      }
-    );
+    this.venueService.index().subscribe({
+      next: (venues) => {
+        this.venues = venues;
+      },
+      error: (problem) => {
+        console.error('VenueListComponent.loadVenue(): error loading venues:');
+        console.error(problem);
+      },
+    });
   }
 
   loadAddress(): void {
-    this.addressService.index().subscribe(
-      {
-        next: (addresses) => {
-          this.addresses = addresses;
-        },
-        error: (problem) => {
-          console.error('VenueListComponent.loadVenue(): error loading venues:');
-          console.error(problem);
-        }
-      }
-    );
+    this.addressService.index().subscribe({
+      next: (addresses) => {
+        this.addresses = addresses;
+      },
+      error: (problem) => {
+        console.error('VenueListComponent.loadVenue(): error loading venues:');
+        console.error(problem);
+      },
+    });
   }
-
-
-
-
 }

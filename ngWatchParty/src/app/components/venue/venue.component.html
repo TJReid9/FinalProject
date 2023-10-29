@@ -4,9 +4,9 @@
   <button *ngIf="loggedIn()" (click)="displayAddNewVenue(newVenue)" class="btn btn-outline-dark">Add</button>
   <div class="row">
     <div class="col-12 col-md-6 col-lg-4" *ngFor="let venue of venues">
-      <div class="card bg-transparent" style="margin-bottom: 10px" >
-        <img [src]="venue.imageUrl" (click)="displayVenue(venue)" height="250px" width="100%"/>
-        <h3 class="card-title" > <a href="/#/venues/{{venue.id}}">{{venue.name}}</a> </h3>
+      <div class="card bg-transparent" style="margin-bottom: 10px">
+        <img [src]="venue.imageUrl" (click)="displayVenue(venue);" height="250px" width="100%" />
+        <h3 class="card-title"> <a id="venueCards" (click)="displayVenue(venue)">{{venue.name}}</a> </h3>
         <p>{{venue.description}}</p>
       </div>
     </div>
@@ -15,7 +15,7 @@
 
 <div *ngIf="selectedVenue && !editVenue ">
   <button class="btn btn-outline-dark" (click)="displayAllVenues()">Back</button>
-  <button *ngIf="loggedIn()" class="btn btn-outline-dark" type="submit"  (click)="setEditVenue()">Edit</button>
+  <button *ngIf="loggedIn()" class="btn btn-outline-dark" type="submit" (click)="setEditVenue()">Edit</button>
 
   <button *ngIf="loggedIn()" (click)="deleteVenue(selectedVenue.id)" class="btn btn-outline-dark">Delete</button>
 
@@ -25,23 +25,31 @@
     {{selectedVenue.name}}
   </h3>
   <p>
-   <strong>Phone:</strong><br>
-   {{selectedVenue.phone}}<br>
+    <strong>Phone:</strong><br>
+    {{selectedVenue.phone}}<br>
     <strong>Address:</strong><br>
     {{selectedVenue.address.street}}<br>
     {{selectedVenue.address.city}} , {{selectedVenue.address.state}} {{selectedVenue.address.zip}}
   </p>
   <p>
-   <strong>Description:</strong><br>
-   {{selectedVenue.description}}
-   </p>
-   <img [src]="selectedVenue.imageUrl">
-   <br>
+    <strong>Description:</strong><br>
+    {{selectedVenue.description}}
+  </p>
+  <div class="image-table">
+    <table>
+      <tr>
+        <td><img [src]="selectedVenue.imageUrl" height="300px" width="100%"></td>
+        <td><google-map height="300px" width="250px" [center]="center" [zoom]="zoom" (mapClick)="moveMap($event)" (mapMousemove)="move($event)"/></td>
+      </tr>
+    </table>
 
 
-</div>
+  </div>
+  </div>
 
-<div *ngIf="editVenue" class="container" >
+<br>
+
+<div *ngIf="editVenue" class="container">
   <form id="updateVenue">
     <div class="mb-3">
     </div>
@@ -83,7 +91,7 @@
       <input type="text" class="form-control" name="websiteUrl" [(ngModel)]="editVenue.websiteUrl" />
     </div>
 
-    <button class="btn btn-success" type="submit"  (click)="updateVenue(editVenue.id, editVenue)">Save</button>
+    <button class="btn btn-success" type="submit" (click)="updateVenue(editVenue.id, editVenue)">Save</button>
 
     <button class="btn btn-danger" type="submit" (click)="editVenue = null">Cancel</button>
 
@@ -138,9 +146,8 @@
     </div>
 
   </form>
-  <button class="btn btn-success" type="submit"  (click)="addVenue(newVenue)">Save</button>
+  <button class="btn btn-success" type="submit" (click)="addVenue(newVenue)">Save</button>
 
-    <button class="btn btn-danger" type="submit" (click)="addNewVenue = null">Cancel</button>
+  <button class="btn btn-danger" type="submit" (click)="addNewVenue = null">Cancel</button>
 
-  </div>
-
+</div>
