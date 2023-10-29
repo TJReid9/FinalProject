@@ -1,20 +1,24 @@
 package com.skilldistillery.watchparty.entities;
 
-import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Party {
@@ -60,6 +64,9 @@ public class Party {
 	@JoinColumn(name = "team_id")
 	private Team team;
 	
+
+	@OneToMany(mappedBy = "party", fetch = FetchType.EAGER)
+	private List<PartyGoer> partyGoers;
 	
 
 	public Party() {
@@ -170,12 +177,22 @@ public class Party {
 		this.team = team;
 	}
 
+	public List<PartyGoer> getPartyGoers() {
+		return partyGoers;
+	}
+
+	public void setPartyGoers(List<PartyGoer> partyGoers) {
+		this.partyGoers = partyGoers;
+	}
+
+	
+
 	@Override
 	public String toString() {
 		return "Party [id=" + id + ", title=" + title + ", partyDate=" + partyDate + ", startTime=" + startTime
 				+ ", description=" + description + ", completed=" + completed + ", enabled=" + enabled + ", imageUrl="
 				+ imageUrl + ", createDate=" + createDate + ", updateDate=" + updateDate + ", venue=" + venue
-				+ ", user=" + user + ", team=" + team + "]";
+				+ ", user=" + user + ", team=" + team + ", partyGoers=" + partyGoers + "]";
 	}
 
 	@Override

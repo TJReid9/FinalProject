@@ -12,6 +12,7 @@ import { TeamService } from 'src/app/services/team.service';
 import { VenueService } from 'src/app/services/venue.service';
 import { User } from 'src/app/models/user';
 import { IncompletePipe } from 'src/app/pipes/incomplete.pipe';
+import { PartyGoer } from 'src/app/models/party-goer';
 
 @Component({
   selector: 'app-parties',
@@ -34,6 +35,9 @@ export class PartiesComponent implements OnInit{
   newTeam: Team = new Team();
   showComplete: boolean = false;
   users: User[] = [];
+  editUser: User | null = null;
+  partyGoers: PartyGoer[] = [];
+  pg: PartyGoer = new PartyGoer();
 
 
   constructor(private partyService: PartyService,
@@ -209,7 +213,7 @@ deleteParty(id: number) {
   this.partyService.destroy(id).subscribe({
     next: (result) => {
       this.reload();
-
+      this.selectedParty = null;
     },
     error: (nojoy) => {
       console.error('PartiesComponent.reload(): error loading party:');
@@ -218,5 +222,22 @@ deleteParty(id: number) {
   });
 }
 
+addUserToParty(user: User, userId: number, party: Party): void {
+  console.log(user);
+  this.userService.update(userId, user).subscribe({
+    next: (result) => {
+       this.selectedParty = this.editParty;
+       this.pg = new PartyGoer();
+        this.reload();
+
+
+
+    },
+    error: (nojoy) => {
+      console.error('PartiesComponent.reload(): error loading party: ');
+      console.error(nojoy);
+    },
+  });
+}
 
 }

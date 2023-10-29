@@ -20,3 +20,28 @@ a:hover {
   text-decoration: underline;
 }
 
+
+.column {
+  float: left;
+  width: 10%;
+  /* padding: 1px; */
+}
+
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.table{
+  width: 100px;
+
+}
+
+
+#partyPeople{
+
+  background-color: #d8f0da00;
+
+}
+

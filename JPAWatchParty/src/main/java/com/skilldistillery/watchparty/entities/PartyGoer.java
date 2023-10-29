@@ -4,15 +4,28 @@ import java.util.Objects;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "party_goers")
+@Table(name = "party_goer")
 public class PartyGoer {
 	
 	@EmbeddedId
 	private PartyGoerId id;
 
+	@ManyToOne
+	@JoinColumn(name="party_id")
+	@MapsId(value="partyId")
+	private Party party;
+	
+	@ManyToOne
+	@JoinColumn(name="user_id")
+	@MapsId(value="userId")
+	private User user;
+	
 	public PartyGoer() {
 		super();
 	}

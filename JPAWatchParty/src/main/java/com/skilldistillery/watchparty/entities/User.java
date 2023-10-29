@@ -7,6 +7,7 @@ import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -57,6 +58,10 @@ public class User {
 	@JsonIgnore
 	@OneToMany(mappedBy = "friend")
 	private List<Friend> friends;
+	
+//	@JsonIgnore
+//	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+//	private List<PartyGoer> partyGoers;
 
 	public User() {
 		super();
