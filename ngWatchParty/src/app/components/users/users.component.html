@@ -1,6 +1,7 @@
-
+<table>
+<td>
 <div *ngIf="!editUser">
-  <div class="col-12 col-md-6 col-lg-4">
+  <div class="col-10 col-md-6 col-lg-4">
     <div class="card bg-transparent" style="margin-bottom: 10px" >
       <img [src]="loggedInUser.photoUrl" (click)="setEditUser()" height="20%" width="20%"/>
       <h3>{{loggedInUser.username}}</h3>
@@ -53,3 +54,11 @@
 
   <button class="btn btn-danger" type="submit" (click)="clearEditAddress()">Cancel</button>
 </div>
+</td>
+<td>
+  {{messages[0].content}}
+<div *ngFor="let message of sortedMessage">
+{{message[0].sender.username}}
+</div>
+</td>
+</table>
