@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import com.skilldistillery.watchparty.entities.Party;
 import com.skilldistillery.watchparty.entities.PartyGoer;
 import com.skilldistillery.watchparty.entities.PartyGoerId;
-import com.skilldistillery.watchparty.entities.User;
 import com.skilldistillery.watchparty.repositories.PartyGoerRepository;
 import com.skilldistillery.watchparty.repositories.PartyRepository;
 import com.skilldistillery.watchparty.repositories.UserRepository;
@@ -48,11 +47,13 @@ public class PartyServiceImpl implements PartyService {
 		System.out.println(newParty.getId());
 		System.out.println(newParty.getUser().getId());
 		partyRepo.searchById(newParty.getId());
-//		PartyGoer partyGoer = new PartyGoer();
-//		PartyGoerId id = new PartyGoerId(newParty.getUser().getId(), newParty.getId());
-//		partyGoer.setId(id);
-//		System.out.println(partyGoer.getId());
-//		partyGoerRepo.saveAndFlush(partyGoer);
+		PartyGoer partyGoer = new PartyGoer();
+		PartyGoerId id = new PartyGoerId(newParty.getUser().getId(), newParty.getId());
+		partyGoer.setId(id);
+		System.out.println(partyGoer.getId());
+		partyGoer.setUser(userRepo.findByUsername(username));
+		partyGoer.setParty(newParty);
+		partyGoerRepo.saveAndFlush(partyGoer);
 //		List<PartyGoer> partyGoers = new ArrayList<>();
 //		partyGoers.add(partyGoer);
 //		System.out.println(partyGoers);
@@ -95,7 +96,7 @@ public class PartyServiceImpl implements PartyService {
 			dbParty.setImageUrl(party.getImageUrl());
 			dbParty.setVenue(party.getVenue());
 			dbParty.setTeam(party.getTeam());
-			//dbParty.setPartyGoers(party.getPartyGoers());
+			dbParty.setPartyGoers(party.getPartyGoers());
 			partyRepo.saveAndFlush(dbParty);
 		}
 		return dbParty;
@@ -104,12 +105,43 @@ public class PartyServiceImpl implements PartyService {
 	@Override
 	public boolean deleteParty(int partyId) {
 		boolean deleted = false;
+	
 		Party partyToDelete = partyRepo.searchById(partyId);
 		if(partyToDelete != null) {
+			if(partyToDelete.getPartyGoers() != null) {
+				partyRepo.findById(partyId);
+				List<PartyGoer> pg = new ArrayList<>();
+				pg = partyToDelete.getPartyGoers();
+					for (PartyGoer partyGoer : pg) {
+						partyGoerRepo.delete(partyGoer);	
+					}
+			}
 			partyRepo.deleteById(partyToDelete.getId());
 			deleted = true;
 		}
 		return deleted;
+	}
+
+	@Override
+	public List<PartyGoer> getAllPartyGoers(Party party) {
+		partyRepo.findById(party.getId());
+		List<PartyGoer> pg = party.getPartyGoers(); 
+			for (PartyGoer partyGoer : pg) {
+				pg.remove(partyGoer);	
+			}
+	
+		return pg;
+	}
+
+	@Override
+	public PartyGoer updatePartyGoers(int partyId, Party party, PartyGoer partyGoers, String username) {
+		PartyGoer partyGoer = new PartyGoer();
+		PartyGoerId id = new PartyGoerId(party.getUser().getId(), party.getId());
+		partyGoer.setId(id);
+		partyGoer.setUser(userRepo.findByUsername(username));
+		partyGoer.setParty(party);
+		partyGoerRepo.saveAndFlush(partyGoer);
+		return partyGoer;
 	}
 
 }

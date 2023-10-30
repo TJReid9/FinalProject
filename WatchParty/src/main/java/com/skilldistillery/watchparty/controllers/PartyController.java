@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.skilldistillery.watchparty.entities.Party;
-import com.skilldistillery.watchparty.entities.User;
+import com.skilldistillery.watchparty.entities.PartyGoer;
 import com.skilldistillery.watchparty.services.PartyService;
 
 @CrossOrigin({"*", "http://localhost/"})
@@ -90,6 +90,21 @@ public class PartyController {
 			res.setStatus(400);
 			e.printStackTrace();
 		}
+	}
+	
+	@PutMapping("watchparties/{partyId}/partyGoers")
+	public Party updatePartyAndPartyGoers(@RequestBody Party party, @RequestBody PartyGoer pg, @PathVariable int partyId, Principal principal, HttpServletResponse res) {
+		Party updatedParty = null;
+		try {
+			updatedParty = partyService.updatePartyGoers(partyId, party, pg, principal.getName());
+			if(updatedParty == null) {
+				res.setStatus(404);
+			}
+		} catch (Exception e) {
+			res.setStatus(400);
+			e.printStackTrace();
+		}
+		return updatedParty;
 	}
 
 }
