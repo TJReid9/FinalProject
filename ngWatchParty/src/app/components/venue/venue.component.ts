@@ -23,8 +23,10 @@ export class VenueComponent implements OnInit, AfterViewInit {
   ) {}
 
   selectedVenue: Venue | null = null;
+  selectedAddress: Address | null = null;
   newVenue: Venue = new Venue();
   editVenue: Venue | null = null;
+  editAddress: Address | null = null;
   showCompleted: boolean = false;
   venues: Venue[] = [];
   addresses: Address[] = [];
@@ -209,6 +211,22 @@ export class VenueComponent implements OnInit, AfterViewInit {
       },
       error: (problem) => {
         console.error('VenueListComponent.loadVenue(): error loading venues:');
+        console.error(problem);
+      },
+    });
+  }
+
+
+  updateAddress(address: Address, id: number) {
+    console.log(address);
+    this.addressService.update(id, address).subscribe({
+      next: (addresses) => {
+        this.selectedAddress = this.editAddress;
+        this.loadAddress();
+        this.editAddress = null;
+      },
+      error: (problem) => {
+        console.error('PartiesComponent.reload(): error loading party: ');
         console.error(problem);
       },
     });
