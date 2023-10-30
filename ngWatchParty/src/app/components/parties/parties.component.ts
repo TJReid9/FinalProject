@@ -33,11 +33,18 @@ export class PartiesComponent implements OnInit{
   loggedInUser: User = new User();
   newTeam: Team = new Team();
   showComplete: boolean = false;
+  today = new Date();
 
 
   constructor(private partyService: PartyService,
     private activatedRoute: ActivatedRoute,
-    private router: Router, private auth: AuthService,private incompletePipe: IncompletePipe, private venueService: VenueService, private addressService: AddressService,private teamService: TeamService, private userService: UserService){}
+    private router: Router,
+    private auth: AuthService,
+    private incompletePipe: IncompletePipe,
+    private venueService: VenueService,
+    private addressService: AddressService,
+    private teamService: TeamService,
+    private userService: UserService){}
 
     loggedIn(): boolean {
       return this.auth.checkLogin();
@@ -79,11 +86,20 @@ loadParties() {
   this.partyService.index().subscribe({
     next: (parties) => {
       this.parties = parties;
+      this.checkCompleted(parties);
     },
     error: (problem) => {
       console.error('HomeComponent.loadParties(): error loading Parties:');
       console.error(problem);
     },
+  });
+}
+
+checkCompleted(parties: Party[]){
+  parties.forEach(party => {
+    if(party.partyDate < this.today){
+      party.completed = true;
+    }
   });
 }
 

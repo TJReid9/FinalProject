@@ -6,7 +6,7 @@ import { Venue } from "./venue";
 export class Party {
   id: number;
   title: string;
-  partyDate: string;
+  partyDate: Date;
   startTime: string;
   description: string;
   completed: boolean;
@@ -21,7 +21,7 @@ export class Party {
   constructor(
     id: number = 0,
     title: string = '',
-    partyDate: string = '',
+    partyDate: Date = new Date (2023-10-30),
     startTime: string = '',
     description: string = '',
     completed: boolean = false,
