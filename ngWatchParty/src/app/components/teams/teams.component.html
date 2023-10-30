@@ -1,12 +1,12 @@
 
 <h1 *ngIf="!selectedTeam">Teams</h1>
 <hr>
-<div class="container">
+<div class="container" >
     <h3>College Football</h3>
-  <ngb-carousel >
+  <ngb-carousel>
       <ng-template  ngbSlide *ngFor="let team of teams | sportsFilter: 1" >
         <div class="d-flex justify-content-center">
-          <img   [src]=team.logoUrl alt=team.name class="d-block"  height="25%" width="25%"  (click)="displayTeam(team)">
+          <img [src]=team.logoUrl alt=team.name class="d-block"  height="25%" width="25%"  (click)="displayTeam(team)">
         </div>
           <div class="carousel-caption">
             <a href="/#/teams/{{team.id}}" style="text-decoration:none"><h3 style="color: white">{{team.name}}</h3></a>
