@@ -12,7 +12,7 @@ export class User {
   address: Address | null = null;
   createDate: string;
   updateDate: string;
-
+  partyId: number;
 
   constructor(
     id: number = 0,
@@ -25,7 +25,8 @@ export class User {
     firstName: string = '',
     photoUrl: string = '',
     createDate: string = '',
-    updateDate: string = ''
+    updateDate: string = '',
+    partyId: number = 0,
   ){
     this.id = id;
     this.username = username;
@@ -38,5 +39,6 @@ export class User {
     this.updateDate = updateDate;
     this.firstName = firstName;
     this.photoUrl = photoUrl;
+    this.partyId = partyId;
   }
 }

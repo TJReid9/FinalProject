@@ -25,7 +25,7 @@
 <hr>
 
   <h3>
-    {{selectedParty.title}}
+    {{selectedParty.title}} <span> <button class="btn btn-outline-dark" (click)="addUserToParty(selectedParty.user, selectedParty.user.id, selectedParty)">Join</button></span>
   </h3>
   <p>
      <strong>Date:</strong><br>
@@ -43,14 +43,25 @@
    <blockquote>
     <p>
     <strong>Description:</strong><br>
-    {{selectedParty.description}}
-    </p>
+
+     <p>{{selectedParty.description}}</p>
    </blockquote>
-  </div>
-   <p>
-    <strong>Users attending Party: </strong><br>
-    {{selectedParty.user.username}}
-   </p>
+   <strong>Users attending Party: </strong><br>
+
+
+      <div class="table-responsive" *ngFor="let pg of partyGoers">
+        <table class="table" >
+        <tr *ngFor="let party of parties">
+          <td *ngFor="let dude of users">
+
+             <img *ngIf="pg.userId == party.userId" id="partyPeople" [src]=dude.photoUrl height="100px" width="100px">
+          </td>
+        </tr>
+      </table>
+      </div>
+
+
+
    <img [src]="selectedParty.imageUrl">
    <br>
    <hr>
@@ -65,8 +76,12 @@
    </p>
 
 </div>
+</div>
 
-<div *ngIf="editParty" class="container" >
+<div  class="container" >
+
+  <div *ngIf="editParty">
+
   <form id="updateParty" name="updatePartyForm">
 
     <label for="title">Title</label>
@@ -127,9 +142,12 @@
     <button class="btn btn-outline-dark" type="submit" (click)="editParty = null">Cancel</button>
   </form>
 
+</div>
 
 
 </div>
+
+
 
 <div *ngIf="addNewParty && !selectedParty && !editParty">
 <form name="newPartyForm">
@@ -176,3 +194,5 @@
   <button class="btn btn-outline-dark" type="submit" (click)="addNewParty = null">Cancel</button>
 </form>
 </div>
+
+
