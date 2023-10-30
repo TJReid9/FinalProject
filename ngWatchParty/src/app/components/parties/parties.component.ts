@@ -1,6 +1,5 @@
 import { UserService } from 'src/app/services/user.service';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import { Address } from 'src/app/models/address';
 import { Party } from 'src/app/models/party';
 import { Team } from 'src/app/models/team';
@@ -13,6 +12,7 @@ import { VenueService } from 'src/app/services/venue.service';
 import { User } from 'src/app/models/user';
 import { IncompletePipe } from 'src/app/pipes/incomplete.pipe';
 import { PartyGoer } from 'src/app/models/party-goer';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-parties',
@@ -23,7 +23,6 @@ export class PartiesComponent implements OnInit{
 
   parties: Party[] = [];
   selectedParty: Party | null = null;
-  editParty: Party | null = null;
   addNewParty: Party | null = null;
   newParty: Party = new Party();
   newAddress: Address = new Address();
@@ -38,6 +37,7 @@ export class PartiesComponent implements OnInit{
   editUser: User | null = null;
   partyGoers: PartyGoer[] = [];
   pg: PartyGoer = new PartyGoer();
+  editParty: Party | null  = null;
 
 
   constructor(private partyService: PartyService,
@@ -165,6 +165,7 @@ displayAllParties(): void{
 
 setEditParty() {
   this.editParty = Object.assign({}, this.selectedParty);
+  console.log(this.editParty);
 }
 
 displayAddParty(party: Party){
@@ -229,9 +230,6 @@ addUserToParty(user: User, userId: number, party: Party): void {
        this.selectedParty = this.editParty;
        this.pg = new PartyGoer();
         this.reload();
-
-
-
     },
     error: (nojoy) => {
       console.error('PartiesComponent.reload(): error loading party: ');

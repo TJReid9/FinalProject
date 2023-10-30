@@ -166,6 +166,7 @@ export class VenueComponent implements OnInit, AfterViewInit {
       next: (result) => {
         this.newVenue = new Venue();
         this.loadVenue();
+        this.editVenue = null;
       },
       error: (nojoy) => {
         console.error(

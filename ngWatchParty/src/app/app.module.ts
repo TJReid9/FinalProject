@@ -1,3 +1,4 @@
+import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
@@ -18,7 +19,6 @@ import { TeamsComponent } from './components/teams/teams.component';
 import { SportsFilterPipe } from './pipes/sports-filter.pipe';
 import { IncompletePipe } from './pipes/incomplete.pipe';
 import { GoogleMapsModule } from '@angular/google-maps';
-import { FormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -42,8 +42,7 @@ import { FormsModule} from '@angular/forms';
     AppRoutingModule,
     HttpClientModule,
     NgbModule,
-    FormsModule,
-
+    FormsModule
   ],
   providers: [IncompletePipe],
   bootstrap: [AppComponent]

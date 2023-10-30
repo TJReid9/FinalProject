@@ -51,10 +51,10 @@
 
       <div class="table-responsive" *ngFor="let pg of partyGoers">
         <table class="table" >
-        <tr >
+        <tr *ngFor="let party of parties">
           <td *ngFor="let dude of users">
 
-             <img  id="partyPeople" [src]=dude.photoUrl height="100px" width="100px">
+             <img *ngIf="pg.userId == party.userId" id="partyPeople" [src]=dude.photoUrl height="100px" width="100px">
           </td>
         </tr>
       </table>
@@ -76,8 +76,12 @@
    </p>
 
 </div>
+</div>
 
-<div *ngIf="editParty" class="container" >
+<div  class="container" >
+
+  <div *ngIf="editParty">
+
   <form id="updateParty" name="updatePartyForm">
 
     <label for="title">Title</label>
@@ -138,9 +142,12 @@
     <button class="btn btn-outline-dark" type="submit" (click)="editParty = null">Cancel</button>
   </form>
 
+</div>
 
 
 </div>
+
+
 
 <div *ngIf="addNewParty && !selectedParty && !editParty">
 <form name="newPartyForm">
