@@ -11,5 +11,6 @@ public interface PartyCommentService {
 	PartyComment createPartyComment(PartyComment partyComment);
 	PartyComment updatePartyComment(int partyCommentId, PartyComment partyComment);
 	boolean deletePartyComment(int partyCommentId);
+	List<PartyComment> findAllByParty(int partyId);
 
 }

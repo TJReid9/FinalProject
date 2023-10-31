@@ -13,7 +13,7 @@ export class IncompletePipe implements PipeTransform {
     let results: Party[] = [];
 
     for(let party of parties){
-      if(!party.completed){
+      if(!party.completed && new Date() < new Date(party.partyDate)){
         results.push(party)
       }
     }

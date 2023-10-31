@@ -7,8 +7,8 @@
     <div class="col-12 col-md-6 col-lg-4" *ngFor="let party of parties | incomplete: showComplete" [ngClass]="party.completed ? 'completed' : '' " >
 
       <div class="card bg-transparent" style="margin-bottom: 5px" >
-        <img [src]="party.imageUrl" (click)="displayParty(party)" height="100%" width="100%"/>
-        <h3 class="card-title" > <hr><a href="/#/parties/{{party.id}}">{{party.title}}</a> </h3>
+        <a href="/#/parties/{{party.id}}"><img [src]="party.imageUrl"  height="100%" width="100%"/>
+        <h3 class="card-title" > <hr>{{party.title}} </h3></a>
         <p>{{party.partyDate}}</p>
       </div>
     </div>
@@ -25,7 +25,7 @@
 <hr>
 
   <h3>
-    {{selectedParty.title}} <span> <button class="btn btn-outline-dark" (click)="addUserToParty(selectedParty.user, selectedParty.user.id, selectedParty)">Join</button></span>
+    {{selectedParty.title}} <span> <button class="btn btn-outline-dark" (click)="addUserToParty(selectedParty.id)">Join</button></span>
   </h3>
   <p>
      <strong>Date:</strong><br>
@@ -37,7 +37,7 @@
    </p>
    <p>
     <strong>Venue:</strong><br>
-     <a href="/#/venues/{{selectedParty.venue.id}}">{{selectedParty.venue.name}}</a>
+     <a href="#/venues/{{selectedParty.venue.id}}">{{selectedParty.venue.name}}</a>
    </p>
    <div>
    <blockquote>
@@ -49,12 +49,12 @@
    <strong>Users attending Party: </strong><br>
 
 
-      <div class="table-responsive" *ngFor="let pg of partyGoers">
-        <table class="table" >
-        <tr *ngFor="let party of parties">
-          <td *ngFor="let dude of users">
-
-             <img *ngIf="pg.userId == party.userId" id="partyPeople" [src]=dude.photoUrl height="100px" width="100px">
+      <div class="table-responsive"  >
+        <table class="table">
+        <tr >
+          <td *ngFor="let pg of selectedParty.partyGoers">
+             <img id="partyPeople" [src]=pg.user.photoUrl height="100px" width="100px">
+             {{pg.user.username}}
           </td>
         </tr>
       </table>
@@ -65,15 +65,15 @@
    <img [src]="selectedParty.imageUrl">
    <br>
    <hr>
+   <div class="partyComments">
+    <p class="commentBody" *ngFor="let partyComment of partyComments">{{partyComment.comment}}</p>
+   </div>
    <p *ngIf="loggedIn()">
-    Completed: {{selectedParty.completed}}
-   </p>
-   <p *ngIf="loggedIn()">
-    Created Date: {{selectedParty.createDate}}
-   </p>
-   <p *ngIf="loggedIn()">
-    Last updated: {{selectedParty.updateDate}}
-   </p>
+   <textarea class="form-control" aria-label="With textarea" name="partyComment" id="partyComment" [(ngModel)]="selectedParty.partyComments"></textarea>
+    </p>
+    <button class="btn btn-outline-dark" type="submit"  (click)="addComment(newComment, selectedParty.id)">Save</button>
+
+    <button class="btn btn-outline-dark" type="submit" (click)="selectedParty = null">Cancel</button>
 
 </div>
 </div>

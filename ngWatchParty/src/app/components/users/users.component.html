@@ -1,9 +1,8 @@
-<table>
-<td>
-<div *ngIf="!editUser">
-  <div class="col-10 col-md-6 col-lg-4">
+<div *ngIf="loggedInUser == user">
+<div *ngIf="!editUser && loggedInUser">
+  <div class="col-15 col-md-12 col-lg-8">
     <div class="card bg-transparent" style="margin-bottom: 10px" >
-      <img [src]="loggedInUser.photoUrl" (click)="setEditUser()" height="20%" width="20%"/>
+      <img [src]="loggedInUser.photoUrl" (click)="setEditUser()" height="30%" width="30%"/>
       <h3>{{loggedInUser.username}}</h3>
     </div>
   </div>
@@ -54,13 +53,55 @@
 
   <button class="btn btn-danger" type="submit" (click)="clearEditAddress()">Cancel</button>
 </div>
-</td>
-<td>
-  {{messages[0].content}}
-<div *ngFor="let message of sortedMessage">
-{{message[0].sender.username}}
+
+
+
 </div>
+<div *ngIf="user != loggedInUser">
+  <table>
+    <td>
+  <div class="col-8 col-md-6 col-lg-4">
+    <div class="card bg-transparent" style="margin-bottom: 10px" >
+      <img [src]="user.photoUrl"  height="20" width="20%"/>
+      <h3>{{user.username}}</h3>
+    </div>
+  </div>
+  Created: {{user.createDate}} <br>
+  Name: {{user.firstName}} <br>
+  Located at: {{user.address?.city}}, {{user.address?.state}}<br>
+  <hr>
+  lastUpdated: {{loggedInUser.updateDate}}
 </td>
+<table>
+  <tr *ngIf="newMessage.sender.id == 0 && editMessage.id == 0">
+    <td><button class="btn btn-primary" (click)="displayAddMessage()">Create Message</button></td>
+  </tr>
+
+  <tr *ngIf="newMessage.sender.id != 0 && editMessage.id == 0">
+    <td><input type="text" [(ngModel)]="newMessage.content"></td>
+    <td><button class="btn btn-primary" (click)="addMessage(newMessage)">Send</button></td>
+  </tr>
+
+  <tr *ngIf="editMessage.id != 0">
+    <td><input type="text" [(ngModel)]="editMessage.content"></td>
+    <td><button class="btn btn-primary" (click)="updateMessage(editMessage)">Update</button></td>
+    <td><button class="btn btn-danger" (click)="editMessage = newMessage">Cancel</button></td>
+  </tr>
+
+  <div *ngFor="let message of messages">
+    <tr>
+      <div *ngIf="loggedInUser.id === message.sender.id">
+      <td><a (click)="setEditMessage(message)" class="btn btn-update">Update Message</a></td>
+      <!-- <td><a (click)="deleteMessage(message.id)" class="btn btn-danger">Delete Message</a></td> -->
+
+      </div>
+      <td>Sent On - {{message.createDate }}</td>
+    <td class="align-right text-center"><img src="{{message.sender.photoUrl}}" class="rounded" height="20%" width="20%"></td>
+								<td class="sender"><strong>{{message.sender.username}}:</strong></td>
+								<td>{{message.content }}</td>
+                </tr>
+              </div>
+            </table>
 </table>
 
 <div class="table-responsive">

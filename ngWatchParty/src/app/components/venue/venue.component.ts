@@ -38,8 +38,8 @@ export class VenueComponent implements OnInit, AfterViewInit {
   display: any;
 
   center: google.maps.LatLngLiteral = {
-    lat: 24,
-    lng: 12,
+    lat: 45,
+    lng: 45,
   };
   zoom = 15;
 
@@ -52,17 +52,12 @@ export class VenueComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    // this.center = {
-    //   lat: this.latitude,
-    //   lng: this.longitude,
-    // };
     this.displayMap(this.address);
-
   }
 
   ngOnInit(): void {
     this.loadAddress();
-    this.loadVenue();
+    this.loadVenues();
 
     this.activatedRoute.paramMap.subscribe({
       next: (params) => {
@@ -74,7 +69,7 @@ export class VenueComponent implements OnInit, AfterViewInit {
           } else {
             this.venueService.show(venueId).subscribe({
               next: (venue) => {
-                this.selectedVenue = venue;
+                this.displayVenue(venue);
               },
               error: (nojoy) => {
                 console.error(
@@ -105,7 +100,6 @@ export class VenueComponent implements OnInit, AfterViewInit {
 
   displayVenue(venue: Venue) {
     this.selectedVenue = venue;
-
     console.log(`${this.latitude} ${this.longitude}`);
     this.displayMap(
       venue.address.street +
@@ -116,6 +110,7 @@ export class VenueComponent implements OnInit, AfterViewInit {
         ' ' +
         venue.address.zip
     );
+
   }
 
   linkMap(event: Event, venue: Venue): void {
@@ -144,7 +139,7 @@ export class VenueComponent implements OnInit, AfterViewInit {
         this.newAddress = new Address();
         this.addressService.create(this.newAddress);
         this.newVenue = new Venue();
-        this.loadVenue();
+        this.loadVenues();
       },
       error: (nojoy) => {
         console.error(
@@ -167,7 +162,7 @@ export class VenueComponent implements OnInit, AfterViewInit {
     this.venueService.update(id, venue).subscribe({
       next: (result) => {
         this.newVenue = new Venue();
-        this.loadVenue();
+        this.loadVenues();
         this.editVenue = null;
         this.selectedVenue = null;
       },
@@ -183,7 +178,7 @@ export class VenueComponent implements OnInit, AfterViewInit {
   deleteVenue(id: number) {
     this.venueService.destroy(id).subscribe({
       next: (result) => {
-        this.loadVenue();
+        this.loadVenues();
       },
       error: (nojoy) => {
         console.error(
@@ -194,7 +189,7 @@ export class VenueComponent implements OnInit, AfterViewInit {
     });
   }
 
-  loadVenue(): void {
+  loadVenues(): void {
     this.venueService.index().subscribe({
       next: (venues) => {
         this.venues = venues;

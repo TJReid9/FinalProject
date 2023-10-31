@@ -1,3 +1,4 @@
+import { DirectMessage } from 'src/app/models/direct-message';
 import { DirectMessagesService } from './../../services/direct-messages.service';
 import { AddressService } from './../../services/address.service';
 import { Address } from './../../models/address';
@@ -6,11 +7,12 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { User } from 'src/app/models/user';
-import { DirectMessage } from 'src/app/models/direct-message';
 import { loadTranslations } from '@angular/localize';
 import { FriendStatus } from 'src/app/models/friend-status';
 import { Friend } from 'src/app/models/friend';
 import { FriendService } from 'src/app/services/friend.service';
+import { ParsedVariable } from '@angular/compiler';
+
 
 @Component({
   selector: 'app-users',
@@ -20,7 +22,7 @@ import { FriendService } from 'src/app/services/friend.service';
 export class UsersComponent implements OnInit{
 
 loggedInUser: User = new User();
-selectedUser: User | null = null;
+user: User = new User();
 editUser: User | null = null;
 editAddress: Address = new Address();
 messages: DirectMessage[] = []
@@ -30,6 +32,10 @@ newFriend: Friend = new Friend;
 addNewFriend: Friend | null = null;
 friends: Friend[] = [];
 
+// messages: Array<DirectMessage> = [];
+newMessage: DirectMessage = new DirectMessage();
+editMessage: DirectMessage = new DirectMessage();
+// selectedUser: User | null;
 
 constructor(
   private userService: UserService,
@@ -45,7 +51,6 @@ constructor(
     this.setLoggedInUser();
     this.activatedRoute.paramMap.subscribe({
       next: (params) => {
-
         let userIdStr = params.get('userId');
         if (userIdStr){
           let userId = parseInt(userIdStr);
@@ -54,7 +59,11 @@ constructor(
           }else{
             this.userService.show(userId).subscribe({
               next: (user) => {
-                this.selectedUser = user;
+                console.log(user);
+                if (user != this.loggedInUser){
+                  this.user = user;
+                  this.loadMessages(user.id);
+                }
               },
               error: (err) => {
                 console.log('UserListHttpComponent.show(), error getting user');
@@ -67,39 +76,14 @@ constructor(
       }
     })
   }
-sortMessage(messages: DirectMessage[], user: User){
-  messages.forEach(message => {
-    console.log(user.id);
-    console.log(message.recipient.id);
-    if (message.sender.id == user.id || message.recipient.id ==  user.id){
-    console.log(message);
-    if (this.sortedMessage.length = 0){
-      let messageOfTwo: DirectMessage[] = [];
-        messageOfTwo.push(message);
-      this.sortedMessage.push(messageOfTwo);
-    }else{
-      this.sortedMessage.forEach(messages=> {
-        if((messages[0].recipient.id == message.recipient.id && messages[0].sender === message.recipient) ||
-        (messages[0].sender === message.recipient && messages[0].recipient === message.recipient)){
-          messages.push(message);
-        }else{
-          let messageOfTwo: DirectMessage[] = [];
-          messageOfTwo.push(message);
-          this.sortedMessage.push(messageOfTwo);
-        }
 
-      });
-    }
-  }
-});
-
-}
-
-loadMessages() {
-  this.dmService.index().subscribe({
-    next: (messages) => {
+loadMessages(userId: number) {
+  this.dmService.index(userId).subscribe({
+    next: (messages: DirectMessage[]) => {
       this.messages = messages;
-      console.log(this.sortedMessage)
+      this.messages.sort((b, a) => new Date(a.createDate).getTime() - new Date(b.createDate).getTime());
+      console.log(messages);
+      console.log(this.messages);
     },
     error: (problem) => {
       console.error('userMessages.load(): error loading Messages:');
@@ -113,13 +97,19 @@ setLoggedInUser(){
   this.auth.getLoggedInUser().subscribe({
     next: (user) => {
       this.loggedInUser = user;
-      this.loadMessages();
-      this.sortMessage(this.messages, user);
+
+      if (this.user.id == 0){
+        this.user = this.loggedInUser;
+        }
     },
     error: (err) => {
       console.error('UserComponent.setLoggedInUser: error getting logged in user')
     }
   });
+}
+
+setCurrentUser(userId: number){
+  this.user = this.getUser(userId);
 }
 
 setEditUser(){
@@ -132,6 +122,10 @@ clearEditAddress(){
 
 setEditAddress(){
   this.editAddress = Object.assign({}, this.loggedInUser.address);
+}
+
+setEditMessage(message: DirectMessage){
+  this.editMessage = Object.assign({}, message)
 }
 
 updateUser(user: User){
@@ -152,6 +146,19 @@ updateAddress(address: Address){
   next: (updatedAddress) => {
     this.loggedInUser.address = updatedAddress;
     this.editAddress = new Address();
+  },
+  error: (problem) => {
+    console.error('UsersComponenet error')
+    console.log(problem);
+  }
+});
+}
+
+updateMessage(message: DirectMessage){
+  this.dmService.update(message.id, message).subscribe({
+  next: (updatedAddress) => {
+    this.loadMessages(this.user.id);
+    this.editMessage = new DirectMessage();
   },
   error: (problem) => {
     console.error('UsersComponenet error')
@@ -193,20 +200,72 @@ addFriend(newFriend: Friend): void {
   console.log(newFriend);
   this.friendService.create(newFriend).subscribe({
     next: (result) => {
-       this.selectedUser = this.editUser;
+      //  this.selectedUser = this.editUser;
        this.friend = new Friend();
         this.setLoggedInUser();
     },
     error: (nojoy) => {
       console.error('UserComponent.addFriend(): error adding Friend: ');
+    }
+  })
+}
+
+
+
+displayAddMessage(){
+this.newMessage.sender = this.loggedInUser;
+this.newMessage.recipient = this.user;
+}
+
+addMessage(onmessage: DirectMessage): void {
+  console.log(onmessage);
+  this.dmService.create(onmessage).subscribe({
+    next: (result) => {
+      this.newMessage = new DirectMessage();
+      this.loadMessages(this.user.id);
+    },
+    error: (nojoy) => {
+      console.error(
+        'PartiesComponent.reloadParties(): error loading party: '
+      );
       console.error(nojoy);
     },
   });
 }
 
-displayNewFriendForm(friend: Friend){
-  this.addNewFriend = friend;
+displayNewFriendForm(newFriend: Friend){
+  this.addNewFriend = newFriend;
 }
 
-}
 
+// deleteMessage(id: number) {
+//   this.dmService.destroy(id).subscribe({
+//     next: (result) => {
+//       this.loadMessages(this.user.id);
+//     },
+//     error: (nojoy) => {
+//       console.error('PartiesComponent.reloadParties(): error loading party:');
+//       console.error(nojoy);
+//     },
+//   });
+// }
+
+// }
+
+//       function displayAddMessage() {
+//         throw new Error('Function not implemented.');
+//       }
+
+//       function addMessage(message: any, DirectMessage: typeof DirectMessage) {
+//         throw new Error('Function not implemented.');
+//       }
+
+//       function displayNewFriendForm(friend: any, Friend: typeof Friend) {
+//         throw new Error('Function not implemented.');
+//       }
+
+//       function deleteMessage(id: any, number: any) {
+//         throw new Error('Function not implemented.');
+//       }
+
+}

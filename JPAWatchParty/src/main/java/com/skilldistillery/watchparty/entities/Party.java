@@ -64,9 +64,12 @@ public class Party {
 	@JoinColumn(name = "team_id")
 	private Team team;
 	
-
 	@OneToMany(mappedBy = "party", fetch = FetchType.EAGER)
 	private List<PartyGoer> partyGoers;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy = "party")
+	private List<PartyComment> partyComments;
 	
 
 	public Party() {
@@ -186,6 +189,14 @@ public class Party {
 	}
 
 	
+
+	public List<PartyComment> getPartyComments() {
+		return partyComments;
+	}
+
+	public void setPartyComments(List<PartyComment> partyComments) {
+		this.partyComments = partyComments;
+	}
 
 	@Override
 	public String toString() {

@@ -19,12 +19,12 @@ export class UserService {
 
   index(): Observable<User[]> {
 
-    return this.http.get<User[]>(this.url + 'watchparties/users').pipe(
+    return this.http.get<User[]>(this.url + 'users').pipe(
 
       catchError((err: any) => {
         console.log(err);
         return throwError(
-          () => new Error('UserService.index(): error retrieving List of Users: ' + err)
+          () => new Error('PartyService.index(): error retrieving List of Partys: ' + err)
         );
       })
     );
@@ -32,7 +32,9 @@ export class UserService {
 
 
   show(userId: number): Observable<User> {
-    return this.http.get<User>(this.url + 'watchparties/users/' + userId).pipe(
+
+    return this.http.get<User>(this.url + 'watchparties/users/' + userId, this.getHttpOptions()).pipe(
+
       catchError((err: any) => {
         console.log(err);
         return throwError(
@@ -44,6 +46,7 @@ export class UserService {
 
   create(user: User): Observable<User> {
     console.log(user)
+
     return this.http.post<User>(this.url + 'watchparties/users', user).pipe(
       catchError((err: any) => {
         console.error(err);
@@ -55,7 +58,9 @@ export class UserService {
   }
 
   update(userId: number, user: User): Observable<User> {
-    return this.http.put<User>(this.url + 'watchparties/users/' + userId, user, this.getHttpOptions()).pipe(
+
+    return this.http.put<User>(this.url + 'users/' + userId, user, this.getHttpOptions()).pipe(
+
       catchError((err: any) => {
         console.error(err);
         return throwError(
@@ -66,6 +71,7 @@ export class UserService {
   }
 
   destroy(userId: number) : Observable<void> {
+
     return this.http.delete<void>(this.url + 'watchparties/users/'+ userId, this.getHttpOptions()).pipe(
 
       catchError((err: any) => {

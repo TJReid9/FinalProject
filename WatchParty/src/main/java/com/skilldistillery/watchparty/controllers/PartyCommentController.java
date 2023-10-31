@@ -31,6 +31,11 @@ public class PartyCommentController {
 	public List<PartyComment> getPartyCommentList() {
 		return partyCommentService.getAllPartyComments();
 	}
+	
+	@GetMapping("watchparties/{partyId}/partyComments")
+	public List<PartyComment> getPartyComments(@PathVariable int partyId) {
+		return partyCommentService.findAllByParty(partyId);
+	}
 
 	@GetMapping("watchparties/partyComments/{partyCommentId}")
 	public PartyComment getPartyCommentById(@PathVariable int partyCommentId, HttpServletResponse res) {
@@ -41,8 +46,8 @@ public class PartyCommentController {
 		return partyComment;
 	}
 
-	@PostMapping("watchparties/partyComments")
-	public PartyComment createPartyComment(@RequestBody PartyComment partyComment, HttpServletResponse res, HttpServletRequest req) {
+	@PostMapping("watchparties/{partyId}/partyComments")
+	public PartyComment createPartyComment(@RequestBody PartyComment partyComment, @PathVariable int partyId, HttpServletResponse res, HttpServletRequest req) {
 		PartyComment newPartyComment = null;
 		try {
 			if (newPartyComment == null) {
@@ -74,6 +79,7 @@ public class PartyCommentController {
 		}
 		return updatedPartyComment;
 	}
+	
 	
 	@DeleteMapping("watchparties/partyComments/{partyCommentId}")
 	public void deletePartyComment(@PathVariable int partyCommentId, HttpServletResponse res) {

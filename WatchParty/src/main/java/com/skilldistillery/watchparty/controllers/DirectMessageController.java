@@ -1,5 +1,6 @@
 package com.skilldistillery.watchparty.controllers;
 
+import java.security.Principal;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,9 +28,9 @@ public class DirectMessageController {
 	@Autowired
 	private DirectMessageService directMessageService;
 
-	@GetMapping("watchparties/directMessages")
-	public List<DirectMessage> getDirectMessageList() {
-		return directMessageService.getAllDirectMessages();
+	@GetMapping("watchparties/directMessagesForPage/{pageId}")
+	public List<DirectMessage> getDirectMessageList(Principal principal, @PathVariable int pageId) {
+		return directMessageService.getAllDirectMessages(principal.getName(), pageId);
 	}
 
 	@GetMapping("watchparties/directMessages/{directMessageId}")
