@@ -23,6 +23,7 @@
   <button *ngIf="loggedIn()" (click)="deleteParty(selectedParty.id)" class="btn btn-outline-dark">Delete</button>
 
 <hr>
+<img [src]="selectedParty.imageUrl" align="right" height="300px" width="300px">
 
   <h3>
     {{selectedParty.title}} <span> <button class="btn btn-outline-dark" (click)="addUserToParty(selectedParty.id)">Join</button></span>
@@ -62,7 +63,7 @@
 
 
 
-   <img [src]="selectedParty.imageUrl">
+
    <br>
    <hr>
    <div class="partyComments">
