@@ -1,3 +1,4 @@
+import { DirectMessage } from './../../models/direct-message';
 import { DirectMessagesService } from './../../services/direct-messages.service';
 import { AddressService } from './../../services/address.service';
 import { Address } from './../../models/address';
@@ -6,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { User } from 'src/app/models/user';
-import { DirectMessage } from 'src/app/models/direct-message';
+
 
 @Component({
   selector: 'app-users',
@@ -16,11 +17,10 @@ import { DirectMessage } from 'src/app/models/direct-message';
 export class UsersComponent implements OnInit{
 
 loggedInUser: User = new User();
-selectedUser: User | null = null;
+user: User = new User();
 editUser: User | null = null;
 editAddress: Address = new Address();
-messages: DirectMessage[] = []
-sortedMessage: DirectMessage[][] = [];
+messages: Array<DirectMessage> = [];
 
 constructor(
   private userService: UserService,
@@ -35,7 +35,6 @@ constructor(
     this.setLoggedInUser();
     this.activatedRoute.paramMap.subscribe({
       next: (params) => {
-
         let userIdStr = params.get('userId');
         if (userIdStr){
           let userId = parseInt(userIdStr);
@@ -44,7 +43,11 @@ constructor(
           }else{
             this.userService.show(userId).subscribe({
               next: (user) => {
-                this.selectedUser = user;
+                console.log(user);
+                if (user != this.loggedInUser){
+                  this.user = user;
+                  this.loadMessages(user.id);
+                }
               },
               error: (err) => {
                 console.log('UserListHttpComponent.show(), error getting user');
@@ -57,39 +60,13 @@ constructor(
       }
     })
   }
-sortMessage(messages: DirectMessage[], user: User){
-  messages.forEach(message => {
-    console.log(user.id);
-    console.log(message.recipient.id);
-    if (message.sender.id == user.id || message.recipient.id ==  user.id){
-    console.log(message);
-    if (this.sortedMessage.length = 0){
-      let messageOfTwo: DirectMessage[] = [];
-        messageOfTwo.push(message);
-      this.sortedMessage.push(messageOfTwo);
-    }else{
-      this.sortedMessage.forEach(messages=> {
-        if((messages[0].recipient.id == message.recipient.id && messages[0].sender === message.recipient) ||
-        (messages[0].sender === message.recipient && messages[0].recipient === message.recipient)){
-          messages.push(message);
-        }else{
-          let messageOfTwo: DirectMessage[] = [];
-          messageOfTwo.push(message);
-          this.sortedMessage.push(messageOfTwo);
-        }
 
-      });
-    }
-  }
-});
-
-}
-
-loadMessages() {
-  this.dmService.index().subscribe({
-    next: (messages) => {
+loadMessages(userId: number) {
+  this.dmService.index(userId).subscribe({
+    next: (messages: DirectMessage[]) => {
       this.messages = messages;
-      console.log(this.sortedMessage)
+      console.log(messages);
+      console.log(this.messages);
     },
     error: (problem) => {
       console.error('userMessages.load(): error loading Messages:');
@@ -103,13 +80,19 @@ setLoggedInUser(){
   this.auth.getLoggedInUser().subscribe({
     next: (user) => {
       this.loggedInUser = user;
-      this.loadMessages();
-      this.sortMessage(this.messages, user);
+
+      if (this.user.id == 0){
+        this.user = this.loggedInUser;
+        }
     },
     error: (err) => {
       console.error('UserComponent.setLoggedInUser: error getting logged in user')
     }
   });
+}
+
+setCurrentUser(userId: number){
+  this.user = this.getUser(userId);
 }
 
 setEditUser(){

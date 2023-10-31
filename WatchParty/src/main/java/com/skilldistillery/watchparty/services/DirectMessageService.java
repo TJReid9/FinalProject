@@ -6,7 +6,7 @@ import com.skilldistillery.watchparty.entities.DirectMessage;
 
 public interface DirectMessageService {
 	
-	List<DirectMessage> getAllDirectMessages();
+	List<DirectMessage> getAllDirectMessages(String username, int viewingId);
 	DirectMessage getDirectMessage(int directMessageId);
 	DirectMessage createDirectMessage(DirectMessage directMessage);
 	DirectMessage updateDirectMessage(int directMessageId, DirectMessage directMessage);

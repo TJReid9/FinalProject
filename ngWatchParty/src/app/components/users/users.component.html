@@ -1,6 +1,5 @@
-<table>
-<td>
-<div *ngIf="!editUser">
+<div *ngIf="loggedInUser == user">
+<div *ngIf="!editUser && loggedInUser">
   <div class="col-10 col-md-6 col-lg-4">
     <div class="card bg-transparent" style="margin-bottom: 10px" >
       <img [src]="loggedInUser.photoUrl" (click)="setEditUser()" height="20%" width="20%"/>
@@ -54,11 +53,34 @@
 
   <button class="btn btn-danger" type="submit" (click)="clearEditAddress()">Cancel</button>
 </div>
-</td>
-<td>
-  {{messages[0].content}}
-<div *ngFor="let message of sortedMessage">
-{{message[0].sender.username}}
+
+
+
 </div>
+<div *ngIf="user != loggedInUser">
+  <table>
+    <td>
+  <div class="col-8 col-md-6 col-lg-4">
+    <div class="card bg-transparent" style="margin-bottom: 10px" >
+      <img [src]="user.photoUrl"  height="20" width="20%"/>
+      <h3>{{user.username}}</h3>
+    </div>
+  </div>
+  Created: {{user.createDate}} <br>
+  Name: {{user.firstName}} <br>
+  Located at: {{user.address?.city}}, {{user.address?.state}}<br>
+  <hr>
+  lastUpdated: {{loggedInUser.updateDate}}
 </td>
+  <div *ngFor="let message of messages">
+    <td class="align-middle text-center"><img src="{{message.sender.photoUrl}}" class="rounded"></td>
+								<td class="sender"><strong>{{message.sender.username}}</strong></td>
+								<td>${{message.content }}</td>
+								<td><a href="updateMessage.do?messageId=${message.id }" class="btn btn-update">Update Message</a></td>
+								<td><a href="deleteMessage.do?messageId=${message.id }" class="btn btn-danger">Delete Message</a></td>
+
+
+
+</div>
 </table>
+</div>

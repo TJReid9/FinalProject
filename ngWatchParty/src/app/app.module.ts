@@ -43,6 +43,7 @@ import { GoogleMapsModule } from '@angular/google-maps';
     HttpClientModule,
     NgbModule,
     FormsModule,
+
   ],
   providers: [IncompletePipe],
   bootstrap: [AppComponent]
