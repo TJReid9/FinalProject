@@ -206,6 +206,7 @@ export class PartiesComponent implements OnInit {
 
   displayAllParties(): void {
     this.selectedParty = null;
+    this.loadParties();
   }
 
   setEditParty() {
@@ -299,9 +300,9 @@ addUserToParty( partyId: number): void {
   this.partyService.addSelfToParty(partyId).subscribe({
     next: (result) => {
        this.partyGoers.push(result);
-       this.reloadParties();
-       this.loadParties();
-       this.selectedParty = this.selectedParty;
+        this.reloadParties();
+        this.loadParties();
+        location.reload();
 
     },
     error: (nojoy) => {
