@@ -4,6 +4,8 @@ import { Observable, catchError, throwError } from 'rxjs';
 import { Party } from '../models/party';
 import { environment } from 'src/environments/environment.development';
 import { AuthService } from './auth.service';
+import { DatePipe } from '@angular/common';
+import { PartyGoer } from '../models/party-goer';
 
 @Injectable({
   providedIn: 'root'
@@ -54,6 +56,17 @@ export class PartyService {
 
   update(partyId: number, party: Party): Observable<Party> {
     return this.http.put<Party>(this.url + 'watchparties/' + partyId, party ,this.getHttpOptions()).pipe(
+      catchError((err: any) => {
+        console.error(err);
+        return throwError(
+           () => new Error( 'PartyService.update(): error updating Party: ' + err )
+        );
+      })
+    );
+  }
+
+  addSelfToParty(partyId: number): Observable<PartyGoer> {
+    return this.http.put<PartyGoer>(this.url + 'watchparties/' + partyId + '/partyGoers', null ,this.getHttpOptions()).pipe(
       catchError((err: any) => {
         console.error(err);
         return throwError(

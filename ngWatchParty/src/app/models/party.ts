@@ -22,6 +22,7 @@ export class Party {
   partyGoers: PartyGoer[];
   userId: number;
 
+
   constructor(
     id: number = 0,
     title: string = '',
@@ -38,7 +39,7 @@ export class Party {
     team: Team = new Team(),
     user: User = new User(),
     partyGoers: PartyGoer[] = [],
-    userId: number = 0
+    userId: number = 0,
   ){
     this.id = id;
     this.title = title;

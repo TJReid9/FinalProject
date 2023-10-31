@@ -9,6 +9,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "party_goer")
 public class PartyGoer {
@@ -16,6 +18,7 @@ public class PartyGoer {
 	@EmbeddedId
 	private PartyGoerId id;
 
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="party_id")
 	@MapsId(value="partyId")
@@ -41,6 +44,22 @@ public class PartyGoer {
 
 	public void setId(PartyGoerId id) {
 		this.id = id;
+	}
+
+	public Party getParty() {
+		return party;
+	}
+
+	public void setParty(Party party) {
+		this.party = party;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	@Override
