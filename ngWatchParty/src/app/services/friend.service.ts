@@ -43,7 +43,7 @@ export class FriendService {
 
   create(friend: Friend): Observable<Friend> {
     console.log(friend)
-    return this.http.post<Friend>(this.url + 'watchparties/friends', friend).pipe(
+    return this.http.post<Friend>(this.url + 'watchparties/friends', friend, this.getHttpOptions()).pipe(
       catchError((err: any) => {
         console.error(err);
         return throwError(

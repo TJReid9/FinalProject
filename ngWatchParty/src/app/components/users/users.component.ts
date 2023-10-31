@@ -233,39 +233,35 @@ addMessage(onmessage: DirectMessage): void {
   });
 }
 
-displayNewFriendForm(newFriend: Friend){
-  this.addNewFriend = newFriend;
+
+deleteMessage(id: number) {
+  this.dmService.destroy(id).subscribe({
+    next: (result) => {
+      this.loadMessages(this.user.id);
+    },
+    error: (nojoy) => {
+      console.error('PartiesComponent.reloadParties(): error loading party:');
+      console.error(nojoy);
+    },
+  });
 }
 
-
-// deleteMessage(id: number) {
-//   this.dmService.destroy(id).subscribe({
-//     next: (result) => {
-//       this.loadMessages(this.user.id);
-//     },
-//     error: (nojoy) => {
-//       console.error('PartiesComponent.reloadParties(): error loading party:');
-//       console.error(nojoy);
-//     },
-//   });
-// }
-
-// }
-
-//       function displayAddMessage() {
-//         throw new Error('Function not implemented.');
-//       }
-
-//       function addMessage(message: any, DirectMessage: typeof DirectMessage) {
-//         throw new Error('Function not implemented.');
-//       }
-
-//       function displayNewFriendForm(friend: any, Friend: typeof Friend) {
-//         throw new Error('Function not implemented.');
-//       }
-
-//       function deleteMessage(id: any, number: any) {
-//         throw new Error('Function not implemented.');
-//       }
-
 }
+
+// function displayAddMessage() {
+//   throw new Error('Function not implemented.');
+// }
+
+// function addMessage(message: any, DirectMessage: typeof DirectMessage) {
+//   throw new Error('Function not implemented.');
+// }
+
+// function displayNewFriendForm(friend: any, Friend: typeof Friend) {
+//   throw new Error('Function not implemented.');
+// }
+
+// function deleteMessage(id: any, number: any) {
+//   throw new Error('Function not implemented.');
+// }
+
+
