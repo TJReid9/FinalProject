@@ -49,6 +49,7 @@ export class PartiesComponent implements OnInit {
   newPartyGoer: PartyGoer | null = null
 
 
+
   constructor(
     private partyService: PartyService,
     private activatedRoute: ActivatedRoute,
@@ -73,6 +74,7 @@ export class PartiesComponent implements OnInit {
     this.loadParties();
     this.loadTeams();
     this.loadUser();
+    this.setLoggedInUser()
 
     console.log(this.venues);
     this.activatedRoute.paramMap.subscribe({
@@ -254,8 +256,21 @@ export class PartiesComponent implements OnInit {
     });
   }
 
-  addComment(comment: PartyComment, partyId: number): void {
-    this.partyCommentService.create(comment, partyId).subscribe({
+setLoggedInUser(){
+  this.auth.getLoggedInUser().subscribe({
+    next: (user) => {
+      this.loggedInUser = user;
+    },
+    error: (err) => {
+      console.error('UserComponent.setLoggedInUser: error getting logged in user')
+    }
+  });
+}
+
+  addComment(comment: PartyComment, party: Party): void {
+    comment.party = party;
+    comment.user = this.loggedInUser;
+    this.partyCommentService.create(comment, party.id).subscribe({
       next: (result) => {
         this.reloadParties();
       },

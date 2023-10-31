@@ -19,7 +19,7 @@ export class UserService {
 
   index(): Observable<User[]> {
 
-    return this.http.get<User[]>(this.url + 'users').pipe(
+    return this.http.get<User[]>(this.url + 'watchparties/users/', this.getHttpOptions()).pipe(
 
       catchError((err: any) => {
         console.log(err);
@@ -59,7 +59,7 @@ export class UserService {
 
   update(userId: number, user: User): Observable<User> {
 
-    return this.http.put<User>(this.url + 'users/' + userId, user, this.getHttpOptions()).pipe(
+    return this.http.put<User>(this.url + 'watchparties/users/' + userId, user, this.getHttpOptions()).pipe(
 
       catchError((err: any) => {
         console.error(err);
