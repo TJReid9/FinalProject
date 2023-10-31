@@ -1,3 +1,4 @@
+import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
@@ -17,7 +18,6 @@ import { RegisterComponent } from './components/register/register.component';
 import { TeamsComponent } from './components/teams/teams.component';
 import { SportsFilterPipe } from './pipes/sports-filter.pipe';
 import { IncompletePipe } from './pipes/incomplete.pipe';
-import { FormsModule } from '@angular/forms';
 import { GoogleMapsModule } from '@angular/google-maps';
 
 @NgModule({
@@ -42,8 +42,7 @@ import { GoogleMapsModule } from '@angular/google-maps';
     AppRoutingModule,
     HttpClientModule,
     NgbModule,
-    FormsModule,
-
+    FormsModule
   ],
   providers: [IncompletePipe],
   bootstrap: [AppComponent]

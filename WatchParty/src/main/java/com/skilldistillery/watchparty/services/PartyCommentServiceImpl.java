@@ -54,4 +54,9 @@ public class PartyCommentServiceImpl implements PartyCommentService {
 		return deleted;
 	}
 
+	@Override
+	public List<PartyComment> findAllByParty(int partyId) {
+		return partyCommentRepo.findAllByPartyId(partyId);
+	}
+
 }

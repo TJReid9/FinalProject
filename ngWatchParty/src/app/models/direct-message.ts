@@ -1,15 +1,16 @@
+import { DatePipe } from '@angular/common';
 import { User } from "./user";
 
 export class DirectMessage {
   id: number;
-  createDate: string;
+  createDate: Date;
   content: string;
   sender: User;
   recipient: User;
 
   constructor(
     id: number = 0,
-    createDate: string = '',
+    createDate: Date = new Date(),
     content: string = '',
     sender: User = new User(),
     recipient: User = new User

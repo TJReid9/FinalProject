@@ -1,4 +1,4 @@
-import { DirectMessage } from './../../models/direct-message';
+import { DirectMessage } from 'src/app/models/direct-message';
 import { DirectMessagesService } from './../../services/direct-messages.service';
 import { AddressService } from './../../services/address.service';
 import { Address } from './../../models/address';
@@ -7,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { User } from 'src/app/models/user';
+import { ParsedVariable } from '@angular/compiler';
 
 
 @Component({
@@ -21,6 +22,8 @@ user: User = new User();
 editUser: User | null = null;
 editAddress: Address = new Address();
 messages: Array<DirectMessage> = [];
+newMessage: DirectMessage = new DirectMessage();
+editMessage: DirectMessage = new DirectMessage();
 
 constructor(
   private userService: UserService,
@@ -65,6 +68,7 @@ loadMessages(userId: number) {
   this.dmService.index(userId).subscribe({
     next: (messages: DirectMessage[]) => {
       this.messages = messages;
+      this.messages.sort((b, a) => new Date(a.createDate).getTime() - new Date(b.createDate).getTime());
       console.log(messages);
       console.log(this.messages);
     },
@@ -107,6 +111,10 @@ setEditAddress(){
   this.editAddress = Object.assign({}, this.loggedInUser.address);
 }
 
+setEditMessage(message: DirectMessage){
+  this.editMessage = Object.assign({}, message)
+}
+
 updateUser(user: User){
   this.userService.update(user.id, user).subscribe({
     next: (updatedUser) => {
@@ -125,6 +133,19 @@ updateAddress(address: Address){
   next: (updatedAddress) => {
     this.loggedInUser.address = updatedAddress;
     this.editAddress = new Address();
+  },
+  error: (problem) => {
+    console.error('UsersComponenet error')
+    console.log(problem);
+  }
+});
+}
+
+updateMessage(message: DirectMessage){
+  this.dmService.update(message.id, message).subscribe({
+  next: (updatedAddress) => {
+    this.loadMessages(this.user.id);
+    this.editMessage = new DirectMessage();
   },
   error: (problem) => {
     console.error('UsersComponenet error')
@@ -160,4 +181,38 @@ deleteUser(id: number){
     }
   })
 }
+
+displayAddMessage(){
+this.newMessage.sender = this.loggedInUser;
+this.newMessage.recipient = this.user;
+}
+
+addMessage(message: DirectMessage): void {
+  console.log(message);
+  this.dmService.create(message).subscribe({
+    next: (result) => {
+      this.newMessage = new DirectMessage();
+      this.loadMessages(this.user.id);
+    },
+    error: (nojoy) => {
+      console.error(
+        'PartiesComponent.reloadParties(): error loading party: '
+      );
+      console.error(nojoy);
+    },
+  });
+}
+
+deleteMessage(id: number) {
+  this.dmService.destroy(id).subscribe({
+    next: (result) => {
+      this.loadMessages(this.user.id);
+    },
+    error: (nojoy) => {
+      console.error('PartiesComponent.reloadParties(): error loading party:');
+      console.error(nojoy);
+    },
+  });
+}
+
 }
