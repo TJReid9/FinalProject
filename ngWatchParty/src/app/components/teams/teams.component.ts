@@ -71,7 +71,7 @@ export class TeamsComponent {
             } else {
               this.teamService.show(teamId).subscribe({
                 next: (team) => {
-                  this.selectedTeam = team;
+                  this.selectedTeam = null;
                 },
                 error: (nojoy) => {
                   console.error(

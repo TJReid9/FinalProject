@@ -7,6 +7,10 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { User } from 'src/app/models/user';
+import { loadTranslations } from '@angular/localize';
+import { FriendStatus } from 'src/app/models/friend-status';
+import { Friend } from 'src/app/models/friend';
+import { FriendService } from 'src/app/services/friend.service';
 import { ParsedVariable } from '@angular/compiler';
 
 
@@ -21,9 +25,17 @@ loggedInUser: User = new User();
 user: User = new User();
 editUser: User | null = null;
 editAddress: Address = new Address();
-messages: Array<DirectMessage> = [];
+messages: DirectMessage[] = []
+sortedMessage: DirectMessage[][] = [];
+friend: Friend = new Friend;
+newFriend: Friend = new Friend;
+addNewFriend: Friend | null = null;
+friends: Friend[] = [];
+
+// messages: Array<DirectMessage> = [];
 newMessage: DirectMessage = new DirectMessage();
 editMessage: DirectMessage = new DirectMessage();
+// selectedUser: User | null;
 
 constructor(
   private userService: UserService,
@@ -31,7 +43,8 @@ constructor(
   private activatedRoute: ActivatedRoute,
   private router: Router,
   private auth: AuthService,
-  private dmService: DirectMessagesService
+  private dmService: DirectMessagesService,
+  private friendService: FriendService
   ){}
 
   ngOnInit(): void{
@@ -182,14 +195,31 @@ deleteUser(id: number){
   })
 }
 
+
+addFriend(newFriend: Friend): void {
+  console.log(newFriend);
+  this.friendService.create(newFriend).subscribe({
+    next: (result) => {
+      //  this.selectedUser = this.editUser;
+       this.friend = new Friend();
+        this.setLoggedInUser();
+    },
+    error: (nojoy) => {
+      console.error('UserComponent.addFriend(): error adding Friend: ');
+    }
+  })
+}
+
+
+
 displayAddMessage(){
 this.newMessage.sender = this.loggedInUser;
 this.newMessage.recipient = this.user;
 }
 
-addMessage(message: DirectMessage): void {
-  console.log(message);
-  this.dmService.create(message).subscribe({
+addMessage(onmessage: DirectMessage): void {
+  console.log(onmessage);
+  this.dmService.create(onmessage).subscribe({
     next: (result) => {
       this.newMessage = new DirectMessage();
       this.loadMessages(this.user.id);
@@ -203,16 +233,39 @@ addMessage(message: DirectMessage): void {
   });
 }
 
-deleteMessage(id: number) {
-  this.dmService.destroy(id).subscribe({
-    next: (result) => {
-      this.loadMessages(this.user.id);
-    },
-    error: (nojoy) => {
-      console.error('PartiesComponent.reloadParties(): error loading party:');
-      console.error(nojoy);
-    },
-  });
+displayNewFriendForm(newFriend: Friend){
+  this.addNewFriend = newFriend;
 }
+
+
+// deleteMessage(id: number) {
+//   this.dmService.destroy(id).subscribe({
+//     next: (result) => {
+//       this.loadMessages(this.user.id);
+//     },
+//     error: (nojoy) => {
+//       console.error('PartiesComponent.reloadParties(): error loading party:');
+//       console.error(nojoy);
+//     },
+//   });
+// }
+
+// }
+
+//       function displayAddMessage() {
+//         throw new Error('Function not implemented.');
+//       }
+
+//       function addMessage(message: any, DirectMessage: typeof DirectMessage) {
+//         throw new Error('Function not implemented.');
+//       }
+
+//       function displayNewFriendForm(friend: any, Friend: typeof Friend) {
+//         throw new Error('Function not implemented.');
+//       }
+
+//       function deleteMessage(id: any, number: any) {
+//         throw new Error('Function not implemented.');
+//       }
 
 }

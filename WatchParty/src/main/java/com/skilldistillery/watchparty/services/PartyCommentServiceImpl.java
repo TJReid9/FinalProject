@@ -38,6 +38,7 @@ public class PartyCommentServiceImpl implements PartyCommentService {
 			dbPartyComment.setComment(partyComment.getComment());
 			dbPartyComment.setPhotoUrl(partyComment.getPhotoUrl());
 			dbPartyComment.setEnabled(partyComment.getEnabled());
+	
 			partyCommentRepo.saveAndFlush(dbPartyComment);
 		}
 		return dbPartyComment;
@@ -56,7 +57,8 @@ public class PartyCommentServiceImpl implements PartyCommentService {
 
 	@Override
 	public List<PartyComment> findAllByParty(int partyId) {
-		return partyCommentRepo.findAllByPartyId(partyId);
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
