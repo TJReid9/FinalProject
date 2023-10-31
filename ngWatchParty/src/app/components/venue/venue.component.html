@@ -14,12 +14,12 @@
 </div>
 
 <div class="card text-bg-dark" *ngIf="selectedVenue && !editVenue ">
-  <img [src]="selectedVenue.imageUrl" class="card-img">
+  <img src="assets/images/WatchParty.png" class="card-img">
   <div class="card-img-overlay">
-    <div class="card-header" style="background-color: slategray;">
-      <button class="btn btn-outline-dark" (click)="displayAllVenues()">Back</button>
-      <button *ngIf="loggedIn()" class="btn btn-outline-dark" type="submit" (click)="setEditVenue()">Edit</button>
-      <button *ngIf="loggedIn()" (click)="deleteVenue(selectedVenue.id)" class="btn btn-outline-dark">Delete</button>
+    <div class="card-header">
+      <button class="btn btn-outline-light" (click)="displayAllVenues()">Back</button>
+      <button *ngIf="loggedIn()" class="btn btn-outline-light" type="submit" (click)="setEditVenue()">Edit</button>
+      <button *ngIf="loggedIn()" (click)="deleteVenue(selectedVenue.id)" class="btn btn-outline-light">Delete</button>
     </div>
       <div class="bgtext">
       <h3 class="card-title">{{selectedVenue.name}}</h3>
@@ -37,8 +37,10 @@
   <div class="image-table">
     <table>
       <tr>
-        <!-- <td><img [src]="selectedVenue.imageUrl" height="300px" width="100%"></td> -->
-        <td><google-map height="300px" width="250px" [center]="center" [zoom]="zoom" (mapClick)="moveMap($event)" (mapMousemove)="move($event)"/></td>
+        <td><img [src]="selectedVenue.imageUrl" height="300px" width="100%"></td>
+      </tr>
+      <tr>
+      <td><google-map height="300px" width="250px" [center]="center" [zoom]="zoom" (mapClick)="moveMap($event)" (mapMousemove)="move($event)"/></td>
       </tr>
     </table>
 
@@ -102,12 +104,6 @@
 <div *ngIf="addNewVenue && !selectedVenue && !editVenue">
   <form name="newVenueForm">
 
-    <div class="mb-3">
-      <label for="venue">Venues:</label>
-      <select name="venue" [(ngModel)]="newVenue.id">
-        <option *ngFor="let venue of venues" value="{{venue.id}}">{{venue.name}}</option>
-      </select>
-    </div>
     <h3>Add New Venue:</h3>
     <div class="mb-3">
       <label for="name" class="form-label">Name:</label>
