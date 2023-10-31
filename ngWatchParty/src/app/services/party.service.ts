@@ -18,7 +18,7 @@ export class PartyService {
   ) { }
 
   index(): Observable<Party[]> {
-    return this.http.get<Party[]>(this.url + 'watchparties').pipe(
+    return this.http.get<Party[]>(this.url + 'watchparties', ).pipe(
       catchError((err: any) => {
         console.log(err);
         return throwError(
@@ -30,7 +30,7 @@ export class PartyService {
 
 
   show(partyId: number): Observable<Party> {
-    return this.http.get<Party>(this.url + 'watchparties/'+ partyId, this.getHttpOptions()).pipe(
+    return this.http.get<Party>(this.url + 'watchparties/' + partyId, this.getHttpOptions()).pipe(
       catchError((err: any) => {
         console.log(err);
         return throwError(

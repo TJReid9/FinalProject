@@ -68,6 +68,7 @@ public class VenueServiceImpl implements VenueService {
 			dbVenue.setName(venue.getName());
 			dbVenue.setPhone(venue.getPhone());
 			dbVenue.setWebsiteUrl(venue.getWebsiteUrl());
+			addressRepo.saveAndFlush(dbVenue.getAddress());
 			venueRepo.saveAndFlush(dbVenue);
 		}
 		return dbVenue;

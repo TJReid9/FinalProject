@@ -72,6 +72,7 @@ export class AddressService {
     );
   }
 
+
   destroy(addressId: number) : Observable<void> {
     return this.http.delete<void>(this.url + 'watchparties/addresses/'+ addressId, this.getHttpOptions()).pipe(
       catchError((err: any) => {

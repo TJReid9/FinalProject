@@ -1,14 +1,15 @@
+import { DirectMessage } from './../models/direct-message';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from 'src/environments/environment.development';
-import { AuthService } from './auth.service';
 import { Observable, catchError, throwError } from 'rxjs';
-import { PartyComment } from '../models/party-comment';
+import { AuthService } from './auth.service';
+import { environment } from 'src/environments/environment.development';
+
 
 @Injectable({
   providedIn: 'root'
 })
-export class PartyCommentService {
+export class DirectMessagesService {
 
   private url = environment.baseUrl + 'api/';
 
@@ -27,19 +28,19 @@ export class PartyCommentService {
     return options;
   }
 
-  index(partyId: number): Observable<PartyComment[]> {
-    return this.http.get<PartyComment[]>(this.url + 'watchparties/' + partyId + '/partyComments',  this.getHttpOptions()).pipe(
+  index(): Observable<DirectMessage[]> {
+    return this.http.get<DirectMessage[]>(this.url + 'watchparties/directMessages', this.getHttpOptions()).pipe(
       catchError((err: any) => {
         console.log(err);
         return throwError(
-          () => new Error('PartCommentService.index(): error retrieving List of Party Comments: ' + err)
+          () => new Error('DirectMessageService.index(): error retrieving List of Messages: ' + err)
         );
       })
     );
   }
 
-  show(partyCommentId: number): Observable<PartyComment> {
-    return this.http.get<PartyComment>(this.url + 'watchparties/partyComments/'+ partyCommentId, this.getHttpOptions()).pipe(
+  show(partyCommentId: number): Observable<DirectMessage> {
+    return this.http.get<DirectMessage>(this.url + 'watchparties/directMessages/'+ partyCommentId, this.getHttpOptions()).pipe(
       catchError((err: any) => {
         console.log(err);
         return throwError(
@@ -49,9 +50,9 @@ export class PartyCommentService {
     );
   }
 
-  create(partyComment: PartyComment, partyId: number): Observable<PartyComment> {
+  create(partyComment: DirectMessage): Observable<DirectMessage> {
     console.log(partyComment)
-    return this.http.post<PartyComment>(this.url + 'watchparties/' + partyId + '/partyComments', partyComment, this.getHttpOptions()).pipe(
+    return this.http.post<DirectMessage>(this.url + 'watchparties/directMessages/', partyComment, this.getHttpOptions()).pipe(
       catchError((err: any) => {
         console.error(err);
         return throwError(
@@ -61,8 +62,8 @@ export class PartyCommentService {
     );
   }
 
-  update(partyCommentId: number, partyRating: PartyComment): Observable<PartyComment> {
-    return this.http.put<PartyComment>(this.url + 'watchparties/partyRatings/' + partyCommentId, partyRating ,this.getHttpOptions()).pipe(
+  update(partyCommentId: number, partyRating: DirectMessage): Observable<DirectMessage> {
+    return this.http.put<DirectMessage>(this.url + 'watchparties/directMessages/' + partyCommentId, partyRating ,this.getHttpOptions()).pipe(
       catchError((err: any) => {
         console.error(err);
         return throwError(
@@ -73,7 +74,7 @@ export class PartyCommentService {
   }
 
   destroy(partyCommentId: number) : Observable<void> {
-    return this.http.delete<void>(this.url + 'watchparties/partyRatings/'+ partyCommentId, this.getHttpOptions()).pipe(
+    return this.http.delete<void>(this.url + 'watchparties/directMessages/'+ partyCommentId, this.getHttpOptions()).pipe(
       catchError((err: any) => {
         console.error(err);
         return throwError(

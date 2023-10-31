@@ -3,6 +3,7 @@ package com.skilldistillery.watchparty.services;
 import java.util.List;
 
 import com.skilldistillery.watchparty.entities.Party;
+import com.skilldistillery.watchparty.entities.User;
 
 public interface PartyService {
 	

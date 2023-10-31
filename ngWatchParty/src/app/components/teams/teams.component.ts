@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
+import { config } from 'rxjs';
 import { Sport } from 'src/app/models/sport';
 import { Team } from 'src/app/models/team';
 import { AuthService } from 'src/app/services/auth.service';
@@ -25,7 +27,10 @@ export class TeamsComponent {
   constructor(private teamService: TeamService,
     private sportService: SportService,
     private activatedRoute: ActivatedRoute,
-    private router: Router, private auth: AuthService, private venueService: VenueService){}
+    private router: Router, private auth: AuthService, private venueService: VenueService,
+    private carouselconfig: NgbCarouselConfig){
+      carouselconfig.interval = 2500;
+    }
 
     loggedIn(): boolean {
       return this.auth.checkLogin();

@@ -1,4 +1,6 @@
 import { Address } from "./address";
+import { PartyComment } from "./party-comment";
+import { PartyGoer } from "./party-goer";
 import { Team } from "./team";
 import { User } from "./user";
 import { Venue } from "./venue";
@@ -18,10 +20,14 @@ export class Party {
   address: Address;
   team: Team;
   user: User;
+  partyGoers: PartyGoer[];
+  partyComments: PartyComment[];
+  userId: number;
+
   constructor(
     id: number = 0,
     title: string = '',
-    partyDate: Date = new Date (2023-10-30),
+    partyDate: Date = new Date (),
     startTime: string = '',
     description: string = '',
     completed: boolean = false,
@@ -33,8 +39,9 @@ export class Party {
     address: Address = new Address(),
     team: Team = new Team(),
     user: User = new User(),
-
-
+    partyGoers: PartyGoer[] = [],
+    partyComments: PartyComment[] = [],
+    userId: number = 0
   ){
     this.id = id;
     this.title = title;
@@ -50,6 +57,8 @@ export class Party {
     this.address = address;
     this.team = team;
     this.user = user;
-
+    this.partyGoers = partyGoers;
+    this.partyComments = partyComments;
+    this.userId = userId;
   }
 }

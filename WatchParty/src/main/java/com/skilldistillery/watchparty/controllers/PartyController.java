@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.skilldistillery.watchparty.entities.Party;
+import com.skilldistillery.watchparty.entities.User;
 import com.skilldistillery.watchparty.services.PartyService;
 
 @CrossOrigin({"*", "http://localhost/"})
