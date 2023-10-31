@@ -49,8 +49,8 @@
    <strong>Users attending Party: </strong><br>
 
 
-      <div class="table-responsive"  >
-        <table class="table">
+
+        <table class="table-responsive">
         <tr >
           <td *ngFor="let pg of selectedParty.partyGoers">
              <a href="/#/users/{{pg.user.id}}"><img id="partyPeople" [src]=pg.user.photoUrl height="100px" width="100px"></a>
@@ -58,7 +58,7 @@
           </td>
         </tr>
       </table>
-      </div>
+
 
 
 

@@ -41,9 +41,9 @@ a:hover {
 
 #partyPeople{
 
-  background-color: #d8f0da00;
+  background-color: #00000000;
 
-
+}
 blockquote {
   display: block;
   margin-top: 1em;
@@ -52,4 +52,4 @@ blockquote {
   margin-right: 40px;
 
 }
-}
+
