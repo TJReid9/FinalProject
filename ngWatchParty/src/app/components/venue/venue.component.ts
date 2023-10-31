@@ -169,6 +169,7 @@ export class VenueComponent implements OnInit, AfterViewInit {
         this.newVenue = new Venue();
         this.loadVenue();
         this.editVenue = null;
+        this.selectedVenue = null;
       },
       error: (nojoy) => {
         console.error(
@@ -227,7 +228,7 @@ export class VenueComponent implements OnInit, AfterViewInit {
         this.editAddress = null;
       },
       error: (problem) => {
-        console.error('PartiesComponent.reload(): error loading party: ');
+        console.error('VenueComponent.reload(): error loading venue: ');
         console.error(problem);
       },
     });

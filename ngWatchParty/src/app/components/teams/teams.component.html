@@ -1,6 +1,7 @@
 
 <h1 *ngIf="!selectedTeam">Teams</h1>
 <hr>
+<div id="carousel" *ngIf="!selectedTeam">
 <div class="container" >
     <h3>College Football</h3>
   <ngb-carousel>
@@ -285,6 +286,11 @@
 
 
 
+</div>
+
+
+
+
 <!-- <div class="container" *ngIf="!selectedTeam && !addNewTeam">
   <div class="row">
     <div class="col-12 col-md-6 col-lg-4" *ngFor="let team of teams">
@@ -320,7 +326,7 @@
     <br>
  </div>
 
- <div *ngIf="editTeam" class="container" >
+ <div *ngIf="editTeam && selectedTeam" class="container" >
   <form id="updateTeam" name="updateTeamForm">
     <div class="input-group">
     <label for="name">Name</label>

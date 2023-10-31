@@ -62,3 +62,22 @@
 </div>
 </td>
 </table>
+
+<div class="table-responsive">
+  <table class="table" >
+  <tr>
+    <td *ngFor="let friend of friends">
+       <img id="friend" [src]=friend.user?.photoUrl height="100px" width="100px">
+    </td>
+  </tr>
+</table>
+</div>
+
+<label for="addFriend">Add Friend:</label>
+    <input class="form-control" type="text" name="addFriend" >
+    <br>
+    <button class="btn btn-success" type="submit"  (click)="addFriend(newFriend)">Save</button>
+    <button class="btn btn-danger" type="submit" (click)="addNewFriend = null">Cancel</button>
+
+
+

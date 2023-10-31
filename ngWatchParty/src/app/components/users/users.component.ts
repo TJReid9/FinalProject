@@ -7,6 +7,10 @@ import { UserService } from 'src/app/services/user.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { User } from 'src/app/models/user';
 import { DirectMessage } from 'src/app/models/direct-message';
+import { loadTranslations } from '@angular/localize';
+import { FriendStatus } from 'src/app/models/friend-status';
+import { Friend } from 'src/app/models/friend';
+import { FriendService } from 'src/app/services/friend.service';
 
 @Component({
   selector: 'app-users',
@@ -21,6 +25,11 @@ editUser: User | null = null;
 editAddress: Address = new Address();
 messages: DirectMessage[] = []
 sortedMessage: DirectMessage[][] = [];
+friend: Friend = new Friend;
+newFriend: Friend = new Friend;
+addNewFriend: Friend | null = null;
+friends: Friend[] = [];
+
 
 constructor(
   private userService: UserService,
@@ -28,7 +37,8 @@ constructor(
   private activatedRoute: ActivatedRoute,
   private router: Router,
   private auth: AuthService,
-  private dmService: DirectMessagesService
+  private dmService: DirectMessagesService,
+  private friendService: FriendService
   ){}
 
   ngOnInit(): void{
@@ -177,4 +187,26 @@ deleteUser(id: number){
     }
   })
 }
+
+
+addFriend(newFriend: Friend): void {
+  console.log(newFriend);
+  this.friendService.create(newFriend).subscribe({
+    next: (result) => {
+       this.selectedUser = this.editUser;
+       this.friend = new Friend();
+        this.setLoggedInUser();
+    },
+    error: (nojoy) => {
+      console.error('UserComponent.addFriend(): error adding Friend: ');
+      console.error(nojoy);
+    },
+  });
 }
+
+displayNewFriendForm(friend: Friend){
+  this.addNewFriend = friend;
+}
+
+}
+

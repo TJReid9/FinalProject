@@ -91,7 +91,7 @@
       <input type="text" class="form-control" name="websiteUrl" [(ngModel)]="editVenue.websiteUrl" />
     </div>
 
-    <button class="btn btn-success" type="submit" (click)="updateVenue(editVenue.id, editVenue)">Save</button>
+    <button class="btn btn-success" type="submit" (click)="updateVenue(editVenue.id, editVenue); loadVenue()">Save</button>
 
     <button class="btn btn-danger" type="submit" (click)="editVenue = null">Cancel</button>
 
