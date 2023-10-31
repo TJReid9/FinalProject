@@ -69,9 +69,9 @@
     <p class="commentBody" *ngFor="let partyComment of partyComments">{{partyComment.comment}}</p>
    </div>
    <p *ngIf="loggedIn()">
-   <textarea class="form-control" aria-label="With textarea" name="partyComment" id="partyComment" [(ngModel)]="selectedParty.partyComments"></textarea>
+   <textarea class="form-control" aria-label="With textarea" name="partyComment" id="partyComment" [(ngModel)]="newComment.comment"></textarea>
     </p>
-    <button class="btn btn-outline-dark" type="submit"  (click)="addComment(newComment, selectedParty.id)">Save</button>
+    <button class="btn btn-outline-dark" type="submit"  (click)="addComment(newComment, selectedParty)">Save</button>
 
     <button class="btn btn-outline-dark" type="submit" (click)="selectedParty = null">Cancel</button>
 
