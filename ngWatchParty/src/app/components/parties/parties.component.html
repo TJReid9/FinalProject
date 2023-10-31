@@ -1,7 +1,7 @@
-<h1 *ngIf="!selectedParty" >Watch Parties<span class="badge" >Availible: {{ getPartyCount()}}</span> </h1>
+<h1 *ngIf="!selectedParty" >Watch Parties<span class="badge" >Upcoming: {{ getPartyCount()}}</span> </h1>
 <div class="container" *ngIf="!selectedParty && !addNewParty" >
   <button *ngIf="loggedIn()" (click)="displayAddParty(newParty)" class="btn btn-outline-dark">Add Party</button><br>
-  Show Completed: <input type="checkbox" [(ngModel)]="showComplete">
+  Show Past Parties: <input type="checkbox" [(ngModel)]="showComplete">
 <hr>
   <div class="row" >
     <div class="col-12 col-md-6 col-lg-4" *ngFor="let party of parties | incomplete: showComplete" [ngClass]="party.completed ? 'completed' : '' " >
@@ -50,7 +50,7 @@
 
 
 
-        <table class="table-responsive">
+        <table class="table-responsive" >
         <tr >
           <td *ngFor="let pg of selectedParty.partyGoers">
              <a href="/#/users/{{pg.user.id}}"><img id="partyPeople" [src]=pg.user.photoUrl height="100px" width="100px"></a>

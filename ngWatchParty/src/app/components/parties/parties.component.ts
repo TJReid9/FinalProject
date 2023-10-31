@@ -285,6 +285,7 @@ addUserToParty( partyId: number): void {
        this.partyGoers.push(result);
        this.reloadParties();
        this.loadParties();
+       this.selectedParty = this.selectedParty;
 
     },
     error: (nojoy) => {
