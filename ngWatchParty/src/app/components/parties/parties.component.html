@@ -53,8 +53,8 @@
         <table class="table">
         <tr >
           <td *ngFor="let pg of selectedParty.partyGoers">
-             <img id="partyPeople" [src]=pg.user.photoUrl height="100px" width="100px">
-             {{pg.user.username}}
+             <a href="/#/users/{{pg.user.id}}"><img id="partyPeople" [src]=pg.user.photoUrl height="100px" width="100px"></a>
+
           </td>
         </tr>
       </table>
