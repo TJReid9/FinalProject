@@ -13,6 +13,7 @@ public interface PartyService {
 	Party updateParty(int partyId, Party party);
 	boolean deleteParty(int partyId);
 	List<PartyGoer> getAllPartyGoers(Party party);
-	PartyGoer updatePartyGoers(int partyId, Party party, PartyGoer partyGoers, String username);
-
+	PartyGoer addPartyGoerToParty(int partyId, String username);
+	
+	
 }

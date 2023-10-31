@@ -223,10 +223,12 @@ deleteParty(id: number) {
   });
 }
 
-addUserToParty(user: User, partyId: number, party: Party): void {
-  this.partyService.update(partyId, party).subscribe({
+addUserToParty( partyId: number): void {
+  this.partyService.addSelfToParty(partyId).subscribe({
     next: (result) => {
-       this.partyGoers.push(user);
+       this.partyGoers.push(result);
+       this.reload();
+       this.loadParties();
 
     },
     error: (nojoy) => {

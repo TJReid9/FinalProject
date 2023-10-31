@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.skilldistillery.watchparty.entities.Party;
 import com.skilldistillery.watchparty.entities.PartyGoer;
 import com.skilldistillery.watchparty.entities.PartyGoerId;
+import com.skilldistillery.watchparty.entities.User;
 import com.skilldistillery.watchparty.repositories.PartyGoerRepository;
 import com.skilldistillery.watchparty.repositories.PartyRepository;
 import com.skilldistillery.watchparty.repositories.UserRepository;
@@ -134,13 +135,18 @@ public class PartyServiceImpl implements PartyService {
 	}
 
 	@Override
-	public PartyGoer updatePartyGoers(int partyId, Party party, PartyGoer partyGoers, String username) {
-		PartyGoer partyGoer = new PartyGoer();
-		PartyGoerId id = new PartyGoerId(party.getUser().getId(), party.getId());
-		partyGoer.setId(id);
-		partyGoer.setUser(userRepo.findByUsername(username));
-		partyGoer.setParty(party);
-		partyGoerRepo.saveAndFlush(partyGoer);
+	public PartyGoer addPartyGoerToParty(int partyId, String username) {
+		PartyGoer partyGoer = null;
+		User user = userRepo.findByUsername(username);
+		Party party= partyRepo.searchById(partyId);
+		if(user != null & party != null) {
+			partyGoer = new PartyGoer();
+			PartyGoerId id = new PartyGoerId(user.getId(), party.getId());
+			partyGoer.setId(id);
+			partyGoer.setUser(user);
+			partyGoer.setParty(party);
+			partyGoerRepo.saveAndFlush(partyGoer);
+		}
 		return partyGoer;
 	}
 

@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.skilldistillery.watchparty.entities.Party;
 import com.skilldistillery.watchparty.entities.PartyGoer;
+import com.skilldistillery.watchparty.entities.User;
+import com.skilldistillery.watchparty.repositories.UserRepository;
 import com.skilldistillery.watchparty.services.PartyService;
 
 @CrossOrigin({"*", "http://localhost/"})
@@ -28,6 +30,9 @@ public class PartyController {
 
 	@Autowired
 	private PartyService partyService;
+	
+	@Autowired
+	private UserRepository userRepo;
 
 	@GetMapping("watchparties")
 	public List<Party> getPartyList() {
@@ -93,10 +98,11 @@ public class PartyController {
 	}
 	
 	@PutMapping("watchparties/{partyId}/partyGoers")
-	public Party updatePartyAndPartyGoers(@RequestBody Party party, @RequestBody PartyGoer pg, @PathVariable int partyId, Principal principal, HttpServletResponse res) {
-		Party updatedParty = null;
+	public PartyGoer updatePartyAndPartyGoers( @PathVariable int partyId, Principal principal, HttpServletResponse res) {
+		PartyGoer updatedParty = null;
 		try {
-			updatedParty = partyService.updatePartyGoers(partyId, party, pg, principal.getName());
+			User user = userRepo.findByUsername(principal.getName());
+			updatedParty = partyService.addPartyGoerToParty(partyId, user.getUsername() );
 			if(updatedParty == null) {
 				res.setStatus(404);
 			}
