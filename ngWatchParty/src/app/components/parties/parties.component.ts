@@ -76,6 +76,7 @@ export class PartiesComponent implements OnInit {
     this.loadUser();
     this.setLoggedInUser()
 
+
     console.log(this.venues);
     this.activatedRoute.paramMap.subscribe({
       next: (params) => {
