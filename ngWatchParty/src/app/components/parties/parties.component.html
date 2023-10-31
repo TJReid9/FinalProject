@@ -25,7 +25,7 @@
 <hr>
 
   <h3>
-    {{selectedParty.title}} <span> <button class="btn btn-outline-dark" (click)="addUserToParty(selectedParty.user, selectedParty.user.id, selectedParty)">Join</button></span>
+    {{selectedParty.title}} <span> <button class="btn btn-outline-dark" (click)="addUserToParty(selectedParty.id)">Join</button></span>
   </h3>
   <p>
      <strong>Date:</strong><br>
@@ -49,12 +49,12 @@
    <strong>Users attending Party: </strong><br>
 
 
-      <div class="table-responsive" *ngFor="let pg of partyGoers">
-        <table class="table" >
-        <tr *ngFor="let party of parties">
-          <td *ngFor="let dude of users">
-
-             <img *ngIf="pg.userId == party.userId" id="partyPeople" [src]=dude.photoUrl height="100px" width="100px">
+      <div class="table-responsive"  >
+        <table class="table">
+        <tr >
+          <td *ngFor="let pg of selectedParty.partyGoers">
+             <img id="partyPeople" [src]=pg.user.photoUrl height="100px" width="100px">
+             {{pg.user.username}}
           </td>
         </tr>
       </table>

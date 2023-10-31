@@ -44,8 +44,10 @@ export class PartiesComponent implements OnInit {
   editUser: User | null = null;
   partyGoers: PartyGoer[] = [];
   pg: PartyGoer = new PartyGoer();
-  editParty: Party | null = null;
   selectedVenue: Venue | null = null;
+  editParty: Party | null  = null;
+  newPartyGoer: PartyGoer | null = null
+
 
   constructor(
     private partyService: PartyService,
@@ -277,20 +279,19 @@ export class PartiesComponent implements OnInit {
     });
   }
 
-  addUserToParty(user: User, userId: number, party: Party): void {
-    console.log(user);
-    this.userService.update(userId, user).subscribe({
-      next: (result) => {
-        this.selectedParty = this.editParty;
-        this.pg = new PartyGoer();
-        this.reloadParties();
-      },
-      error: (nojoy) => {
-        console.error(
-          'PartiesComponent.reloadParties(): error loading party: '
-        );
-        console.error(nojoy);
-      },
-    });
-  }
+addUserToParty( partyId: number): void {
+  this.partyService.addSelfToParty(partyId).subscribe({
+    next: (result) => {
+       this.partyGoers.push(result);
+       this.reloadParties();
+       this.loadParties();
+
+    },
+    error: (nojoy) => {
+      console.error('PartiesComponent.reload(): error loading party: ');
+      console.error(nojoy);
+    },
+  });
+}
+
 }

@@ -24,6 +24,7 @@ export class Party {
   partyComments: PartyComment[];
   userId: number;
 
+
   constructor(
     id: number = 0,
     title: string = '',
