@@ -317,7 +317,7 @@
      {{selectedTeam.name}}
    </h3>
    <p>
-     Sport: {{selectedTeam.sport?.name}}
+     Sport: {{selectedTeam.sport.name}}
    </p>
    <p>
      Team Website: {{selectedTeam.teamWebsiteUrl}}
@@ -328,43 +328,54 @@
 
  <div *ngIf="editTeam && selectedTeam" class="container" >
   <form id="updateTeam" name="updateTeamForm">
-    <div class="input-group">
+    <div >
     <label for="name">Name</label>
     <input class="form-control" type="text" name="name" [(ngModel)]="editTeam.name" >
     <br>
+    <hr>
     <label for="logoUrl">Logo Url</label>
     <input class="form-control" type="text" name="imageUrl" [(ngModel)]="editTeam.logoUrl" >
     <br>
     <label for="teamWebsiteUrl">Team Website</label>
     <input class="form-control" type="text" name="teamWebsiteUrl" [(ngModel)]="editTeam.teamWebsiteUrl" >
     <br>
-    <label for="sport">Sport</label>
-    <input class="form-control" type="text" name="sport" [(ngModel)]="editTeam.sport" >
+
+    <div class="mb-3" >
+       <label for="sport">Sport</label>
+    <select  name="sport" [(ngModel)]="editTeam.sport.name" >
+      <option *ngFor="let sport of sports" value="{{sport.name}}"> {{sport.name}}</option>
+    </select>
+    </div>
+
     <br>
-  </div>
+
     <button class="btn btn-success" type="submit"  (click)="updateTeam(editTeam, editTeam.id)">Save</button>
     <button class="btn btn-danger" type="submit" (click)="editTeam = null">Cancel</button>
+    </div>
   </form>
 </div>
 
 <div *ngIf="addNewTeam && !selectedTeam && !editTeam">
   <form name="newTeamForm">
     <div class="input-group">
-    <label for="name">Name</label>
-    <input class="form-control" type="text" name="name" [(ngModel)]="newTeam.name" >
-    <br>
-    <label for="logoUrl">Logo Url</label>
-    <input class="form-control" type="text" name="logoUrl" [(ngModel)]="newTeam.logoUrl" >
-    <br>
-    <label for="teamWebsiteUrl">Team Website</label>
-    <input class="form-control" type="text" name="teamWebsiteUrl" [(ngModel)]="newTeam.teamWebsiteUrl" >
-    <br>
-    <label for="sport">Sport</label>
-    <input class="form-control" type="text" name="sport" [(ngModel)]="newTeam.sport" >
-    <br>
-    <button class="btn btn-success" type="submit"  (click)="addTeam(newTeam)">Save</button>
-    <button class="btn btn-danger" type="submit" (click)="addNewTeam = null">Cancel</button>
-  </div>
+      <label for="name">Name</label>
+      <input class="form-control" type="text" name="name" [(ngModel)]="newTeam.name" >
+      <br>
+      <label for="logoUrl">Logo Url</label>
+      <input class="form-control" type="text" name="logoUrl" [(ngModel)]="newTeam.logoUrl" >
+      <br>
+      <label for="teamWebsiteUrl">Team Website</label>
+      <input class="form-control" type="text" name="teamWebsiteUrl" [(ngModel)]="newTeam.teamWebsiteUrl" >
+      <br>
+      <label for="sport">Sport</label>
+      <input class="form-control" type="text" name="sport" [(ngModel)]="newTeam.sport" >
+      <br>
+      <button class="btn btn-success" type="submit"  (click)="addTeam(newTeam)">Save</button>
+      <button class="btn btn-danger" type="submit" (click)="addNewTeam = null">Cancel</button>
+    </div>
+  </form>
+</div>
+
 
 
 

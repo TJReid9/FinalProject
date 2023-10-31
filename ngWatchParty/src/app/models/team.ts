@@ -5,14 +5,14 @@ export class Team {
   name: string;
   logoUrl: string;
   teamWebsiteUrl: string;
-  sport: Sport | null = null;
+  sport: Sport;
 
   constructor(
     id: number = 0,
     name: string = '',
     logoUrl: string = '',
     teamWebsiteUrl: string = '',
-    sport: Sport = new Sport
+    sport: Sport = new Sport()
   ){
     this.id = id;
     this.name = name;
