@@ -13,37 +13,38 @@
   </div>
 </div>
 
-<div *ngIf="selectedVenue && !editVenue ">
-  <button class="btn btn-outline-dark" (click)="displayAllVenues()">Back</button>
-  <button *ngIf="loggedIn()" class="btn btn-outline-dark" type="submit" (click)="setEditVenue()">Edit</button>
-
-  <button *ngIf="loggedIn()" (click)="deleteVenue(selectedVenue.id)" class="btn btn-outline-dark">Delete</button>
-
-
-
-  <h3>
-    {{selectedVenue.name}}
-  </h3>
-  <p>
-    <strong>Phone:</strong><br>
-    {{selectedVenue.phone}}<br>
-    <strong>Address:</strong><br>
-    {{selectedVenue.address.street}}<br>
-    {{selectedVenue.address.city}} , {{selectedVenue.address.state}} {{selectedVenue.address.zip}}
-  </p>
-  <p>
-    <strong>Description:</strong><br>
-    {{selectedVenue.description}}
-  </p>
+<div class="card text-bg-dark" *ngIf="selectedVenue && !editVenue ">
+  <img [src]="selectedVenue.imageUrl" class="card-img">
+  <div class="card-img-overlay">
+    <div class="card-header" style="background-color: slategray;">
+      <button class="btn btn-outline-dark" (click)="displayAllVenues()">Back</button>
+      <button *ngIf="loggedIn()" class="btn btn-outline-dark" type="submit" (click)="setEditVenue()">Edit</button>
+      <button *ngIf="loggedIn()" (click)="deleteVenue(selectedVenue.id)" class="btn btn-outline-dark">Delete</button>
+    </div>
+      <div class="bgtext">
+      <h3 class="card-title">{{selectedVenue.name}}</h3>
+      <p>
+        <strong>Phone:</strong><br>
+        {{selectedVenue.phone}}<br>
+        <strong>Address:</strong><br>
+        {{selectedVenue.address.street}}<br>
+        {{selectedVenue.address.city}} , {{selectedVenue.address.state}} {{selectedVenue.address.zip}}
+      </p>
+      <p>
+        <strong>Description:</strong><br>
+        {{selectedVenue.description}}
+      </p>
   <div class="image-table">
     <table>
       <tr>
-        <td><img [src]="selectedVenue.imageUrl" height="300px" width="100%"></td>
+        <!-- <td><img [src]="selectedVenue.imageUrl" height="300px" width="100%"></td> -->
         <td><google-map height="300px" width="250px" [center]="center" [zoom]="zoom" (mapClick)="moveMap($event)" (mapMousemove)="move($event)"/></td>
       </tr>
     </table>
 
 
+  </div>
+  </div>
   </div>
   </div>
 

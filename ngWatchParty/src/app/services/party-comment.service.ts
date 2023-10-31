@@ -27,8 +27,8 @@ export class PartyCommentService {
     return options;
   }
 
-  index(): Observable<PartyComment[]> {
-    return this.http.get<PartyComment[]>(this.url + 'watchparties/partyComments').pipe(
+  index(partyId: number): Observable<PartyComment[]> {
+    return this.http.get<PartyComment[]>(this.url + 'watchparties/' + partyId + '/partyComments',  this.getHttpOptions()).pipe(
       catchError((err: any) => {
         console.log(err);
         return throwError(
@@ -49,9 +49,9 @@ export class PartyCommentService {
     );
   }
 
-  create(partyComment: PartyComment): Observable<PartyComment> {
+  create(partyComment: PartyComment, partyId: number): Observable<PartyComment> {
     console.log(partyComment)
-    return this.http.post<PartyComment>(this.url + 'watchparties/partyComments/', partyComment, this.getHttpOptions()).pipe(
+    return this.http.post<PartyComment>(this.url + 'watchparties/' + partyId + '/partyComments', partyComment, this.getHttpOptions()).pipe(
       catchError((err: any) => {
         console.error(err);
         return throwError(

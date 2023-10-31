@@ -11,7 +11,7 @@ export class PartyComment {
   updateDate: string;
   party: Party | null = null;
   user: User | null = null;
-  partyCommentReply: PartyComment | null = null;
+  // partyCommentReply: PartyComment | null = null;
 
   constructor(
   id: number = 0,
@@ -20,9 +20,9 @@ export class PartyComment {
   enabled: boolean = true,
   createDate: string = '',
   updateDate: string = '',
-  party: Party = new Party,
-  user: User = new User,
-  partyCommentReply: PartyComment = new PartyComment
+  party: Party = new Party(),
+  user: User = new User(),
+  // partyCommentReply: PartyComment = new PartyComment()
 
   ){
     this.id = id;
@@ -33,6 +33,6 @@ export class PartyComment {
     this.updateDate = updateDate;
     this.party = party;
     this.user = user;
-    this.partyCommentReply = partyCommentReply;
+    // this.partyCommentReply = partyCommentReply;
   }
 }
