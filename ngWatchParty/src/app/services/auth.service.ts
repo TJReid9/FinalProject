@@ -10,7 +10,7 @@ import { Buffer } from 'buffer';
 })
 export class AuthService {
 
-
+user: User = new User;
 
    // Set port number to server's port
   //  private baseUrl = 'http://localhost:8086/';
@@ -63,7 +63,7 @@ export class AuthService {
   }
 
   getLoggedInUser(): Observable<User> {
-    if (!this.checkLogin()) {
+    if (!this.checkLogin() && this.user.enabled == true) {
       return throwError(() => {
         new Error('Not logged in.');
       });
