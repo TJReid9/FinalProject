@@ -135,6 +135,7 @@ updateUser(user: User){
     next: (updatedUser) => {
       this.editUser = null;
       this.setLoggedInUser();
+      location.reload();
     },
     error: (problem) => {
       console.error('UsersComponenet error')

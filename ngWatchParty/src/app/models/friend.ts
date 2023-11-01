@@ -6,8 +6,8 @@ export class Friend {
 
   id: FriendId;
   friendStatus: FriendStatus;
-  friend: User | null = null;
-  user: User | null = null;
+  friend: User;
+  user: User;
 
   constructor(
     id: FriendId = new FriendId,

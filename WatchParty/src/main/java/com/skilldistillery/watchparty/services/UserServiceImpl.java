@@ -67,8 +67,9 @@ public class UserServiceImpl implements UserService {
 			existingUser.setPhotoUrl(user.getPhotoUrl());
 			existingUser.setEnabled(user.isEnabled());
 			existingUser.setAddress(user.getAddress());
-			existingUser.setFriends(user.getFriends());
+			if (user.getFavoriteTeams() != null || !user.getFavoriteTeams().isEmpty()) {
 			existingUser.setFavoriteTeams(user.getFavoriteTeams());
+			}
 			userRepo.saveAndFlush(existingUser);
 			
 		}
