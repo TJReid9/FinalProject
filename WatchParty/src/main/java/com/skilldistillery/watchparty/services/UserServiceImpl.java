@@ -7,9 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.skilldistillery.watchparty.entities.Address;
+import com.skilldistillery.watchparty.entities.Friend;
 import com.skilldistillery.watchparty.entities.Team;
 import com.skilldistillery.watchparty.entities.User;
 import com.skilldistillery.watchparty.repositories.AddressRepository;
+import com.skilldistillery.watchparty.repositories.FriendRepository;
 import com.skilldistillery.watchparty.repositories.TeamRepository;
 import com.skilldistillery.watchparty.repositories.UserRepository;
 
@@ -24,6 +26,9 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	private TeamRepository teamRepo;
+	
+	@Autowired
+	private FriendRepository friendRepo;
 
 	@Override
 	public List<User> getAllUsers() {
@@ -33,6 +38,11 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User retrieveUser(int UserId) {
 		return userRepo.searchById(UserId);
+	}
+	
+	@Override
+	public User retrieveUser(String userName) {
+		return userRepo.findByUsername(userName);
 	}
 
 	@Override
@@ -94,6 +104,26 @@ public class UserServiceImpl implements UserService {
 		user.setFavoriteTeams(favoriteTeams);
 		userRepo.saveAndFlush(user);
 		return favoriteTeams;
+	}
+
+	@Override
+	public List<Friend> addFriendById(Friend friend, User user) {
+		List<Friend> friends = user.getFriends();
+		Friend newFriend = friendRepo.searchById(user.getId());
+		friends.add(newFriend);
+		user.setFriends(friends);
+		userRepo.saveAndFlush(user);
+		return friends;
+	}
+
+	@Override
+	public List<Friend> removeFriendById(Friend friend, User user) {
+		Friend notFriend = friendRepo.searchById(user.getId());
+		List<Friend> friends = user.getFriends();
+		friends.remove(notFriend);
+		user.setFriends(friends);
+		userRepo.saveAndFlush(user);
+		return friends;
 	}
 
 	
