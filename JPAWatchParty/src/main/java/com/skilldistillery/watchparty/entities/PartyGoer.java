@@ -10,6 +10,7 @@ import javax.persistence.MapsId;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "party_goer")
@@ -22,11 +23,13 @@ public class PartyGoer {
 	@ManyToOne
 	@JoinColumn(name="party_id")
 	@MapsId(value="partyId")
+	@JsonIgnoreProperties({"friends"})
 	private Party party;
 	
 	@ManyToOne
 	@JoinColumn(name="user_id")
 	@MapsId(value="userId")
+	@JsonIgnoreProperties({"friends"})
 	private User user;
 	
 	public PartyGoer() {

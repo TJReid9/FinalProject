@@ -55,6 +55,7 @@ export class PartyService {
   }
 
   update(partyId: number, party: Party): Observable<Party> {
+    party.user.friends = [];
     return this.http.put<Party>(this.url + 'watchparties/' + partyId, party ,this.getHttpOptions()).pipe(
       catchError((err: any) => {
         console.error(err);
