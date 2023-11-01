@@ -112,5 +112,21 @@ public class PartyController {
 		}
 		return updatedParty;
 	}
+	
+	@DeleteMapping("watchparties/{partyId}/partyGoers/{partyGoerId}")
+		public void deletePartyGoer(@PathVariable int partyGoerId, Principal principal, HttpServletResponse res) {
+			try {
+				if(partyService.removePartyGoerFromParty(partyGoerId, principal.getName())) {
+					res.setStatus(204);
+				} else {
+					res.setStatus(404);
+				}
+			} catch (Exception e) {
+				res.setStatus(400);
+				e.printStackTrace();
+			}
+		}
+	
+	
 
 }

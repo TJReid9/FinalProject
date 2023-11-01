@@ -341,4 +341,29 @@ addUserToParty( partyId: number): void {
   });
 }
 
+removeUserFromParty( partyId: number, userId: number): void {
+  this.partyService.RemoveSelfFromParty(partyId,userId).subscribe({
+    next: (result) => {
+      location.reload();
+
+    },
+    error: (nojoy) => {
+      console.error('PartiesComponent.reload(): error loading party: ');
+      console.error(nojoy);
+    },
+  });
+}
+
+isPartyGoer(){
+  let isGoing = false;
+  console.log(this.selectedParty?.partyGoers);
+  console.log(this.loggedInUser);
+  this.selectedParty?.partyGoers.forEach((partyGoer)=> {
+    if(this.selectedParty && partyGoer.user.id  == this.loggedInUser.id){
+      isGoing = true;
+    }
+  });
+  return isGoing
+}
+
 }

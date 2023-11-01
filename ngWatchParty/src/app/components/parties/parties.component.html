@@ -29,7 +29,10 @@
 
 
   <h3>
-    {{selectedParty.title}} <span > <button class="btn btn-outline-dark" (click)="addUserToParty(selectedParty.id)">Join</button></span>
+    {{selectedParty.title}} <span >
+       <button *ngIf="!isPartyGoer()" class="btn btn-outline-dark" (click)="addUserToParty(selectedParty.id)">Join</button>
+       <button *ngIf="isPartyGoer()" class="btn btn-outline-dark" (click)="removeUserFromParty(selectedParty.id, loggedInUser.id)">Unjoin</button>
+      </span>
   </h3>
   <p>
      <strong>Date:</strong><br>
@@ -71,7 +74,7 @@
    <hr>
    <div class="partyComments">
     <p class="commentBody" *ngFor="let partyComment of partyComments"><img src={{partyComment.user.photoUrl}} height="50px" width="50px"> {{partyComment.comment}} <img src="{{partyComment.photoUrl}}" >
-    <button *ngIf="loggedIn()" (click)="deletePartyComment(partyComment.party.id , partyComment.id)" class="btn btn-outline-dark">Delete</button></p>
+    <button *ngIf="loggedIn() && partyComment.user.id == loggedInUser.id" (click)="deletePartyComment(partyComment.party.id , partyComment.id)" class="btn btn-outline-dark">Delete</button></p>
   </div>
    <p *ngIf="loggedIn()">
     <label for="partyComment">Add A Comment:</label>
