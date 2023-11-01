@@ -331,7 +331,7 @@ addUserToParty( partyId: number): void {
        this.partyGoers.push(result);
         this.reloadParties();
         this.loadParties();
-        location.reload();
+      location.reload();
 
     },
     error: (nojoy) => {
