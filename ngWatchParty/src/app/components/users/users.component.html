@@ -20,21 +20,21 @@
     </tr>
   </table>
 
-  <div class="table-responsive">
-    <table class="table" >
+
+    <table class="table-responsive" >
       <thead>
         <th>
-          Friends:
+          Following:
         </th>
       </thead>
-    <tr>
-      <td *ngFor="let friend of loggedInUser.friends">
-         <img id="friend" src="{{friend.user?.photoUrl}}" height="100px" width="100px">
+
+    <tr *ngFor="let friend of loggedInUser.friends">
+      <td >
+         <a [routerLink]="['/users/' + friend.id]"><img id="friends" [src]=friend.user?.photoUrl height="100px" width="100px"></a>
+
       </td>
     </tr>
   </table>
-  </div>
-
 
 
   <hr>

@@ -8,6 +8,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 public class Friend {
 
@@ -21,11 +23,13 @@ public class Friend {
 	@ManyToOne
 	@JoinColumn(name = "friend_id")
 	@MapsId(value = "friendId")
+	@JsonIgnoreProperties({"friends"})
 	private User friend;
 	
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	@MapsId(value = "userId")
+	@JsonIgnoreProperties({"friends"})
 	private User user;
 
 	public Friend(FriendId id) {
