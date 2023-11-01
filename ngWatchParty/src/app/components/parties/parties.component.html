@@ -46,6 +46,11 @@
     <strong>Venue:</strong><br>
      <a href="/#/venues/{{selectedParty.venue.id}}">{{selectedParty.venue.name}}</a>
    </p>
+   <p>
+    <strong>Venue Address:</strong><br>
+    {{selectedParty.venue.address.street}}<br>
+    {{selectedParty.venue.address.city}}, {{selectedParty.venue.address.state}} {{selectedParty.venue.address.zip}}
+   </p>
    <div>
    <blockquote>
     <p>
