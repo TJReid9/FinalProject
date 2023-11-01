@@ -19,24 +19,25 @@
 <div *ngIf="selectedParty && !editParty ">
  <a href="/#/parties"><button class="btn btn-outline-dark" (click)="displayAllParties()">Back</button></a>
 
- <div *ngIf="loggedInUser.id == selectedParty.user.id || loggedInUser.id == 1">
- <button *ngIf="loggedIn()" class="btn btn-outline-dark" type="submit"  (click)="setEditParty()">Edit</button>
 
-  <button *ngIf="loggedIn()" (click)="deleteParty(selectedParty.id)" class="btn btn-outline-dark">Delete</button>
-</div>
+ <button *ngIf="loggedIn() && loggedInUser.id == selectedParty.user.id || loggedInUser.id == 1" class="btn btn-outline-dark" type="submit"  (click)="setEditParty()">Edit</button>
+
+  <button *ngIf="loggedIn() && loggedInUser.id == selectedParty.user.id || loggedInUser.id == 1" (click)="deleteParty(selectedParty.id)" class="btn btn-outline-dark">Delete</button>
+
 <hr>
 <img [src]="selectedParty.imageUrl" align="right" height="300px" width="300px">
 
+
   <h3>
-    {{selectedParty.title}} <span> <button class="btn btn-outline-dark" (click)="addUserToParty(selectedParty.id)">Join</button></span>
+    {{selectedParty.title}} <span > <button class="btn btn-outline-dark" (click)="addUserToParty(selectedParty.id)">Join</button></span>
   </h3>
   <p>
      <strong>Date:</strong><br>
-    {{selectedParty.partyDate}}
+    {{selectedParty.partyDate | date: 'mediumDate'}}
   </p>
   <p>
      <strong>Start Time:</strong><br>
-    {{selectedParty.startTime}}
+    {{selectedParty.startTime | convertFrom24To12Format}}
    </p>
    <p>
     <strong>Venue:</strong><br>
