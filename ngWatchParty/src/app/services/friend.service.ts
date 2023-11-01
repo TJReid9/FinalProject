@@ -1,8 +1,8 @@
+import { Friend } from 'src/app/models/friend';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
-import { Friend } from '../models/friend';
 import { AuthService } from './auth.service';
 
 @Injectable({
@@ -43,7 +43,7 @@ export class FriendService {
 
   create(friend: Friend): Observable<Friend> {
     console.log(friend)
-    return this.http.post<Friend>(this.url + 'watchparties/friends', friend).pipe(
+    return this.http.post<Friend>(this.url + 'watchparties/friends', friend, this.getHttpOptions()).pipe(
       catchError((err: any) => {
         console.error(err);
         return throwError(
@@ -70,7 +70,7 @@ export class FriendService {
       catchError((err: any) => {
         console.error(err);
         return throwError(
-           () => new Error( 'PartyService.destroy(): error deleting Party: ' + err )
+           () => new Error( 'FriendService.destroy(): error deleting Friend: ' + err )
         );
       })
     );
