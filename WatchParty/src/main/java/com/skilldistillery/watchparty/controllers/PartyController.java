@@ -114,9 +114,9 @@ public class PartyController {
 	}
 	
 	@DeleteMapping("watchparties/{partyId}/partyGoers/{partyGoerId}")
-		public void deletePartyGoer(@PathVariable int partyGoerId, Principal principal, HttpServletResponse res) {
+		public void deletePartyGoer(@PathVariable int partyId, Principal principal, HttpServletResponse res) {
 			try {
-				if(partyService.removePartyGoerFromParty(partyGoerId, principal.getName())) {
+				if(partyService.removePartyGoerFromParty(partyId, principal.getName())) {
 					res.setStatus(204);
 				} else {
 					res.setStatus(404);

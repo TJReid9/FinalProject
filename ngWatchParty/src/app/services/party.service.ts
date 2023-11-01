@@ -80,7 +80,7 @@ export class PartyService {
       catchError((err: any) => {
         console.error(err);
         return throwError(
-           () => new Error( 'PartyService.update(): error updating Party: ' + err )
+           () => new Error( 'PartyService.update(): error Deleting PartyGoer: ' + err )
         );
       })
     );
