@@ -19,6 +19,7 @@ import { TeamsComponent } from './components/teams/teams.component';
 import { SportsFilterPipe } from './pipes/sports-filter.pipe';
 import { IncompletePipe } from './pipes/incomplete.pipe';
 import { GoogleMapsModule } from '@angular/google-maps';
+import { ConvertFrom24To12FormatPipe } from './pipes/convert-from24-to12-format.pipe';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { GoogleMapsModule } from '@angular/google-maps';
     TeamsComponent,
     SportsFilterPipe,
     IncompletePipe,
+    ConvertFrom24To12FormatPipe,
   ],
   imports: [
     GoogleMapsModule,
