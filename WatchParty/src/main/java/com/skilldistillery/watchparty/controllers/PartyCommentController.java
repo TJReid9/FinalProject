@@ -81,8 +81,8 @@ public class PartyCommentController {
 	}
 	
 	
-	@DeleteMapping("watchparties/partyComments/{partyCommentId}")
-	public void deletePartyComment(@PathVariable int partyCommentId, HttpServletResponse res) {
+	@DeleteMapping("watchparties/{partyId}/partyComments/{partyCommentId}")
+	public void deletePartyComment(@PathVariable int partyId, @PathVariable int partyCommentId, HttpServletResponse res) {
 		try {
 			if(partyCommentService.deletePartyComment(partyCommentId)) {
 				res.setStatus(204);

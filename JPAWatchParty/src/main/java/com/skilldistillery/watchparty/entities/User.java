@@ -12,6 +12,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -59,10 +61,10 @@ public class User {
 	@OneToMany(mappedBy = "friend")
 	private List<Friend> friends;
 	
-//	@JsonIgnore
-//	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
-//	private List<PartyGoer> partyGoers;
-
+	@ManyToMany
+	@JoinTable(name = "favorite_team", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "team_id"))
+	private List<Team> favoriteTeams;
+	
 	public User() {
 		super();
 	}
@@ -209,6 +211,18 @@ public class User {
 
 	public void setFriends(List<Friend> friends) {
 		this.friends = friends;
+	}
+
+
+
+	public List<Team> getFavoriteTeams() {
+		return favoriteTeams;
+	}
+
+
+
+	public void setFavoriteTeams(List<Team> favoriteTeams) {
+		this.favoriteTeams = favoriteTeams;
 	}
 
 

@@ -139,7 +139,7 @@ export class VenueComponent implements OnInit, AfterViewInit {
         this.newAddress = new Address();
         this.addressService.create(this.newAddress);
         this.newVenue = new Venue();
-        this.loadVenues();
+        location.reload();
       },
       error: (nojoy) => {
         console.error(

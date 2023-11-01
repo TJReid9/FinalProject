@@ -9,8 +9,8 @@ export class PartyComment {
   enabled: boolean;
   createDate: string;
   updateDate: string;
-  party: Party | null = null;
-  user: User | null = null;
+  party: Party;
+  user: User;
   // partyCommentReply: PartyComment | null = null;
 
   constructor(

@@ -305,10 +305,18 @@
 
 
 <div *ngIf="selectedTeam && !editTeam ">
-  <button class="btn btn-warning" (click)="displayAllTeams()">Back</button>
-  <button *ngIf="loggedIn()" class="btn btn-outline-primary" type="submit"  (click)="setEditTeam()">Edit</button>
+  <button class="btn btn-outline-dark" (click)="displayAllTeams()">Back</button>
+  <button *ngIf="loggedIn()" class="btn btn-outline-dark" type="submit"  (click)="setEditTeam()">Edit</button>
 
-  <button *ngIf="loggedIn()" (click)="deleteTeam(selectedTeam.id)" class="btn btn-danger">Delete</button>
+
+  <!-- <button *ngIf="loggedIn() && !loggedInUser.favoriteTeams.includes(selectedTeam) " (click)="addFavoriteTeam(selectedTeam)" class="btn btn-outline-dark">Add To Favorites</button> -->
+  <button *ngIf="loggedIn() && !isFavoriteTeam()" (click)="addFavoriteTeam(selectedTeam)" class="btn btn-outline-dark">Add To Favorites</button>
+
+  <!-- <button *ngIf="loggedIn() && loggedInUser.favoriteTeams.includes(selectedTeam) " (click)="removeFavoriteTeam(selectedTeam.id, loggedInUser.id)" class="btn btn-outline-dark">Remove From Favorites</button> -->
+  <button *ngIf="loggedIn() && isFavoriteTeam()" (click)="removeFavoriteTeam(selectedTeam.id, loggedInUser.id)" class="btn btn-outline-dark">Remove From Favorites</button>
+
+
+  <button *ngIf="loggedIn()" (click)="deleteTeam(selectedTeam.id)" class="btn btn-outline-dark">Delete</button>
 
   <p>
     ID: {{selectedTeam.id}}
