@@ -75,6 +75,16 @@ export class PartyService {
       })
     );
   }
+  RemoveSelfFromParty(partyId: number, userId: number): Observable<PartyGoer> {
+    return this.http.delete<PartyGoer>(this.url + 'watchparties/' + partyId + '/partyGoers/' + userId,this.getHttpOptions()).pipe(
+      catchError((err: any) => {
+        console.error(err);
+        return throwError(
+           () => new Error( 'PartyService.update(): error updating Party: ' + err )
+        );
+      })
+    );
+  }
 
   destroy(partyId: number) : Observable<void> {
     return this.http.delete<void>(this.url + 'watchparties/'+ partyId, this.getHttpOptions()).pipe(
