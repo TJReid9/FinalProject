@@ -31,6 +31,7 @@ sortedMessage: DirectMessage[][] = [];
 friend: Friend = new Friend;
 newFriend: Friend = new Friend;
 friends: Friend[] = [];
+newAddress: Address | null = null;
 
 // messages: Array<DirectMessage> = [];
 newMessage: DirectMessage = new DirectMessage();
@@ -91,6 +92,13 @@ loadMessages(userId: number) {
     },
   });
 }
+
+displayAddAddress(){
+  this.newAddress = new Address();
+  this.editUser = null;
+}
+
+
 
 
 setLoggedInUser(){
@@ -154,6 +162,20 @@ updateAddress(address: Address){
 });
 }
 
+addAddress(address: Address){
+  this.addressService.create(address).subscribe({
+  next: (createdAddress) => {
+    this.loggedInUser.address = createdAddress;
+    this.updateUser(this.loggedInUser);
+    this.newAddress = null;
+  },
+  error: (problem) => {
+    console.error('UsersComponenet error')
+    console.log(problem);
+  }
+});
+}
+
 updateMessage(message: DirectMessage){
   this.dmService.update(message.id, message).subscribe({
   next: (updatedAddress) => {
@@ -182,11 +204,13 @@ getUser(id: number): any{
 
 
 deleteUser(id: number){
-  let user: User = this.getUser(id);
-  user.enabled = false;
-  this.userService.update(id, user).subscribe({
+
+  this.loggedInUser.enabled = false;
+  this.userService.update(this.loggedInUser.id, this.loggedInUser).subscribe({
     next: (result) => {
-      this.router.navigateByUrl('/home');
+
+      this.logout();
+
     },
     error: (err) => {
       console.error('Users Componenet: could not delete users')
@@ -242,6 +266,13 @@ deleteMessage(id: number) {
       console.error(nojoy);
     },
   });
+}
+
+logout() {
+  console.log('Logging out.');
+  localStorage.removeItem('credentials');
+  this.auth.logout();
+  this.router.navigateByUrl('/home');
 }
 
 }

@@ -1,5 +1,5 @@
-<div *ngIf="loggedInUser == user">
-<div *ngIf="!editUser && loggedInUser">
+<div *ngIf="loggedInUser.id == user.id">
+<div *ngIf="!editUser && loggedInUser && !newAddress">
   <div class="col-15 col-md-12 col-lg-8">
     <div class="card bg-transparent" style="margin-bottom: 10px" >
       <img [src]="loggedInUser.photoUrl" (click)="setEditUser()" height="200px" width="200px"/>
@@ -8,7 +8,9 @@
   </div>
   Created: {{loggedInUser.createDate}} <br>
   Name: {{loggedInUser.firstName}} <br>
+  <div *ngIf="loggedInUser.address?.id != 1 || loggedInUser.username == 'admin'">
   Located at: {{loggedInUser.address?.city}}, {{loggedInUser.address?.state}}<br>
+  </div>
   <table class="table-responsive">
     <thead>
       <th>
@@ -22,7 +24,7 @@
   <hr>
   lastUpdated: {{loggedInUser.updateDate}}
 
-  <button class="btn btn-primary" (click)="setEditUser()">Edit</button>
+  <button class="btn btn-outline-dark" (click)="setEditUser()">Edit</button>
 
 
 </div>
@@ -35,19 +37,45 @@
     <label for="photoUrl">Profile Url</label>
     <input class="form-control" type="text" name="photoUrl" [(ngModel)]="editUser.photoUrl">
 
-    <button class="btn btn-success" type="submit"  (click)="updateUser(editUser)">Save</button>
-    <button class="btn btn-primary" type="submit"  (click)="setEditAddress()">Edit Address</button>
+    <button class="btn btn-outline-dark" type="submit"  (click)="updateUser(editUser)">Save</button>
 
-    <button class="btn btn-danger" type="submit" (click)="editUser = null">Cancel</button>
+
+
+    <button *ngIf="loggedInUser.address?.id != 1 || loggedInUser.username == 'admin'" class="btn btn-outline-dark" type="submit"  (click)="setEditAddress()">Edit Address</button>
+    <button *ngIf="loggedInUser.address?.id == 1 && loggedInUser.username != 'admin'" class="btn btn-outline-dark" type="submit"  (click)="displayAddAddress()">Add address</button>
+    <button class="btn btn-outline-dark" type="submit" (click)="editUser = null">Cancel</button>
 
   </form>
+
+  <button class="btn btn-outline-danger" (click)="deleteUser(loggedInUser.id)">Delete Account</button>
 
 
 </div>
 
+<div *ngIf="newAddress">
+  <label for="street">Street</label>
+  <input class="form-control" type="text" name="street" [(ngModel)]="newAddress.street">
+
+  <label for="city">City</label>
+  <input class="form-control" type="text" name="city" [(ngModel)]="newAddress.city">
+
+  <label for="state">State</label>
+  <input class="form-control" type="text" name="state" [(ngModel)]="newAddress.state">
+
+  <label for="zip">Zip</label>
+  <input class="form-control" type="text" name="zip" [(ngModel)]="newAddress.zip">
+
+  <button class="btn btn-success" type="submit"  (click)="addAddress(newAddress)">Save</button>
+
+  <button class="btn btn-danger" type="submit" (click)="newAddress = null">Cancel</button>
+
+</div>
+
+
+
 <div *ngIf="editAddress.id != 0">
   <label for="street">Street</label>
-  {{editAddress.id}}
+
   <input class="form-control" type="text" name="street" [(ngModel)]="editAddress.street">
 
   <label for="city">City</label>
@@ -67,7 +95,7 @@
 
 
 </div>
-<div *ngIf="user != loggedInUser">
+<div *ngIf="user.id != loggedInUser.id">
   <table>
     <td>
   <div class="col-8 col-md-6 col-lg-4">
@@ -78,7 +106,9 @@
   </div>
   Created: {{user.createDate}} <br>
   Name: {{user.firstName}} <br>
+  <div *ngIf="user.address?.id != 1">
   Located at: {{user.address?.city}}, {{user.address?.state}}<br>
+  </div>
   <hr>
   lastUpdated: {{loggedInUser.updateDate}}
 </td>
@@ -102,7 +132,7 @@
     <tr>
       <div *ngIf="loggedInUser.id === message.sender.id">
       <td><a (click)="setEditMessage(message)" class="btn btn-update">Update Message</a></td>
-      <!-- <td><a (click)="deleteMessage(message.id)" class="btn btn-danger">Delete Message</a></td> -->
+      <td><a (click)="deleteMessage(message.id)" class="btn btn-danger">Delete Message</a></td>
 
       </div>
       <td>Sent On - {{message.createDate }}</td>
