@@ -1,5 +1,6 @@
 package com.skilldistillery.watchparty.controllers;
 
+import java.security.Principal;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,9 +17,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.skilldistillery.watchparty.entities.Friend;
 import com.skilldistillery.watchparty.entities.Team;
 import com.skilldistillery.watchparty.entities.User;
-import com.skilldistillery.watchparty.repositories.UserRepository;
+import com.skilldistillery.watchparty.services.FriendService;
 import com.skilldistillery.watchparty.services.TeamService;
 import com.skilldistillery.watchparty.services.UserService;
 
@@ -32,6 +34,9 @@ public class UserController {
 	
 	@Autowired
 	private TeamService teamService;
+	
+	@Autowired
+	private FriendService friendService;
 	
 	@GetMapping("watchparties/users")
 	public List<User> listUsers(HttpServletResponse resp) {
@@ -114,6 +119,42 @@ public class UserController {
 			res.setStatus(400);
 		}
 		
+	}
+	
+//	@PostMapping("watchparties/users/{userId}/friends")
+//	public List<Friend> addFriend(@PathVariable int userId, HttpServletResponse resp) {
+////		return friendService.create();
+//	}
+	
+	@PutMapping("watchparties/users/{userId}/friends")
+	public void deleteFriendById(@PathVariable Integer userId, HttpServletResponse res, Principal pr) {
+		try {
+			userService.removeFriendById(userId, pr.getName());
+			res.setStatus(204);
+			if(userId == null) {
+				res.setStatus(404);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			res.setStatus(400);
+		}
+		
+	}
+	
+	@PostMapping("watchparties/{friendId}/friends")
+	public Friend addFriend( @PathVariable int friendId, Principal principal, HttpServletResponse res) {
+		Friend updatedFriend = null;
+		try {
+			updatedFriend = friendService.addBuddy(friendId, principal.getName());
+			if(updatedFriend == null) {
+				res.setStatus(404);
+			}
+		} catch (Exception e) {
+			res.setStatus(400);
+			e.printStackTrace();
+		}
+		return updatedFriend;
 	}
 
 }

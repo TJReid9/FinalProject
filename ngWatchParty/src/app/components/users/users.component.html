@@ -6,27 +6,43 @@
         <h3>{{loggedInUser.username}}</h3>
       </div>
     </div>
-    Created: {{loggedInUser.createDate}} <br>
-    Name: {{loggedInUser.firstName}} <br>
-    Located at: {{loggedInUser.address?.city}}, {{loggedInUser.address?.state}}<br>
-    <table class="table-responsive">
+  </div>
+  Created: {{loggedInUser.createDate}} <br>
+  Name: {{loggedInUser.firstName}} <br>
+  Located at: {{loggedInUser.address?.city}}, {{loggedInUser.address?.state}}<br>
+  <table class="table-responsive">
+    <thead>
+      <th>
+        Favorite Teams:
+      </th>
+    </thead>
+    <tr>
+      <td *ngFor="let favorite of loggedInUser.favoriteTeams"><img src="{{favorite.logoUrl}}" height="100px" width="100%"></td>
+    </tr>
+  </table>
+
+  <div class="table-responsive">
+    <table class="table" >
       <thead>
         <th>
-          Favorite Teams:
+          Friends:
         </th>
       </thead>
-      <tr>
-        <td *ngFor="let favorite of loggedInUser.favoriteTeams"><img src="{{favorite.logoUrl}}" height="100px"
-            width="100%"></td>
-      </tr>
-    </table>
-    <hr>
-    lastUpdated: {{loggedInUser.updateDate}}
-
-    <button class="btn btn-primary" (click)="setEditUser()">Edit</button>
-
-
+    <tr>
+      <td *ngFor="let friend of loggedInUser.friends">
+         <img id="friend" src="{{friend.user?.photoUrl}}" height="100px" width="100px">
+      </td>
+    </tr>
+  </table>
   </div>
+
+
+
+  <hr>
+  lastUpdated: {{loggedInUser.updateDate}}
+
+
+
 
   <div *ngIf="editUser && editAddress.id == 0" class="container">
     <form id="updateUser">
@@ -116,6 +132,12 @@
     </table>
   </table>
 
+
+<br>
+      <button class="btn btn-success" (click)="addFriend(user.id)">Follow</button>
+      <button class="btn btn-danger" (click)="removeFriend(user.id)">Unfollow</button>
+
+
   <div class="table-responsive">
     <table class="table">
       <tr>
@@ -127,4 +149,3 @@
   </div>
 
   <br>
-  <button class="btn btn-success" (click)="addFriend(newFriend)">Add Friend</button>
