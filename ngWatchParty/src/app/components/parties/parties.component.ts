@@ -244,6 +244,7 @@ export class PartiesComponent implements OnInit {
         this.selectedParty = this.editParty;
         this.reloadParties();
         this.editParty = null;
+        location.reload();
       },
       error: (problem) => {
         console.error(
