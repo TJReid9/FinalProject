@@ -19,6 +19,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 public class Party {
@@ -64,6 +65,7 @@ public class Party {
 	@JoinColumn(name = "team_id")
 	private Team team;
 	
+	@JsonIgnoreProperties({"friends"})
 	@OneToMany(mappedBy = "party", fetch = FetchType.EAGER)
 	private List<PartyGoer> partyGoers;
 	

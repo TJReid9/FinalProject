@@ -59,7 +59,7 @@ export class UserService {
   }
 
   update(userId: number, user: User): Observable<User> {
-
+    user.friends = [];
     return this.http.put<User>(this.url + 'watchparties/users/' + userId, user, this.getHttpOptions()).pipe(
 
       catchError((err: any) => {
