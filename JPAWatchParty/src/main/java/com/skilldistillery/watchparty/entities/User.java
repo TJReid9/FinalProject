@@ -58,8 +58,8 @@ public class User {
 	@JoinColumn(name = "address_id")
 	private Address address;
 	
-	@JsonIgnoreProperties({"user", "friend"})
-	@OneToMany(mappedBy = "friend")
+	@JsonIgnoreProperties({"user"})
+	@OneToMany(mappedBy = "user")
 	private List<Friend> friends;
 	
 	@ManyToMany
