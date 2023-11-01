@@ -1,13 +1,16 @@
 package com.skilldistillery.watchparty.services;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.skilldistillery.watchparty.entities.Address;
+import com.skilldistillery.watchparty.entities.Team;
 import com.skilldistillery.watchparty.entities.User;
 import com.skilldistillery.watchparty.repositories.AddressRepository;
+import com.skilldistillery.watchparty.repositories.TeamRepository;
 import com.skilldistillery.watchparty.repositories.UserRepository;
 
 @Service
@@ -18,6 +21,9 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	private UserRepository userRepo;
+	
+	@Autowired
+	private TeamRepository teamRepo;
 
 	@Override
 	public List<User> getAllUsers() {
@@ -51,6 +57,7 @@ public class UserServiceImpl implements UserService {
 			existingUser.setEnabled(user.isEnabled());
 			existingUser.setAddress(user.getAddress());
 			existingUser.setFriends(user.getFriends());
+			existingUser.setFavoriteTeams(user.getFavoriteTeams());
 			userRepo.saveAndFlush(existingUser);
 			
 		}
@@ -65,6 +72,28 @@ public class UserServiceImpl implements UserService {
 			deleted = true;
 		}
 		return deleted;
+	}
+
+	@Override
+	public List<Team> addFavoriteTeamById(Team team, User user) {
+		List<Team> favoriteTeams = new ArrayList<>();
+		Team newTeam = teamRepo.searchById(team.getId());
+		user = userRepo.findByUsername(user.getUsername());
+		favoriteTeams.add(newTeam);
+		user.setFavoriteTeams(favoriteTeams);
+		userRepo.saveAndFlush(user);
+		return favoriteTeams;
+	}
+
+	@Override
+	public List<Team> removeFavoriteTeamById(Team team, User user) {
+		Team oldTeam = teamRepo.searchById(team.getId());
+		user = userRepo.findByUsername(user.getUsername());
+		List<Team> favoriteTeams = user.getFavoriteTeams();
+		favoriteTeams.remove(oldTeam);
+		user.setFavoriteTeams(favoriteTeams);
+		userRepo.saveAndFlush(user);
+		return favoriteTeams;
 	}
 
 	

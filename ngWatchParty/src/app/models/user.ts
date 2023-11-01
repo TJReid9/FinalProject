@@ -1,4 +1,5 @@
 import { Address } from "./address";
+import { Team } from "./team";
 
 export class User {
   id: number;
@@ -13,6 +14,7 @@ export class User {
   createDate: string;
   updateDate: string;
   partyId: number;
+  favoriteTeams: Team[];
 
   constructor(
     id: number = 0,
@@ -27,6 +29,7 @@ export class User {
     createDate: string = '',
     updateDate: string = '',
     partyId: number = 0,
+    favoriteTeams: Team[] = [],
   ){
     this.id = id;
     this.username = username;
@@ -40,5 +43,6 @@ export class User {
     this.firstName = firstName;
     this.photoUrl = photoUrl;
     this.partyId = partyId;
+    this.favoriteTeams = favoriteTeams;
   }
 }

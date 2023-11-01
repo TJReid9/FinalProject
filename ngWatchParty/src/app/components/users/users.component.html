@@ -9,6 +9,16 @@
   Created: {{loggedInUser.createDate}} <br>
   Name: {{loggedInUser.firstName}} <br>
   Located at: {{loggedInUser.address?.city}}, {{loggedInUser.address?.state}}<br>
+  <table class="table-responsive">
+    <thead>
+      <th>
+        Favorite Teams:
+      </th>
+    </thead>
+    <tr>
+      <td *ngFor="let favorite of loggedInUser.favoriteTeams"><img src="{{favorite.logoUrl}}" height="100px" width="100%"></td>
+    </tr>
+  </table>
   <hr>
   lastUpdated: {{loggedInUser.updateDate}}
 
