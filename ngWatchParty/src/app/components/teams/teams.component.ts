@@ -23,6 +23,7 @@ export class TeamsComponent {
   addNewTeam: Team | null = null;
   newTeam: Team = new Team();
   sports: Sport[] = [];
+  // sport: Sport = new Sport();
 
   constructor(private teamService: TeamService,
     private sportService: SportService,
@@ -61,6 +62,7 @@ export class TeamsComponent {
 
      ngOnInit(): void {
       this.loadTeams();
+      this.loadSports();
       this.activatedRoute.paramMap.subscribe({
         next: (params) => {
           let teamIdStr = params.get('teamId');
@@ -71,7 +73,7 @@ export class TeamsComponent {
             } else {
               this.teamService.show(teamId).subscribe({
                 next: (team) => {
-                  this.selectedTeam = null;
+                  this.selectedTeam = team;
                 },
                 error: (nojoy) => {
                   console.error(

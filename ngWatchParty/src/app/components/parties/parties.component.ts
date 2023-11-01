@@ -76,6 +76,7 @@ export class PartiesComponent implements OnInit {
     this.loadUser();
     this.setLoggedInUser()
 
+
     console.log(this.venues);
     this.activatedRoute.paramMap.subscribe({
       next: (params) => {
@@ -205,6 +206,7 @@ export class PartiesComponent implements OnInit {
 
   displayAllParties(): void {
     this.selectedParty = null;
+    this.loadParties();
   }
 
   setEditParty() {
@@ -298,8 +300,9 @@ addUserToParty( partyId: number): void {
   this.partyService.addSelfToParty(partyId).subscribe({
     next: (result) => {
        this.partyGoers.push(result);
-       this.reloadParties();
-       this.loadParties();
+        this.reloadParties();
+        this.loadParties();
+        location.reload();
 
     },
     error: (nojoy) => {

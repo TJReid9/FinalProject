@@ -12,6 +12,7 @@ import { FriendStatus } from 'src/app/models/friend-status';
 import { Friend } from 'src/app/models/friend';
 import { FriendService } from 'src/app/services/friend.service';
 import { ParsedVariable } from '@angular/compiler';
+import { FriendId } from 'src/app/models/friend-id';
 
 
 @Component({
@@ -29,7 +30,6 @@ messages: DirectMessage[] = []
 sortedMessage: DirectMessage[][] = [];
 friend: Friend = new Friend;
 newFriend: Friend = new Friend;
-addNewFriend: Friend | null = null;
 friends: Friend[] = [];
 
 // messages: Array<DirectMessage> = [];
@@ -200,7 +200,6 @@ addFriend(newFriend: Friend): void {
   console.log(newFriend);
   this.friendService.create(newFriend).subscribe({
     next: (result) => {
-      //  this.selectedUser = this.editUser;
        this.friend = new Friend();
         this.setLoggedInUser();
     },
@@ -209,7 +208,6 @@ addFriend(newFriend: Friend): void {
     }
   })
 }
-
 
 
 displayAddMessage(){
@@ -247,21 +245,5 @@ deleteMessage(id: number) {
 }
 
 }
-
-// function displayAddMessage() {
-//   throw new Error('Function not implemented.');
-// }
-
-// function addMessage(message: any, DirectMessage: typeof DirectMessage) {
-//   throw new Error('Function not implemented.');
-// }
-
-// function displayNewFriendForm(friend: any, Friend: typeof Friend) {
-//   throw new Error('Function not implemented.');
-// }
-
-// function deleteMessage(id: any, number: any) {
-//   throw new Error('Function not implemented.');
-// }
 
 

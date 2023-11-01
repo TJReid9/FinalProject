@@ -1,7 +1,7 @@
-<h1 *ngIf="!selectedParty" >Watch Parties<span class="badge" >Availible: {{ getPartyCount()}}</span> </h1>
+<h1 *ngIf="!selectedParty" >Watch Parties<span class="badge" >Upcoming: {{ getPartyCount()}}</span> </h1>
 <div class="container" *ngIf="!selectedParty && !addNewParty" >
   <button *ngIf="loggedIn()" (click)="displayAddParty(newParty)" class="btn btn-outline-dark">Add Party</button><br>
-  Show Completed: <input type="checkbox" [(ngModel)]="showComplete">
+  Show Past Parties: <input type="checkbox" [(ngModel)]="showComplete">
 <hr>
   <div class="row" >
     <div class="col-12 col-md-6 col-lg-4" *ngFor="let party of parties | incomplete: showComplete" [ngClass]="party.completed ? 'completed' : '' " >
@@ -17,12 +17,15 @@
 </div>
 
 <div *ngIf="selectedParty && !editParty ">
-  <button class="btn btn-outline-dark" (click)="displayAllParties()">Back</button>
-  <button *ngIf="loggedIn()" class="btn btn-outline-dark" type="submit"  (click)="setEditParty()">Edit</button>
+ <a href="/#/parties"><button class="btn btn-outline-dark" (click)="displayAllParties()">Back</button></a>
+
+ <div *ngIf="loggedInUser.id == selectedParty.user.id || loggedInUser.id == 1">
+ <button *ngIf="loggedIn()" class="btn btn-outline-dark" type="submit"  (click)="setEditParty()">Edit</button>
 
   <button *ngIf="loggedIn()" (click)="deleteParty(selectedParty.id)" class="btn btn-outline-dark">Delete</button>
-
+</div>
 <hr>
+<img [src]="selectedParty.imageUrl" align="right" height="300px" width="300px">
 
   <h3>
     {{selectedParty.title}} <span> <button class="btn btn-outline-dark" (click)="addUserToParty(selectedParty.id)">Join</button></span>
@@ -37,7 +40,7 @@
    </p>
    <p>
     <strong>Venue:</strong><br>
-     <a href="#/venues/{{selectedParty.venue.id}}">{{selectedParty.venue.name}}</a>
+     <a href="/#/venues/{{selectedParty.venue.id}}">{{selectedParty.venue.name}}</a>
    </p>
    <div>
    <blockquote>
@@ -49,8 +52,8 @@
    <strong>Users attending Party: </strong><br>
 
 
-
-        <table class="table-responsive">
+   <div style="overflow-x:auto;">
+        <table class="table-responsive" >
         <tr >
           <td *ngFor="let pg of selectedParty.partyGoers">
              <a href="/#/users/{{pg.user.id}}"><img id="partyPeople" [src]=pg.user.photoUrl height="100px" width="100px"></a>
@@ -58,11 +61,11 @@
           </td>
         </tr>
       </table>
+   </div>
 
 
 
 
-   <img [src]="selectedParty.imageUrl">
    <br>
    <hr>
    <div class="partyComments">
