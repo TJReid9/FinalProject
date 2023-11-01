@@ -19,6 +19,24 @@
       <td *ngFor="let favorite of loggedInUser.favoriteTeams"><img src="{{favorite.logoUrl}}" height="100px" width="100%"></td>
     </tr>
   </table>
+
+  <div class="table-responsive">
+    <table class="table" >
+      <thead>
+        <th>
+          Friends:
+        </th>
+      </thead>
+    <tr>
+      <td *ngFor="let friend of loggedInUser.friends">
+         <img id="friend" src="{{friend.user?.photoUrl}}" height="100px" width="100px">
+      </td>
+    </tr>
+  </table>
+  </div>
+
+
+
   <hr>
   lastUpdated: {{loggedInUser.updateDate}}
 
@@ -114,18 +132,9 @@
             </table>
 </table>
 
-<div class="table-responsive">
-  <table class="table" >
-  <tr>
-    <td *ngFor="let friend of friends">
-       <img id="friend" [src]=friend.user?.photoUrl height="100px" width="100px">
-    </td>
-  </tr>
-</table>
-</div>
-
-    <br>
-    <button class="btn btn-success" (click)="addFriend(newFriend)">Add Friend</button>
+<br>
+      <button class="btn btn-success" (click)="addFriend(user.id)">Follow</button>
+      <button class="btn btn-danger" (click)="removeFriend(user.id)">Unfollow</button>
 
 
 

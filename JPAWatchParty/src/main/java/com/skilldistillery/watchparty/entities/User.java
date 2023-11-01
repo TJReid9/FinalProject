@@ -21,6 +21,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 public class User {
@@ -57,13 +58,18 @@ public class User {
 	@JoinColumn(name = "address_id")
 	private Address address;
 	
-	@JsonIgnore
+	@JsonIgnoreProperties({"user", "friend"})
 	@OneToMany(mappedBy = "friend")
 	private List<Friend> friends;
 	
 	@ManyToMany
 	@JoinTable(name = "favorite_team", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "team_id"))
 	private List<Team> favoriteTeams;
+	
+//	@JsonIgnore
+//	@ManyToMany
+//	@JoinTable(name = "friend", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "friend_id"))
+//	private List<Friend> friends;
 	
 	public User() {
 		super();

@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment.development';
 import { AuthService } from './auth.service';
 import { Observable, catchError, throwError } from 'rxjs';
+import { Friend } from '../models/friend';
 
 
 @Injectable({
@@ -78,6 +79,17 @@ export class UserService {
         console.error(err);
         return throwError(
            () => new Error( 'PartyService.destroy(): error deleting Party: ' + err )
+        );
+      })
+    );
+  }
+
+  addFriend(friendUserId: number): Observable<Friend> {
+    return this.http.post<Friend>(this.url + 'watchparties/' + friendUserId + '/friends', null, this.getHttpOptions()).pipe(
+      catchError((err: any) => {
+        console.error(err);
+        return throwError(
+           () => new Error( 'FriendService.create(): error creating Friend: ' + err )
         );
       })
     );

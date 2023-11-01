@@ -31,6 +31,8 @@ sortedMessage: DirectMessage[][] = [];
 friend: Friend = new Friend;
 newFriend: Friend = new Friend;
 friends: Friend[] = [];
+selectedFriend: Friend | null = null;
+friendId: FriendId = new FriendId;
 
 // messages: Array<DirectMessage> = [];
 newMessage: DirectMessage = new DirectMessage();
@@ -195,19 +197,58 @@ deleteUser(id: number){
   })
 }
 
-
-addFriend(newFriend: Friend): void {
-  console.log(newFriend);
-  this.friendService.create(newFriend).subscribe({
+addFriend(userId: number) {
+  this.userService.addFriend(userId).subscribe({
     next: (result) => {
-       this.friend = new Friend();
-        this.setLoggedInUser();
+      location.reload();
     },
     error: (nojoy) => {
-      console.error('UserComponent.addFriend(): error adding Friend: ');
-    }
+      console.error('FriendComponent.reload(): error loading Friend:');
+      console.error(nojoy);
+    },
+
   })
 }
+
+removeFriend(friendId: number | undefined) {
+  if(friendId) {
+    this.friendService.removeFriend(friendId).subscribe({
+    next: (result) => {
+      location.reload();
+    },
+    error: (nojoy) => {
+      console.error('FriendComponent.reload(): error removing Friend:');
+      console.error(nojoy);
+    },
+  });
+}
+}
+
+
+
+isFriend() {
+  let isBuddy = false;
+  this.loggedInUser.friends.forEach((friend) => {
+    if (this.selectedFriend && this.user.firstName === this.selectedFriend.user?.firstName) {
+      isBuddy = true;
+    }
+  });
+  return isBuddy;
+}
+
+
+// addFriend(newFriend: Friend): void {
+//   console.log(newFriend);
+//   this.friendService.create(newFriend).subscribe({
+//     next: (result) => {
+//        this.friend = new Friend();
+//         this.setLoggedInUser();
+//     },
+//     error: (nojoy) => {
+//       console.error('UserComponent.addFriend(): error adding Friend: ');
+//     }
+//   })
+// }
 
 
 displayAddMessage(){
