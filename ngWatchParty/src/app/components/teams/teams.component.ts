@@ -111,7 +111,6 @@ export class TeamsComponent {
 
   displayTeam(team: Team): void {
     this.selectedTeam = team;
-    location.reload();
   }
 
   displayAllTeams(): void {

@@ -81,7 +81,7 @@ loadMessages(userId: number) {
   this.dmService.index(userId).subscribe({
     next: (messages: DirectMessage[]) => {
       this.messages = messages;
-      this.messages.sort((b, a) => new Date(a.createDate).getTime() - new Date(b.createDate).getTime());
+      this.messages.sort((b, a) => b.id - a.id);
       console.log(messages);
       console.log(this.messages);
     },

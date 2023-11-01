@@ -1,291 +1,324 @@
-
 <h1 *ngIf="!selectedTeam">Teams</h1>
 <hr>
 <div id="carousel" *ngIf="!selectedTeam">
-<div class="container" >
+  <div class="container">
     <h3>College Football</h3>
-  <ngb-carousel>
-      <ng-template  ngbSlide *ngFor="let team of teams | sportsFilter: 1" >
+    <ngb-carousel>
+      <ng-template ngbSlide *ngFor="let team of teams | sportsFilter: 1">
         <div class="d-flex justify-content-center">
-          <img [src]=team.logoUrl alt=team.name class="d-block"  height="25%" width="25%"  (click)="displayTeam(team)">
+          <img [src]=team.logoUrl alt=team.name class="d-block" height="25%" width="25%" (click)="displayTeam(team)">
         </div>
-          <div class="carousel-caption">
-            <a href="/#/teams/{{team.id}}" style="text-decoration:none"><h3 style="color: white">{{team.name}}</h3></a>
-          </div>
+        <div class="carousel-caption">
+          <a [routerLink]="['/teams/' + team.id]" style="text-decoration:none">
+            <h3 style="color: white">{{team.name}}</h3>
+          </a>
+        </div>
       </ng-template>
-  </ngb-carousel>
-</div>
-<hr>
+    </ngb-carousel>
+  </div>
+  <hr>
 
-<div class="container">
-  <h3>NFL</h3>
-  <ngb-carousel >
-      <ng-template  ngbSlide *ngFor="let team of teams | sportsFilter: 2" >
+  <div class="container">
+    <h3>NFL</h3>
+    <ngb-carousel>
+      <ng-template ngbSlide *ngFor="let team of teams | sportsFilter: 2">
         <div class="d-flex justify-content-center">
-          <img   [src]=team.logoUrl alt=team.name class="d-block"  height="25%" width="25%"  (click)="displayTeam(team)">
+          <img [src]=team.logoUrl alt=team.name class="d-block" height="25%" width="25%" (click)="displayTeam(team)">
         </div>
-          <div class="carousel-caption">
-            <a href="/#/teams/{{team.id}}" style="text-decoration:none"><h3 style="color: white">{{team.name}}</h3></a>
-          </div>
+        <div class="carousel-caption">
+          <a [routerLink]="['/teams/' + team.id]" style="text-decoration:none">
+            <h3 style="color: white">{{team.name}}</h3>
+          </a>
+        </div>
       </ng-template>
-  </ngb-carousel>
-</div>
-<hr>
-<div class="container">
-  <h3>College Volleyball</h3>
-  <ngb-carousel >
-      <ng-template  ngbSlide *ngFor="let team of teams | sportsFilter: 3" >
+    </ngb-carousel>
+  </div>
+  <hr>
+  <div class="container">
+    <h3>College Volleyball</h3>
+    <ngb-carousel>
+      <ng-template ngbSlide *ngFor="let team of teams | sportsFilter: 3">
         <div class="d-flex justify-content-center">
-          <img   [src]=team.logoUrl alt=team.name class="d-block"  height="25%" width="25%"  (click)="displayTeam(team)">
+          <img [src]=team.logoUrl alt=team.name class="d-block" height="25%" width="25%" (click)="displayTeam(team)">
         </div>
-          <div class="carousel-caption">
-            <a href="/#/teams/{{team.id}}" style="text-decoration:none"><h3 style="color: white">{{team.name}}</h3></a>
-          </div>
+        <div class="carousel-caption">
+          <a [routerLink]="['/teams/' + team.id]" style="text-decoration:none">
+            <h3 style="color: white">{{team.name}}</h3>
+          </a>
+        </div>
       </ng-template>
-  </ngb-carousel>
-</div>
-<hr>
-<div class="container">
-  <h3>MLB</h3>
-  <ngb-carousel >
-      <ng-template  ngbSlide *ngFor="let team of teams | sportsFilter: 4" >
+    </ngb-carousel>
+  </div>
+  <hr>
+  <div class="container">
+    <h3>MLB</h3>
+    <ngb-carousel>
+      <ng-template ngbSlide *ngFor="let team of teams | sportsFilter: 4">
         <div class="d-flex justify-content-center">
-          <img   [src]=team.logoUrl alt=team.name class="d-block"  height="25%" width="25%"  (click)="displayTeam(team)">
+          <img [src]=team.logoUrl alt=team.name class="d-block" height="25%" width="25%" (click)="displayTeam(team)">
         </div>
-          <div class="carousel-caption">
-            <a href="/#/teams/{{team.id}}" style="text-decoration:none"><h3 style="color: white">{{team.name}}</h3></a>
-          </div>
+        <div class="carousel-caption">
+          <a [routerLink]="['/teams/' + team.id]" style="text-decoration:none">
+            <h3 style="color: white">{{team.name}}</h3>
+          </a>
+        </div>
       </ng-template>
-  </ngb-carousel>
-</div>
+    </ngb-carousel>
+  </div>
 
-<hr>
-<div class="container">
-  <h3>College Baseball</h3>
-  <ngb-carousel >
-      <ng-template  ngbSlide *ngFor="let team of teams | sportsFilter: 5" >
+  <hr>
+  <div class="container">
+    <h3>College Baseball</h3>
+    <ngb-carousel>
+      <ng-template ngbSlide *ngFor="let team of teams | sportsFilter: 5">
         <div class="d-flex justify-content-center">
-          <img   [src]=team.logoUrl alt=team.name class="d-block"  height="25%" width="25%"  (click)="displayTeam(team)">
+          <img [src]=team.logoUrl alt=team.name class="d-block" height="25%" width="25%" (click)="displayTeam(team)">
         </div>
-          <div class="carousel-caption">
-            <a href="/#/teams/{{team.id}}" style="text-decoration:none"><h3 style="color: white">{{team.name}}</h3></a>
-          </div>
+        <div class="carousel-caption">
+          <a [routerLink]="['/teams/' + team.id]" style="text-decoration:none">
+            <h3 style="color: white">{{team.name}}</h3>
+          </a>
+        </div>
       </ng-template>
-  </ngb-carousel>
-</div>
-<hr>
-<div class="container">
-  <h3>NBL</h3>
-  <ngb-carousel >
-      <ng-template  ngbSlide *ngFor="let team of teams | sportsFilter: 6" >
+    </ngb-carousel>
+  </div>
+  <hr>
+  <div class="container">
+    <h3>NBL</h3>
+    <ngb-carousel>
+      <ng-template ngbSlide *ngFor="let team of teams | sportsFilter: 6">
         <div class="d-flex justify-content-center">
-          <img   [src]=team.logoUrl alt=team.name class="d-block"  height="25%" width="25%"  (click)="displayTeam(team)">
+          <img [src]=team.logoUrl alt=team.name class="d-block" height="25%" width="25%" (click)="displayTeam(team)">
         </div>
-          <div class="carousel-caption">
-            <a href="/#/teams/{{team.id}}" style="text-decoration:none"><h3 style="color: white">{{team.name}}</h3></a>
-          </div>
+        <div class="carousel-caption">
+          <a [routerLink]="['/teams/' + team.id]" style="text-decoration:none">
+            <h3 style="color: white">{{team.name}}</h3>
+          </a>
+        </div>
       </ng-template>
-  </ngb-carousel>
-</div>
+    </ngb-carousel>
+  </div>
 
-<hr>
-<div class="container">
-  <h3>College Basketball</h3>
-  <ngb-carousel >
-      <ng-template  ngbSlide *ngFor="let team of teams | sportsFilter: 7" >
+  <hr>
+  <div class="container">
+    <h3>College Basketball</h3>
+    <ngb-carousel>
+      <ng-template ngbSlide *ngFor="let team of teams | sportsFilter: 7">
         <div class="d-flex justify-content-center">
-          <img   [src]=team.logoUrl alt=team.name class="d-block"  height="25%" width="25%"  (click)="displayTeam(team)">
+          <img [src]=team.logoUrl alt=team.name class="d-block" height="25%" width="25%" (click)="displayTeam(team)">
         </div>
-          <div class="carousel-caption">
-            <a href="/#/teams/{{team.id}}" style="text-decoration:none"><h3 style="color: white">{{team.name}}</h3></a>
-          </div>
+        <div class="carousel-caption">
+          <a [routerLink]="['/teams/' + team.id]" style="text-decoration:none">
+            <h3 style="color: white">{{team.name}}</h3>
+          </a>
+        </div>
       </ng-template>
-  </ngb-carousel>
-</div>
+    </ngb-carousel>
+  </div>
 
-<hr>
-<div class="container">
-  <h3>Nascar</h3>
-  <ngb-carousel >
-      <ng-template  ngbSlide *ngFor="let team of teams | sportsFilter: 8" >
+  <hr>
+  <div class="container">
+    <h3>Nascar</h3>
+    <ngb-carousel>
+      <ng-template ngbSlide *ngFor="let team of teams | sportsFilter: 8">
         <div class="d-flex justify-content-center">
-          <img   [src]=team.logoUrl alt=team.name class="d-block"  height="25%" width="25%"  (click)="displayTeam(team)">
+          <img [src]=team.logoUrl alt=team.name class="d-block" height="25%" width="25%" (click)="displayTeam(team)">
         </div>
-          <div class="carousel-caption">
-            <a href="/#/teams/{{team.id}}" style="text-decoration:none"><h3 style="color: white">{{team.name}}</h3></a>
-          </div>
+        <div class="carousel-caption">
+          <a [routerLink]="['/teams/' + team.id]" style="text-decoration:none">
+            <h3 style="color: white">{{team.name}}</h3>
+          </a>
+        </div>
       </ng-template>
-  </ngb-carousel>
-</div>
+    </ngb-carousel>
+  </div>
 
-<hr>
-<div class="container">
-  <h3>Olympics</h3>
-  <ngb-carousel >
-      <ng-template  ngbSlide *ngFor="let team of teams | sportsFilter: 9" >
+  <hr>
+  <div class="container">
+    <h3>Olympics</h3>
+    <ngb-carousel>
+      <ng-template ngbSlide *ngFor="let team of teams | sportsFilter: 9">
         <div class="d-flex justify-content-center">
-          <img   [src]=team.logoUrl alt=team.name class="d-block"  height="25%" width="25%"  (click)="displayTeam(team)">
+          <img [src]=team.logoUrl alt=team.name class="d-block" height="25%" width="25%" (click)="displayTeam(team)">
         </div>
-          <div class="carousel-caption">
-            <a href="/#/teams/{{team.id}}" style="text-decoration:none"><h3 style="color: white">{{team.name}}</h3></a>
-          </div>
+        <div class="carousel-caption">
+          <a [routerLink]="['/teams/' + team.id]" style="text-decoration:none">
+            <h3 style="color: white">{{team.name}}</h3>
+          </a>
+        </div>
       </ng-template>
-  </ngb-carousel>
-</div>
+    </ngb-carousel>
+  </div>
 
-<hr>
-<div class="container">
-  <h3>Soccer</h3>
-  <ngb-carousel >
-      <ng-template  ngbSlide *ngFor="let team of teams | sportsFilter: 10" >
+  <hr>
+  <div class="container">
+    <h3>Soccer</h3>
+    <ngb-carousel>
+      <ng-template ngbSlide *ngFor="let team of teams | sportsFilter: 10">
         <div class="d-flex justify-content-center">
-          <img   [src]=team.logoUrl alt=team.name class="d-block"  height="25%" width="25%"  (click)="displayTeam(team)">
+          <img [src]=team.logoUrl alt=team.name class="d-block" height="25%" width="25%" (click)="displayTeam(team)">
         </div>
-          <div class="carousel-caption">
-            <a href="/#/teams/{{team.id}}" style="text-decoration:none"><h3 style="color: white">{{team.name}}</h3></a>
-          </div>
+        <div class="carousel-caption">
+          <a [routerLink]="['/teams/' + team.id]" style="text-decoration:none">
+            <h3 style="color: white">{{team.name}}</h3>
+          </a>
+        </div>
       </ng-template>
-  </ngb-carousel>
-</div>
+    </ngb-carousel>
+  </div>
 
-<hr>
-<div class="container">
-  <h3>Womens Basketball</h3>
-  <ngb-carousel >
-      <ng-template  ngbSlide *ngFor="let team of teams | sportsFilter: 11" >
+  <hr>
+  <div class="container">
+    <h3>Womens Basketball</h3>
+    <ngb-carousel>
+      <ng-template ngbSlide *ngFor="let team of teams | sportsFilter: 11">
         <div class="d-flex justify-content-center">
-          <img   [src]=team.logoUrl alt=team.name class="d-block"  height="25%" width="25%"  (click)="displayTeam(team)">
+          <img [src]=team.logoUrl alt=team.name class="d-block" height="25%" width="25%" (click)="displayTeam(team)">
         </div>
-          <div class="carousel-caption">
-            <a href="/#/teams/{{team.id}}" style="text-decoration:none"><h3 style="color: white">{{team.name}}</h3></a>
-          </div>
+        <div class="carousel-caption">
+          <a [routerLink]="['/teams/' + team.id]" style="text-decoration:none">
+            <h3 style="color: white">{{team.name}}</h3>
+          </a>
+        </div>
       </ng-template>
-  </ngb-carousel>
-</div>
+    </ngb-carousel>
+  </div>
 
-<hr>
-<div class="container">
-  <h3>Rugby</h3>
-  <ngb-carousel >
-      <ng-template  ngbSlide *ngFor="let team of teams | sportsFilter: 12" >
+  <hr>
+  <div class="container">
+    <h3>Rugby</h3>
+    <ngb-carousel>
+      <ng-template ngbSlide *ngFor="let team of teams | sportsFilter: 12">
         <div class="d-flex justify-content-center">
-          <img   [src]=team.logoUrl alt=team.name class="d-block"  height="25%" width="25%"  (click)="displayTeam(team)">
+          <img [src]=team.logoUrl alt=team.name class="d-block" height="25%" width="25%" (click)="displayTeam(team)">
         </div>
-          <div class="carousel-caption">
-            <a href="/#/teams/{{team.id}}" style="text-decoration:none"><h3 style="color: white">{{team.name}}</h3></a>
-          </div>
+        <div class="carousel-caption">
+          <a [routerLink]="['/teams/' + team.id]" style="text-decoration:none">
+            <h3 style="color: white">{{team.name}}</h3>
+          </a>
+        </div>
       </ng-template>
-  </ngb-carousel>
-</div>
+    </ngb-carousel>
+  </div>
 
-<hr>
-<div class="container">
-  <h3>Golf</h3>
-  <ngb-carousel >
-      <ng-template  ngbSlide *ngFor="let team of teams | sportsFilter: 13" >
+  <hr>
+  <div class="container">
+    <h3>Golf</h3>
+    <ngb-carousel>
+      <ng-template ngbSlide *ngFor="let team of teams | sportsFilter: 13">
         <div class="d-flex justify-content-center">
-          <img   [src]=team.logoUrl alt=team.name class="d-block"  height="25%" width="25%"  (click)="displayTeam(team)">
+          <img [src]=team.logoUrl alt=team.name class="d-block" height="25%" width="25%" (click)="displayTeam(team)">
         </div>
-          <div class="carousel-caption">
-            <a href="/#/teams/{{team.id}}" style="text-decoration:none"><h3 style="color: white">{{team.name}}</h3></a>
-          </div>
+        <div class="carousel-caption">
+          <a [routerLink]="['/teams/' + team.id]" style="text-decoration:none">
+            <h3 style="color: white">{{team.name}}</h3>
+          </a>
+        </div>
       </ng-template>
-  </ngb-carousel>
-</div>
+    </ngb-carousel>
+  </div>
 
-<hr>
-<div class="container">
-  <h3>Billiards</h3>
-  <ngb-carousel >
-      <ng-template  ngbSlide *ngFor="let team of teams | sportsFilter: 14" >
+  <hr>
+  <div class="container">
+    <h3>Billiards</h3>
+    <ngb-carousel>
+      <ng-template ngbSlide *ngFor="let team of teams | sportsFilter: 14">
         <div class="d-flex justify-content-center">
-          <img   [src]=team.logoUrl alt=team.name class="d-block"  height="25%" width="25%"  (click)="displayTeam(team)">
+          <img [src]=team.logoUrl alt=team.name class="d-block" height="25%" width="25%" (click)="displayTeam(team)">
         </div>
-          <div class="carousel-caption">
-            <a href="/#/teams/{{team.id}}" style="text-decoration:none"><h3 style="color: white">{{team.name}}</h3></a>
-          </div>
+        <div class="carousel-caption">
+          <a [routerLink]="['/teams/' + team.id]" style="text-decoration:none">
+            <h3 style="color: white">{{team.name}}</h3>
+          </a>
+        </div>
       </ng-template>
-  </ngb-carousel>
-</div>
+    </ngb-carousel>
+  </div>
 
-<hr>
-<div class="container">
-  <h3>College Soccer</h3>
-  <ngb-carousel >
-      <ng-template  ngbSlide *ngFor="let team of teams | sportsFilter: 15" >
+  <hr>
+  <div class="container">
+    <h3>College Soccer</h3>
+    <ngb-carousel>
+      <ng-template ngbSlide *ngFor="let team of teams | sportsFilter: 15">
         <div class="d-flex justify-content-center">
-          <img   [src]=team.logoUrl alt=team.name class="d-block"  height="25%" width="25%"  (click)="displayTeam(team)">
+          <img [src]=team.logoUrl alt=team.name class="d-block" height="25%" width="25%" (click)="displayTeam(team)">
         </div>
-          <div class="carousel-caption">
-            <a href="/#/teams/{{team.id}}" style="text-decoration:none"><h3 style="color: white">{{team.name}}</h3></a>
-          </div>
+        <div class="carousel-caption">
+          <a [routerLink]="['/teams/' + team.id]" style="text-decoration:none">
+            <h3 style="color: white">{{team.name}}</h3>
+          </a>
+        </div>
       </ng-template>
-  </ngb-carousel>
-</div>
+    </ngb-carousel>
+  </div>
 
-<hr>
-<div class="container">
-  <h3>College Womens Basketball</h3>
-  <ngb-carousel >
-      <ng-template  ngbSlide *ngFor="let team of teams | sportsFilter: 16" >
+  <hr>
+  <div class="container">
+    <h3>College Womens Basketball</h3>
+    <ngb-carousel>
+      <ng-template ngbSlide *ngFor="let team of teams | sportsFilter: 16">
         <div class="d-flex justify-content-center">
-          <img   [src]=team.logoUrl alt=team.name class="d-block"  height="25%" width="25%"  (click)="displayTeam(team)">
+          <img [src]=team.logoUrl alt=team.name class="d-block" height="25%" width="25%" (click)="displayTeam(team)">
         </div>
-          <div class="carousel-caption">
-            <a href="/#/teams/{{team.id}}" style="text-decoration:none"><h3 style="color: white">{{team.name}}</h3></a>
-          </div>
+        <div class="carousel-caption">
+          <a [routerLink]="['/teams/' + team.id]" style="text-decoration:none">
+            <h3 style="color: white">{{team.name}}</h3>
+          </a>
+        </div>
       </ng-template>
-  </ngb-carousel>
-</div>
+    </ngb-carousel>
+  </div>
 
-<hr>
-<div class="container">
-  <h3>College Womens Softball</h3>
-  <ngb-carousel >
-      <ng-template  ngbSlide *ngFor="let team of teams | sportsFilter: 17" >
+  <hr>
+  <div class="container">
+    <h3>College Womens Softball</h3>
+    <ngb-carousel>
+      <ng-template ngbSlide *ngFor="let team of teams | sportsFilter: 17">
         <div class="d-flex justify-content-center">
-          <img   [src]=team.logoUrl alt=team.name class="d-block"  height="25%" width="25%"  (click)="displayTeam(team)">
+          <img [src]=team.logoUrl alt=team.name class="d-block" height="25%" width="25%" (click)="displayTeam(team)">
         </div>
-          <div class="carousel-caption">
-            <a href="/#/teams/{{team.id}}" style="text-decoration:none"><h3 style="color: white">{{team.name}}</h3></a>
-          </div>
+        <div class="carousel-caption">
+          <a [routerLink]="['/teams/' + team.id]" style="text-decoration:none">
+            <h3 style="color: white">{{team.name}}</h3>
+          </a>
+        </div>
       </ng-template>
-  </ngb-carousel>
-</div>
+    </ngb-carousel>
+  </div>
 
-<hr>
-<div class="container">
-  <h3>College Womens Soccer</h3>
-  <ngb-carousel >
-      <ng-template  ngbSlide *ngFor="let team of teams | sportsFilter: 18" >
+  <hr>
+  <div class="container">
+    <h3>College Womens Soccer</h3>
+    <ngb-carousel>
+      <ng-template ngbSlide *ngFor="let team of teams | sportsFilter: 18">
         <div class="d-flex justify-content-center">
-          <img   [src]=team.logoUrl alt=team.name class="d-block"  height="25%" width="25%"  (click)="displayTeam(team)">
+          <img [src]=team.logoUrl alt=team.name class="d-block" height="25%" width="25%" (click)="displayTeam(team)">
         </div>
-          <div class="carousel-caption">
-            <a href="/#/teams/{{team.id}}" style="text-decoration:none"><h3 style="color: white">{{team.name}}</h3></a>
-          </div>
+        <div class="carousel-caption">
+          <a [routerLink]="['/teams/' + team.id]" style="text-decoration:none">
+            <h3 style="color: white">{{team.name}}</h3>
+          </a>
+        </div>
       </ng-template>
-  </ngb-carousel>
-</div>
+    </ngb-carousel>
+  </div>
 
-<hr>
-<div class="container">
-  <h3>Hockey</h3>
-  <ngb-carousel >
-      <ng-template  ngbSlide *ngFor="let team of teams | sportsFilter: 19" >
+  <hr>
+  <div class="container">
+    <h3>Hockey</h3>
+    <ngb-carousel>
+      <ng-template ngbSlide *ngFor="let team of teams | sportsFilter: 19">
         <div class="d-flex justify-content-center">
-          <img   [src]=team.logoUrl alt=team.name class="d-block"  height="25%" width="25%"  (click)="displayTeam(team)">
+          <img [src]=team.logoUrl alt=team.name class="d-block" height="25%" width="25%" (click)="displayTeam(team)">
         </div>
-          <div class="carousel-caption">
-            <a href="/#/teams/{{team.id}}" style="text-decoration:none"><h3 style="color: white">{{team.name}}</h3></a>
-          </div>
+        <div class="carousel-caption">
+          <a [routerLink]="['/teams/' + team.id]" style="text-decoration:none">
+            <h3 style="color: white">{{team.name}}</h3>
+          </a>
+        </div>
       </ng-template>
-  </ngb-carousel>
-</div>
-
-
-
-
+    </ngb-carousel>
+  </div>
 </div>
 
 
@@ -296,7 +329,7 @@
     <div class="col-12 col-md-6 col-lg-4" *ngFor="let team of teams">
       <div class="card bg-transparent" style="margin-bottom: 10px" >
         <img [src]="team.logoUrl" (click)="displayTeam(team)"/>
-        <h3 class="card-name" > <a href="/#/teams/{{team.id}}">{{team.name}}</a> </h3>
+        <h3 class="card-name" > <a [routerLink]="['/teams/' + team.id]">{{team.name}}</a> </h3>
       </div>
     </div>
   </div>
@@ -306,59 +339,56 @@
 
 <div *ngIf="selectedTeam && !editTeam ">
   <button class="btn btn-outline-dark" (click)="displayAllTeams()">Back</button>
-  <button *ngIf="loggedIn()" class="btn btn-outline-dark" type="submit"  (click)="setEditTeam()">Edit</button>
+  <button *ngIf="loggedIn()" class="btn btn-outline-dark" type="submit" (click)="setEditTeam()">Edit</button>
 
 
-  <!-- <button *ngIf="loggedIn() && !loggedInUser.favoriteTeams.includes(selectedTeam) " (click)="addFavoriteTeam(selectedTeam)" class="btn btn-outline-dark">Add To Favorites</button> -->
-  <button *ngIf="loggedIn() && !isFavoriteTeam()" (click)="addFavoriteTeam(selectedTeam)" class="btn btn-outline-dark">Add To Favorites</button>
+  <button *ngIf="loggedIn() && !isFavoriteTeam()" (click)="addFavoriteTeam(selectedTeam)"
+    class="btn btn-outline-dark">Add To Favorites</button>
 
-  <!-- <button *ngIf="loggedIn() && loggedInUser.favoriteTeams.includes(selectedTeam) " (click)="removeFavoriteTeam(selectedTeam.id, loggedInUser.id)" class="btn btn-outline-dark">Remove From Favorites</button> -->
-  <button *ngIf="loggedIn() && isFavoriteTeam()" (click)="removeFavoriteTeam(selectedTeam.id, loggedInUser.id)" class="btn btn-outline-dark">Remove From Favorites</button>
+  <button *ngIf="loggedIn() && isFavoriteTeam()" (click)="removeFavoriteTeam(selectedTeam.id, loggedInUser.id)"
+    class="btn btn-outline-dark">Remove From Favorites</button>
 
 
   <button *ngIf="loggedIn()" (click)="deleteTeam(selectedTeam.id)" class="btn btn-outline-dark">Delete</button>
 
+
   <p>
-    ID: {{selectedTeam.id}}
-   </p>
-   <h3>
-     {{selectedTeam.name}}
-   </h3>
-   <p>
-     Sport: {{selectedTeam.sport.name}}
-   </p>
-   <p>
-     Team Website: {{selectedTeam.teamWebsiteUrl}}
-    </p>
-    <img [src]="selectedTeam.logoUrl">
-    <br>
- </div>
+    Sport: {{selectedTeam.sport.name}}
+  </p>
 
- <div *ngIf="editTeam && selectedTeam" class="container" >
+  <h3>
+    <a href="{{selectedTeam.teamWebsiteUrl}}">{{selectedTeam.name}}</a>
+  </h3>
+
+  <img [src]="selectedTeam.logoUrl" height="300px" width="auto">
+
+</div>
+
+<div *ngIf="editTeam && selectedTeam" class="container">
   <form id="updateTeam" name="updateTeamForm">
-    <div >
-    <label for="name">Name</label>
-    <input class="form-control" type="text" name="name" [(ngModel)]="editTeam.name" >
-    <br>
-    <hr>
-    <label for="logoUrl">Logo Url</label>
-    <input class="form-control" type="text" name="imageUrl" [(ngModel)]="editTeam.logoUrl" >
-    <br>
-    <label for="teamWebsiteUrl">Team Website</label>
-    <input class="form-control" type="text" name="teamWebsiteUrl" [(ngModel)]="editTeam.teamWebsiteUrl" >
-    <br>
+    <div>
+      <label for="name">Name</label>
+      <input class="form-control" type="text" name="name" [(ngModel)]="editTeam.name">
+      <br>
+      <hr>
+      <label for="logoUrl">Logo Url</label>
+      <input class="form-control" type="text" name="imageUrl" [(ngModel)]="editTeam.logoUrl">
+      <br>
+      <label for="teamWebsiteUrl">Team Website</label>
+      <input class="form-control" type="text" name="teamWebsiteUrl" [(ngModel)]="editTeam.teamWebsiteUrl">
+      <br>
 
-    <div class="mb-3" >
-       <label for="sport">Sport</label>
-    <select  name="sport" [(ngModel)]="editTeam.sport.name" >
-      <option *ngFor="let sport of sports" value="{{sport.name}}"> {{sport.name}}</option>
-    </select>
-    </div>
+      <div class="mb-3">
+        <label for="sport">Sport</label>
+        <select name="sport" [(ngModel)]="editTeam.sport.name">
+          <option *ngFor="let sport of sports" value="{{sport.name}}"> {{sport.name}}</option>
+        </select>
+      </div>
 
-    <br>
+      <br>
 
-    <button class="btn btn-success" type="submit"  (click)="updateTeam(editTeam, editTeam.id)">Save</button>
-    <button class="btn btn-danger" type="submit" (click)="editTeam = null">Cancel</button>
+      <button class="btn btn-success" type="submit" (click)="updateTeam(editTeam, editTeam.id)">Save</button>
+      <button class="btn btn-danger" type="submit" (click)="editTeam = null">Cancel</button>
     </div>
   </form>
 </div>
@@ -367,23 +397,19 @@
   <form name="newTeamForm">
     <div class="input-group">
       <label for="name">Name</label>
-      <input class="form-control" type="text" name="name" [(ngModel)]="newTeam.name" >
+      <input class="form-control" type="text" name="name" [(ngModel)]="newTeam.name">
       <br>
       <label for="logoUrl">Logo Url</label>
-      <input class="form-control" type="text" name="logoUrl" [(ngModel)]="newTeam.logoUrl" >
+      <input class="form-control" type="text" name="logoUrl" [(ngModel)]="newTeam.logoUrl">
       <br>
       <label for="teamWebsiteUrl">Team Website</label>
-      <input class="form-control" type="text" name="teamWebsiteUrl" [(ngModel)]="newTeam.teamWebsiteUrl" >
+      <input class="form-control" type="text" name="teamWebsiteUrl" [(ngModel)]="newTeam.teamWebsiteUrl">
       <br>
       <label for="sport">Sport</label>
-      <input class="form-control" type="text" name="sport" [(ngModel)]="newTeam.sport" >
+      <input class="form-control" type="text" name="sport" [(ngModel)]="newTeam.sport">
       <br>
-      <button class="btn btn-success" type="submit"  (click)="addTeam(newTeam)">Save</button>
+      <button class="btn btn-success" type="submit" (click)="addTeam(newTeam)">Save</button>
       <button class="btn btn-danger" type="submit" (click)="addNewTeam = null">Cancel</button>
     </div>
   </form>
 </div>
-
-
-
-
