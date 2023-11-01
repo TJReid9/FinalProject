@@ -85,4 +85,15 @@ export class TeamService {
       })
     );
   }
+
+  removeFavTeam(teamId: number, userId: number) : Observable<void> {
+    return this.http.put<void>(this.url + 'watchparties/users/'+ userId + '/teams/' + teamId, null, this.getHttpOptions()).pipe(
+      catchError((err: any) => {
+        console.error(err);
+        return throwError(
+           () => new Error( 'TeamsService.Put(): error Removing Favorite Team: ' + err )
+        );
+      })
+    );
+  }
 }

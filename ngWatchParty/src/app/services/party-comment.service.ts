@@ -38,8 +38,8 @@ export class PartyCommentService {
     );
   }
 
-  show(partyCommentId: number): Observable<PartyComment> {
-    return this.http.get<PartyComment>(this.url + 'watchparties/partyComments/'+ partyCommentId, this.getHttpOptions()).pipe(
+  show(partyId: number, partyCommentId: number): Observable<PartyComment> {
+    return this.http.get<PartyComment>(this.url + 'watchparties/' + partyId + '/partyComments/'+ partyCommentId, this.getHttpOptions()).pipe(
       catchError((err: any) => {
         console.log(err);
         return throwError(
@@ -49,7 +49,7 @@ export class PartyCommentService {
     );
   }
 
-  create(partyComment: PartyComment, partyId: number): Observable<PartyComment> {
+  create(partyId: number, partyComment: PartyComment): Observable<PartyComment> {
     console.log(partyComment)
     return this.http.post<PartyComment>(this.url + 'watchparties/' + partyId + '/partyComments', partyComment, this.getHttpOptions()).pipe(
       catchError((err: any) => {
@@ -61,8 +61,8 @@ export class PartyCommentService {
     );
   }
 
-  update(partyCommentId: number, partyRating: PartyComment): Observable<PartyComment> {
-    return this.http.put<PartyComment>(this.url + 'watchparties/partyRatings/' + partyCommentId, partyRating ,this.getHttpOptions()).pipe(
+  update(partyId: number, partyCommentId: number): Observable<PartyComment> {
+    return this.http.put<PartyComment>(this.url + 'watchparties/' + partyId + '/partyComments' + partyCommentId,this.getHttpOptions()).pipe(
       catchError((err: any) => {
         console.error(err);
         return throwError(
@@ -72,8 +72,8 @@ export class PartyCommentService {
     );
   }
 
-  destroy(partyCommentId: number) : Observable<void> {
-    return this.http.delete<void>(this.url + 'watchparties/partyRatings/'+ partyCommentId, this.getHttpOptions()).pipe(
+  destroy(partyId: number, partyCommentId: number) : Observable<void> {
+    return this.http.delete<void>(this.url + 'watchparties/' + partyId + '/partyComments/'+ partyCommentId, this.getHttpOptions()).pipe(
       catchError((err: any) => {
         console.error(err);
         return throwError(

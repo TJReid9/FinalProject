@@ -57,8 +57,7 @@ public class PartyCommentServiceImpl implements PartyCommentService {
 
 	@Override
 	public List<PartyComment> findAllByParty(int partyId) {
-		// TODO Auto-generated method stub
-		return null;
+		return partyCommentRepo.findAllByPartyId(partyId);
 	}
 
 }

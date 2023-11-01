@@ -16,7 +16,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.skilldistillery.watchparty.entities.Team;
 import com.skilldistillery.watchparty.entities.User;
+import com.skilldistillery.watchparty.repositories.UserRepository;
+import com.skilldistillery.watchparty.services.TeamService;
 import com.skilldistillery.watchparty.services.UserService;
 
 @CrossOrigin({"*", "http://localhost/"})
@@ -26,6 +29,9 @@ public class UserController {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private TeamService teamService;
 	
 	@GetMapping("watchparties/users")
 	public List<User> listUsers(HttpServletResponse resp) {
@@ -39,6 +45,11 @@ public class UserController {
 			resp.setStatus(404);			
 		}
 		return user;
+	}
+	
+	@PostMapping("watchparties/users/{userId}/teams")
+	public List<Team> addFavoriteTeam(@PathVariable int userId, HttpServletResponse resp) {
+		return teamService.getAllTeams();
 	}
 	
 	@PostMapping("watchparties/users")
@@ -81,6 +92,22 @@ public class UserController {
 				if(userId == null) {
 					res.setStatus(404);
 				}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			res.setStatus(400);
+		}
+		
+	}
+	
+	@PutMapping("watchparties/users/{userId}/teams/{teamId}")
+	public void deleteFavTeamById(@PathVariable Integer userId,@PathVariable int teamId, HttpServletResponse res) {
+		try {
+			userService.removeFavoriteTeamById(teamService.getTeam(teamId), userService.retrieveUser(userId));
+			res.setStatus(204);
+			if(userId == null) {
+				res.setStatus(404);
+			}
 			
 		} catch (Exception e) {
 			e.printStackTrace();

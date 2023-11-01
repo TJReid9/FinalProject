@@ -2,13 +2,23 @@
 <div *ngIf="!editUser && loggedInUser">
   <div class="col-15 col-md-12 col-lg-8">
     <div class="card bg-transparent" style="margin-bottom: 10px" >
-      <img [src]="loggedInUser.photoUrl" (click)="setEditUser()" height="30%" width="30%"/>
+      <img [src]="loggedInUser.photoUrl" (click)="setEditUser()" height="200px" width="200px"/>
       <h3>{{loggedInUser.username}}</h3>
     </div>
   </div>
   Created: {{loggedInUser.createDate}} <br>
   Name: {{loggedInUser.firstName}} <br>
   Located at: {{loggedInUser.address?.city}}, {{loggedInUser.address?.state}}<br>
+  <table class="table-responsive">
+    <thead>
+      <th>
+        Favorite Teams:
+      </th>
+    </thead>
+    <tr>
+      <td *ngFor="let favorite of loggedInUser.favoriteTeams"><img src="{{favorite.logoUrl}}" height="100px" width="100%"></td>
+    </tr>
+  </table>
   <hr>
   lastUpdated: {{loggedInUser.updateDate}}
 
@@ -62,7 +72,7 @@
     <td>
   <div class="col-8 col-md-6 col-lg-4">
     <div class="card bg-transparent" style="margin-bottom: 10px" >
-      <img [src]="user.photoUrl"  height="20" width="20%"/>
+      <img [src]="user.photoUrl"  height="200px" width="200px"/>
       <h3>{{user.username}}</h3>
     </div>
   </div>
@@ -114,11 +124,8 @@
 </table>
 </div>
 
-<label for="addFriend">Add Friend:</label>
-    <input class="form-control" type="text" name="addFriend" >
     <br>
-    <button class="btn btn-success" type="submit"  (click)="addFriend(newFriend)">Save</button>
-    <button class="btn btn-danger" type="submit" (click)="addNewFriend = null">Cancel</button>
+    <button class="btn btn-success" (click)="addFriend(newFriend)">Add Friend</button>
 
 
 

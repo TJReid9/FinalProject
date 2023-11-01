@@ -46,7 +46,8 @@ export class PartiesComponent implements OnInit {
   pg: PartyGoer = new PartyGoer();
   selectedVenue: Venue | null = null;
   editParty: Party | null  = null;
-  newPartyGoer: PartyGoer | null = null
+  newPartyGoer: PartyGoer | null = null;
+  comments: PartyComment[] = [];
 
 
 
@@ -200,12 +201,27 @@ export class PartiesComponent implements OnInit {
     });
   }
 
+  reloadComments(partyId: number): void {
+    this.partyCommentService.index(partyId).subscribe({
+      next: (comments) => {
+        this.comments = comments;
+      },
+      error: (problem) => {
+        console.error(
+          'PartiesComponent.reloadParties(): error loading Party: '
+        );
+        console.error(problem);
+      },
+    });
+  }
+
   displayParty(party: Party): void {
     this.selectedParty = party;
   }
 
   displayAllParties(): void {
     this.selectedParty = null;
+    this.loadParties();
   }
 
   setEditParty() {
@@ -271,9 +287,11 @@ setLoggedInUser(){
   addComment(comment: PartyComment, party: Party): void {
     comment.party = party;
     comment.user = this.loggedInUser;
-    this.partyCommentService.create(comment, party.id).subscribe({
+    // this.reloadParties();
+    // this.selectedParty = this.selectedParty;
+    this.partyCommentService.create(party.id, comment).subscribe({
       next: (result) => {
-        this.reloadParties();
+        location.reload();
       },
       error: (nojoy) => {
         console.error('PartiesComponent.reloadParties(): error loading party: ');
@@ -295,13 +313,25 @@ setLoggedInUser(){
     });
   }
 
+  deletePartyComment(partyId: number, commentId: number) {
+    this.partyCommentService.destroy(partyId, commentId).subscribe({
+      next: (result) => {
+        location.reload();
+      },
+      error: (nojoy) => {
+        console.error('PartiesComponent.reloadParties(): error loading party:');
+        console.error(nojoy);
+      },
+    });
+  }
+
 addUserToParty( partyId: number): void {
   this.partyService.addSelfToParty(partyId).subscribe({
     next: (result) => {
        this.partyGoers.push(result);
-       this.reloadParties();
-       this.loadParties();
-       this.selectedParty = this.selectedParty;
+        this.reloadParties();
+        this.loadParties();
+      location.reload();
 
     },
     error: (nojoy) => {
