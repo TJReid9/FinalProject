@@ -50,7 +50,7 @@
   </p>
   <p>
     <strong>Venue:</strong><br>
-    <a [routerLink]="['/venues/{{selectedParty.venue.id}}']">{{selectedParty.venue.name}}</a>
+    <a [routerLink]="['/venues/' + selectedParty.venue.id]">{{selectedParty.venue.name}}</a>
    </p>
    <p>
     <strong>Venue Address:</strong><br>
@@ -71,7 +71,7 @@
       <table class="table-responsive">
         <tr>
           <td *ngFor="let pg of selectedParty.partyGoers">
-            <a [routerLink]="['/users/{{pg.user.id}}']"><img id="partyPeople" [src]=pg.user.photoUrl height="100px" width="100px"></a>
+            <a [routerLink]="['/users/' + pg.user.id]"><img id="partyPeople" [src]=pg.user.photoUrl height="100px" width="100px"></a>
           </td>
         </tr>
       </table>
