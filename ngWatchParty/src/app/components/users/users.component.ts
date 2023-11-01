@@ -32,6 +32,7 @@ friend: Friend = new Friend;
 newFriend: Friend = new Friend;
 friends: Friend[] = [];
 selectedFriend: Friend | null = null;
+friendId: FriendId = new FriendId;
 
 // messages: Array<DirectMessage> = [];
 newMessage: DirectMessage = new DirectMessage();
@@ -197,7 +198,6 @@ deleteUser(id: number){
 }
 
 addFriend(userId: number) {
-  // this.updateUser(this.loggedInUser);
   this.userService.addFriend(userId).subscribe({
     next: (result) => {
       location.reload();
@@ -210,8 +210,9 @@ addFriend(userId: number) {
   })
 }
 
-removeFriend(friendId: number, userId: number) {
-  this.friendService.removeFriend(friendId, userId).subscribe({
+removeFriend(friendId: number | undefined) {
+  if(friendId) {
+    this.friendService.removeFriend(friendId).subscribe({
     next: (result) => {
       location.reload();
     },
@@ -220,6 +221,7 @@ removeFriend(friendId: number, userId: number) {
       console.error(nojoy);
     },
   });
+}
 }
 
 

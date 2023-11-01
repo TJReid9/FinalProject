@@ -126,10 +126,10 @@ public class UserController {
 ////		return friendService.create();
 //	}
 	
-	@PutMapping("watchparties/users/{userId}/friends/{friendId}")
-	public void deleteFriendById(@PathVariable Integer userId,@PathVariable int friendId, HttpServletResponse res) {
+	@PutMapping("watchparties/users/{userId}/friends")
+	public void deleteFriendById(@PathVariable Integer userId, HttpServletResponse res, Principal pr) {
 		try {
-			userService.removeFriendById(friendService.retrieveFriend(friendId), userService.retrieveUser(userId));
+			userService.removeFriendById(userId, pr.getName());
 			res.setStatus(204);
 			if(userId == null) {
 				res.setStatus(404);

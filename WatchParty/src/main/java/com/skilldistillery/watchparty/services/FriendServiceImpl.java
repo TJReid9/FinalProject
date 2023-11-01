@@ -7,6 +7,9 @@ import org.springframework.stereotype.Service;
 
 import com.skilldistillery.watchparty.entities.Friend;
 import com.skilldistillery.watchparty.entities.FriendId;
+import com.skilldistillery.watchparty.entities.Party;
+import com.skilldistillery.watchparty.entities.PartyGoer;
+import com.skilldistillery.watchparty.entities.PartyGoerId;
 import com.skilldistillery.watchparty.entities.User;
 import com.skilldistillery.watchparty.repositories.FriendRepository;
 import com.skilldistillery.watchparty.repositories.FriendStatusRepository;
@@ -66,6 +69,17 @@ public class FriendServiceImpl implements FriendService {
 		return deleted;
 	}
 	
+//	@Override
+//	public List<PartyGoer> getAllPartyGoers(Party party) {
+//		partyRepo.findById(party.getId());
+//		List<PartyGoer> pg = party.getPartyGoers(); 
+//			for (PartyGoer partyGoer : pg) {
+//				pg.remove(partyGoer);	
+//			}
+//	
+//		return pg;
+//	}
+	
 	@Override
 	public Friend addBuddy(int friendUserId, String username) {
 		Friend friend = null;
@@ -83,10 +97,21 @@ public class FriendServiceImpl implements FriendService {
 		return friend;
 	}
 	
-//	public Friend removeBuddy(int friendUserName, String username) {
-//		boolean deleted = false;
-//		User user = userRepo.findByUsername(username);
-//	}
+//	@Override
+	public boolean removeBuddy(int friendId, String username) {
+		boolean deleted = false;
+		User user = userRepo.findByUsername(username);
+		Friend friend = friendRepo.searchById(friendId);
+		FriendId friendToDelete = new FriendId(user.getId(), friendId);
+		friendRepo.deleteById(friendToDelete);
+		
+		if (friendToDelete != null) {
+			deleted = true;
+		}
+		
+		
+		return deleted;
+	}
 
 	
 

@@ -21,11 +21,15 @@
   </table>
 
   <div class="table-responsive">
-    Friends:
     <table class="table" >
+      <thead>
+        <th>
+          Friends:
+        </th>
+      </thead>
     <tr>
-      <td *ngFor="let friend of friends">
-         <img id="friend" [src]=friend.user?.photoUrl height="100px" width="100px">
+      <td *ngFor="let friend of loggedInUser.friends">
+         <img id="friend" src="{{friend.user?.photoUrl}}" height="100px" width="100px">
       </td>
     </tr>
   </table>
@@ -130,7 +134,7 @@
 
 <br>
       <button class="btn btn-success" (click)="addFriend(user.id)">Follow</button>
-      <!-- <button class="btn btn-Danger" (click)="removeFriend(friend.id, user.id)">Unfollow</button> -->
+      <button class="btn btn-danger" (click)="removeFriend(user.id)">Unfollow</button>
 
 
 

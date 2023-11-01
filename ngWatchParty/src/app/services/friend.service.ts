@@ -76,8 +76,8 @@ export class FriendService {
     );
   }
 
-  removeFriend(friendId: number, userId: number) : Observable<void> {
-    return this.http.put<void>(this.url + 'watchparties/users/'+ userId + '/friends/' + friendId, null, this.getHttpOptions()).pipe(
+  removeFriend(friendId: number) : Observable<void> {
+    return this.http.put<void>(this.url + 'watchparties/users/' + friendId + '/friends', null, this.getHttpOptions()).pipe(
       catchError((err: any) => {
         console.error(err);
         return throwError(

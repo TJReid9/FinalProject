@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.skilldistillery.watchparty.entities.Address;
 import com.skilldistillery.watchparty.entities.Friend;
+import com.skilldistillery.watchparty.entities.FriendId;
 import com.skilldistillery.watchparty.entities.Team;
 import com.skilldistillery.watchparty.entities.User;
 import com.skilldistillery.watchparty.repositories.AddressRepository;
@@ -117,15 +118,23 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<Friend> removeFriendById(Friend friend, User user) {
-		Friend notFriend = friendRepo.searchById(user.getId());
-		List<Friend> friends = user.getFriends();
-		friends.remove(notFriend);
-		user.setFriends(friends);
-		userRepo.saveAndFlush(user);
-		return friends;
+	public boolean removeFriendById(int friendUserId, String username) {
+		Friend friend = null;
+		User user = userRepo.findByUsername(username);
+		User otherUser= userRepo.searchById(friendUserId);
+		if(user != null & otherUser != null) {
+			FriendId id = new FriendId(friendUserId, user.getId());		
+			friendRepo.deleteById(id);
+			return !friendRepo.existsById(id);
+//		Friend notFriend = friendRepo.searchById(user.getId());
+//		List<Friend> friends = user.getFriends();
+//		friends.remove(notFriend);
+//		user.setFriends(friends);
+//		userRepo.saveAndFlush(user);
+//		return friends;
 	}
+		return false;
 
-	
+	}
 
 }

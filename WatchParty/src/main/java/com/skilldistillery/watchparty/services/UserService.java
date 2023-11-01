@@ -25,5 +25,5 @@ public interface UserService {
     
     public List<Friend> addFriendById(Friend friend, User user);
     
-    public List<Friend> removeFriendById(Friend friend, User user);
+	boolean removeFriendById(int friendUserId, String username);
 }
