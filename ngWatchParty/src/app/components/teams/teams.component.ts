@@ -110,12 +110,21 @@ export class TeamsComponent {
     this.selectedTeam = null;
   }
 
+  displayAddTeamForm(): void{
+    this.addNewTeam = new Team();
+  }
+
   setEditTeam() {
     this.editTeam = Object.assign({}, this.selectedTeam);
   }
 
   displayAddNewWorkout(team: Team){
     this.addNewTeam = team;
+  }
+
+  cancelAddTeam(){
+    this.addNewTeam = null;
+    this.newTeam = new Team();
   }
 
 
@@ -135,10 +144,11 @@ export class TeamsComponent {
   }
 
   addTeam(team: Team): void {
+    console.log(team);
     this.teamService.create(team).subscribe({
       next: (result) => {
         this.reload();
-        this.newTeam = new Team();
+        this.addNewTeam = null;
       },
       error: (nojoy) => {
         console.error('TeamsComponent.reload(): error loading Team: ');

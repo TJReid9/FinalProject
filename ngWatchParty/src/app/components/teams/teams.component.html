@@ -1,6 +1,29 @@
 
-<h1 *ngIf="!selectedTeam">Teams</h1>
+
+
+
+<h1 *ngIf="!selectedTeam && addNewTeam == null">Teams <button class="btn btn-outline-dark" (click)="displayAddTeamForm()">Add Team</button></h1>
 <hr>
+<div *ngIf="addNewTeam != null">
+<form>
+  <label for="sport" class="form-label">Sport: </label>
+<select name="sport"  [(ngModel)]="newTeam.sport.id">
+  <option *ngFor="let sport of sports" value="{{sport.id}}">{{sport.name}}</option>
+</select><br>
+<label for="name" class="form-label">Name Of Team: </label>
+<input type="text" class="form-control" name="name" [(ngModel)]="newTeam.name" />
+
+<label for="logoUrl" class="form-label">Team Logo:</label>
+<input type="text" class="form-control" name="logoUrl" [(ngModel)]="newTeam.logoUrl" />
+
+<label for="websiteUrl" class="form-label">Website Url:</label>
+<input type="text" class="form-control" name="websiteUrl" [(ngModel)]="newTeam.teamWebsiteUrl" />
+
+<button class="btn btn-outline-dark" type="submit"  (click)="addTeam(newTeam)">Save</button>
+<button class="btn btn-outline-dark" type="submit"  (click)="cancelAddTeam()">Cancel</button>
+
+</form>
+</div>
 <div id="carousel" *ngIf="!selectedTeam">
 <div class="container" >
     <h3>College Football</h3>
