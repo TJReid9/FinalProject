@@ -48,6 +48,24 @@ export class PartiesComponent implements OnInit {
   editParty: Party | null  = null;
   newPartyGoer: PartyGoer | null = null;
   comments: PartyComment[] = [];
+  address = '';
+  latitude: number = 0;
+  longitude: number = 0;
+  display: any;
+
+  center: google.maps.LatLngLiteral = {
+    lat: 0,
+    lng: 0,
+  };
+  zoom = 15;
+
+  moveMap(event: google.maps.MapMouseEvent) {
+    if (event.latLng != null) this.center = event.latLng.toJSON();
+  }
+
+  move(event: google.maps.MapMouseEvent) {
+    if (event.latLng != null) this.display = event.latLng.toJSON();
+  }
 
 
 
@@ -104,6 +122,21 @@ export class PartiesComponent implements OnInit {
       },
     });
   }
+
+  displayMap(address: string) {
+    console.log('venue address ' + address);
+    this.geocoder.geocode({ address }).subscribe((results: any) => {
+      console.log(results);
+      let location = results.results[0].geometry.location;
+      console.log(location);
+      this.latitude = location.lat();
+      console.log(this.latitude);
+      this.longitude = location.lng();
+      console.log(this.longitude);
+      this.center = {lat: this.latitude, lng: this.longitude}
+    });
+  }
+
 
   loadParties() {
     this.partyService.index().subscribe({
@@ -217,6 +250,14 @@ export class PartiesComponent implements OnInit {
 
   displayParty(party: Party): void {
     this.selectedParty = party;
+    console.log(`${this.latitude} ${this.longitude}`);
+    this.displayMap( party.address.street +
+      ', ' +
+      party.address.city +
+      ', ' +
+      party.address.state +
+      ' ' +
+      party.address.zip);
   }
 
   displayAllParties(): void {
@@ -357,8 +398,8 @@ removeUserFromParty( partyId: number, userId: number): void {
 
 isPartyGoer(){
   let isGoing = false;
-  console.log(this.selectedParty?.partyGoers);
-  console.log(this.loggedInUser);
+  // console.log(this.selectedParty?.partyGoers);
+  // console.log(this.loggedInUser);
   this.selectedParty?.partyGoers.forEach((partyGoer)=> {
     if(this.selectedParty && partyGoer.user.id  == this.loggedInUser.id){
       isGoing = true;

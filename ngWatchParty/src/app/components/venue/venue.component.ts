@@ -38,8 +38,8 @@ export class VenueComponent implements OnInit, AfterViewInit {
   display: any;
 
   center: google.maps.LatLngLiteral = {
-    lat: 45,
-    lng: 45,
+    lat: 0,
+    lng: 0,
   };
   zoom = 15;
 

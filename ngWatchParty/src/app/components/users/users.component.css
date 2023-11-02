@@ -1,0 +1,17 @@
+
+
+.bg-image{
+  background-image: url('/assets/images/WatchParty.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  min-height: 100vh; /* adjust the height as needed */
+}
+
+.text-background {
+  background-color: #f2f2f200; /* Set your desired background color */
+  padding: 10px; /* Adjust the padding as needed */
+  display: inline-block; /* Ensure that the background only covers the text width */
+  color: rgb(239, 207, 167); /* Set the text color */
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; /* Set the outline effect */
+}
