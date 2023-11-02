@@ -1,3 +1,4 @@
+
 <div *ngIf="loggedInUser == user">
   <div *ngIf="!editUser && loggedInUser && !newAddress">
     <div class="col-15 col-md-12 col-lg-8">
@@ -111,6 +112,9 @@
 
 </div>
 <div *ngIf="user.id != loggedInUser.id">
+  <div *ngIf="user.id == 1 || loggedInUser.id == 1">
+    Enable profile: <input type="checkbox"  name="enabled" [(ngModel)]="user.enabled"/>
+    </div>
   <table>
     <td>
   <div class="col">
