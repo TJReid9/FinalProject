@@ -10,6 +10,7 @@
     Created: {{loggedInUser.createDate}} <br>
     Name: {{loggedInUser.firstName}} <br>
     Located at: {{loggedInUser.address?.city}}, {{loggedInUser.address?.state}}<br>
+    Last Updated: {{loggedInUser.updateDate}}
     <table class="table-responsive">
       <thead>
         <th>
@@ -37,23 +38,7 @@
       </tr>
     </table>
   </div>
-  Created: {{loggedInUser.createDate}} <br>
-  Name: {{loggedInUser.firstName}} <br>
-  <div *ngIf="loggedInUser.address?.id != 1 || loggedInUser.username == 'admin'">
-  Located at: {{loggedInUser.address?.city}}, {{loggedInUser.address?.state}}<br>
-  </div>
-  <table class="table-responsive">
-    <thead>
-      <th>
-        Favorite Teams:
-      </th>
-    </thead>
-    <tr>
-      <td *ngFor="let favorite of loggedInUser.favoriteTeams"><img src="{{favorite.logoUrl}}" height="100px" width="100%"></td>
-    </tr>
-  </table>
-  <hr>
-  lastUpdated: {{loggedInUser.updateDate}}
+
 
   <button class="btn btn-outline-dark" (click)="setEditUser()">Edit</button>
 
