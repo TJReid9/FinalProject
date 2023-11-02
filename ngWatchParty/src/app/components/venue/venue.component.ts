@@ -179,6 +179,7 @@ export class VenueComponent implements OnInit, AfterViewInit {
     this.venueService.destroy(id).subscribe({
       next: (result) => {
         this.loadVenues();
+        location.reload();
       },
       error: (nojoy) => {
         console.error(

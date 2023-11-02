@@ -23,7 +23,7 @@ public class Friend {
 	@ManyToOne
 	@JoinColumn(name = "friend_id")
 	@MapsId(value = "friendId")
-	@JsonIgnoreProperties({"friends", "PartyRatingId"})
+	@JsonIgnoreProperties({"friends", "favoriteTeams"})
 	private User friend;
 	
 	@ManyToOne
