@@ -21,7 +21,7 @@
 </form>
 </div>
 <div id="carousel" *ngIf="!selectedTeam && !addNewTeam">
-  <div class="container">
+  <div class="container" *ngIf="sportsFilter.transform(teams,1).length > 0">
     <h3>College Football</h3>
     <ngb-carousel>
       <ng-template ngbSlide *ngFor="let team of teams | sportsFilter: 1">
@@ -36,9 +36,9 @@
       </ng-template>
     </ngb-carousel>
   </div>
-  <hr>
 
-  <div class="container">
+  <div class="container" *ngIf="sportsFilter.transform(teams,2).length > 0">
+    <hr>
     <h3>NFL</h3>
     <ngb-carousel>
       <ng-template ngbSlide *ngFor="let team of teams | sportsFilter: 2">
@@ -53,8 +53,8 @@
       </ng-template>
     </ngb-carousel>
   </div>
-  <hr>
-  <div class="container">
+  <div class="container" *ngIf="sportsFilter.transform(teams,3).length > 0">
+    <hr>
     <h3>College Volleyball</h3>
     <ngb-carousel>
       <ng-template ngbSlide *ngFor="let team of teams | sportsFilter: 3">
@@ -69,8 +69,8 @@
       </ng-template>
     </ngb-carousel>
   </div>
-  <hr>
-  <div class="container">
+  <div class="container" *ngIf="sportsFilter.transform(teams,4).length > 0">
+    <hr>
     <h3>MLB</h3>
     <ngb-carousel>
       <ng-template ngbSlide *ngFor="let team of teams | sportsFilter: 4">
@@ -86,8 +86,8 @@
     </ngb-carousel>
   </div>
 
-  <hr>
-  <div class="container">
+  <div class="container" *ngIf="sportsFilter.transform(teams,5).length > 0">
+    <hr>
     <h3>College Baseball</h3>
     <ngb-carousel>
       <ng-template ngbSlide *ngFor="let team of teams | sportsFilter: 5">
@@ -102,8 +102,8 @@
       </ng-template>
     </ngb-carousel>
   </div>
-  <hr>
-  <div class="container">
+  <div class="container" *ngIf="sportsFilter.transform(teams,6).length > 0">
+    <hr>
     <h3>NBL</h3>
     <ngb-carousel>
       <ng-template ngbSlide *ngFor="let team of teams | sportsFilter: 6">
@@ -119,8 +119,8 @@
     </ngb-carousel>
   </div>
 
-  <hr>
-  <div class="container">
+  <div class="container" *ngIf="sportsFilter.transform(teams,7).length > 0">
+    <hr>
     <h3>College Basketball</h3>
     <ngb-carousel>
       <ng-template ngbSlide *ngFor="let team of teams | sportsFilter: 7">
@@ -136,8 +136,8 @@
     </ngb-carousel>
   </div>
 
-  <hr>
-  <div class="container">
+  <div class="container" *ngIf="sportsFilter.transform(teams,8).length > 0">
+    <hr>
     <h3>Nascar</h3>
     <ngb-carousel>
       <ng-template ngbSlide *ngFor="let team of teams | sportsFilter: 8">
@@ -153,8 +153,8 @@
     </ngb-carousel>
   </div>
 
-  <hr>
-  <div class="container">
+  <div class="container" *ngIf="sportsFilter.transform(teams,9).length > 0">
+    <hr>
     <h3>Olympics</h3>
     <ngb-carousel>
       <ng-template ngbSlide *ngFor="let team of teams | sportsFilter: 9">
@@ -170,8 +170,8 @@
     </ngb-carousel>
   </div>
 
-  <hr>
-  <div class="container">
+  <div class="container" *ngIf="sportsFilter.transform(teams,10).length > 0">
+    <hr>
     <h3>Soccer</h3>
     <ngb-carousel>
       <ng-template ngbSlide *ngFor="let team of teams | sportsFilter: 10">
@@ -187,8 +187,8 @@
     </ngb-carousel>
   </div>
 
-  <hr>
-  <div class="container">
+  <div class="container" *ngIf="sportsFilter.transform(teams,11).length > 0">
+    <hr>
     <h3>Womens Basketball</h3>
     <ngb-carousel>
       <ng-template ngbSlide *ngFor="let team of teams | sportsFilter: 11">
@@ -204,8 +204,8 @@
     </ngb-carousel>
   </div>
 
-  <hr>
-  <div class="container">
+  <div class="container" *ngIf="sportsFilter.transform(teams,12).length > 0">
+    <hr>
     <h3>Rugby</h3>
     <ngb-carousel>
       <ng-template ngbSlide *ngFor="let team of teams | sportsFilter: 12">
@@ -221,8 +221,8 @@
     </ngb-carousel>
   </div>
 
-  <hr>
-  <div class="container">
+  <div class="container" *ngIf="sportsFilter.transform(teams,13).length > 0">
+    <hr>
     <h3>Golf</h3>
     <ngb-carousel>
       <ng-template ngbSlide *ngFor="let team of teams | sportsFilter: 13">
@@ -238,7 +238,7 @@
     </ngb-carousel>
   </div>
 
-  <div class="container">
+  <div class="container" *ngIf="sportsFilter.transform(teams,14).length > 0">
     <hr>
     <h3>Billiards</h3>
     <ngb-carousel>
@@ -255,8 +255,8 @@
     </ngb-carousel>
   </div>
 
-  <hr>
-  <div class="container">
+  <div class="container" *ngIf="sportsFilter.transform(teams,15).length > 0">
+    <hr>
     <h3>College Soccer</h3>
     <ngb-carousel>
       <ng-template ngbSlide *ngFor="let team of teams | sportsFilter: 15">
@@ -272,12 +272,12 @@
     </ngb-carousel>
   </div>
 
-  <hr>
-  <div class="container">
+  <div class="container" *ngIf="sportsFilter.transform(teams,16).length > 0">
+    <hr>
     <h3>College Womens Basketball</h3>
     <ngb-carousel>
       <ng-template ngbSlide *ngFor="let team of teams | sportsFilter: 16">
-        <div class="d-flex justify-content-center">
+        <div class="d-flex justify-content-center" >
           <img [src]=team.logoUrl alt=team.name class="d-block" height="25%" width="25%" (click)="displayTeam(team)">
         </div>
         <div class="carousel-caption">
@@ -289,8 +289,8 @@
     </ngb-carousel>
   </div>
 
-  <hr>
-  <div class="container">
+  <div class="container" *ngIf="sportsFilter.transform(teams,17).length > 0">
+    <hr>
     <h3>College Womens Softball</h3>
     <ngb-carousel>
       <ng-template ngbSlide *ngFor="let team of teams | sportsFilter: 17">
@@ -306,8 +306,8 @@
     </ngb-carousel>
   </div>
 
-  <hr>
-  <div class="container">
+  <div class="container" *ngIf="sportsFilter.transform(teams,18).length > 0">
+    <hr>
     <h3>College Womens Soccer</h3>
     <ngb-carousel>
       <ng-template ngbSlide *ngFor="let team of teams | sportsFilter: 18">
@@ -323,8 +323,8 @@
     </ngb-carousel>
   </div>
 
-  <hr>
-  <div class="container">
+  <div class="container" *ngIf="sportsFilter.transform(teams,19).length > 0">
+    <hr>
     <h3>Hockey</h3>
     <ngb-carousel>
       <ng-template ngbSlide *ngFor="let team of teams | sportsFilter: 19">

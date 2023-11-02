@@ -46,7 +46,7 @@ import { ConvertFrom24To12FormatPipe } from './pipes/convert-from24-to12-format.
     NgbModule,
     FormsModule
   ],
-  providers: [IncompletePipe],
+  providers: [IncompletePipe, SportsFilterPipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
