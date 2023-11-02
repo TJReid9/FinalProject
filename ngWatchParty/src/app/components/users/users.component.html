@@ -1,4 +1,4 @@
-<div *ngIf="loggedInUser == user">
+<div *ngIf="loggedInUser.id == user.id">
   <div *ngIf="!editUser && loggedInUser && !newAddress">
     <div class="col-15 col-md-12 col-lg-8">
       <div class="card bg-transparent" style="margin-bottom: 10px">
@@ -18,7 +18,7 @@
         </th>
       </thead>
       <tr>
-        <td *ngFor="let favorite of loggedInUser.favoriteTeams"><img src="{{favorite.logoUrl}}" height="100px" width="100%"></td>
+        <td *ngFor="let favorite of loggedInUser.favoriteTeams"><a [routerLink]="['/teams/' + favorite.id]"><img src="{{favorite.logoUrl}}" height="100px" width="100%"></a></td>
       </tr>
     </table>
 
@@ -40,7 +40,6 @@
   </div>
 
 
-  <button class="btn btn-outline-dark" (click)="setEditUser()">Edit</button>
 
 
 

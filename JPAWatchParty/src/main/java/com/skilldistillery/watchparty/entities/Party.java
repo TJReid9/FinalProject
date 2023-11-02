@@ -59,6 +59,7 @@ public class Party {
 	
 	@ManyToOne
 	@JoinColumn(name = "user_id")
+	@JsonIgnoreProperties({"friends"})
 	private User user;
 	
 	@ManyToOne

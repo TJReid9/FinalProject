@@ -59,7 +59,7 @@ public class User {
 	private Address address;
 	
 	
-	@JsonIgnoreProperties({"user"})
+	@JsonIgnoreProperties({"user", "favoriteTeams"})
 	@OneToMany(mappedBy = "user")
 	private List<Friend> friends;
 	

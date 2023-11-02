@@ -167,7 +167,7 @@ export class TeamsComponent {
   deleteTeam(id: number) {
     this.teamService.destroy(id).subscribe({
       next: (result) => {
-        this.reload();
+        location.reload();
       },
       error: (nojoy) => {
         console.error('TeamsComponent.reload(): error loading Team:');

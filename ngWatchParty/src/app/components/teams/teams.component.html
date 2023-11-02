@@ -1,6 +1,6 @@
 <h1 *ngIf="!selectedTeam && addNewTeam == null">Teams <button class="btn btn-outline-dark" (click)="displayAddTeamForm()">Add Team</button></h1>
 <hr>
-<div *ngIf="addNewTeam != null">
+<div *ngIf="addNewTeam">
 <form>
   <label for="sport" class="form-label">Sport: </label>
 <select name="sport"  [(ngModel)]="newTeam.sport.id">
@@ -20,7 +20,7 @@
 
 </form>
 </div>
-<div id="carousel" *ngIf="!selectedTeam">
+<div id="carousel" *ngIf="!selectedTeam && !addNewTeam">
   <div class="container">
     <h3>College Football</h3>
     <ngb-carousel>
@@ -369,7 +369,7 @@
     class="btn btn-outline-dark">Remove From Favorites</button>
 
 
-  <button *ngIf="loggedIn()" (click)="deleteTeam(selectedTeam.id)" class="btn btn-outline-dark">Delete</button>
+  <button *ngIf="loggedIn() && loggedInUser.role == 'admin' " (click)="deleteTeam(selectedTeam.id)" class="btn btn-outline-dark">Delete</button>
 
 
   <p>
@@ -413,7 +413,7 @@
   </form>
 </div>
 
-<div *ngIf="addNewTeam && !selectedTeam && !editTeam">
+<!-- <div *ngIf="addNewTeam && !selectedTeam && !editTeam">
   <form name="newTeamForm">
     <div class="input-group">
       <label for="name">Name</label>
@@ -432,4 +432,4 @@
       <button class="btn btn-danger" type="submit" (click)="addNewTeam = null">Cancel</button>
     </div>
   </form>
-</div>
+</div> -->
