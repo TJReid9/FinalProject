@@ -1,7 +1,7 @@
 
 
 .bg-image{
-  background-image: url('/assets/images/WatchParty.png');
+  background-image: url('../../../assets/images/WatchParty.png');
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
