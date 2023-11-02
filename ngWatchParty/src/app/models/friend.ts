@@ -6,14 +6,14 @@ export class Friend {
 
   id: FriendId;
   friendStatus: FriendStatus;
-  friend: User | null = null;
-  user: User | null = null;
+  friend: User;
+  user: User;
 
   constructor(
     id: FriendId = new FriendId,
     friendStatus: FriendStatus = new FriendStatus,
-    friend: User = new User,
-    user: User = new User
+    friend: User = new User(),
+    user: User = new User()
   ){
     this.id = id;
     this.friendStatus = friendStatus;

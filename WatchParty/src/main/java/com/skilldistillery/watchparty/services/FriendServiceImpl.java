@@ -1,0 +1,118 @@
+package com.skilldistillery.watchparty.services;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.skilldistillery.watchparty.entities.Friend;
+import com.skilldistillery.watchparty.entities.FriendId;
+import com.skilldistillery.watchparty.entities.Party;
+import com.skilldistillery.watchparty.entities.PartyGoer;
+import com.skilldistillery.watchparty.entities.PartyGoerId;
+import com.skilldistillery.watchparty.entities.User;
+import com.skilldistillery.watchparty.repositories.FriendRepository;
+import com.skilldistillery.watchparty.repositories.FriendStatusRepository;
+import com.skilldistillery.watchparty.repositories.UserRepository;
+
+@Service
+public class FriendServiceImpl implements FriendService {
+	
+	@Autowired
+	private UserRepository userRepo;
+	
+	@Autowired
+	private FriendRepository friendRepo;
+	
+	@Autowired
+	private FriendStatusRepository friendStatusRepo;
+
+	@Override
+	public List<Friend> getAllFriends() {
+		return friendRepo.findAll();
+	}
+
+	@Override
+	public Friend retrieveFriend(int friendId) {
+		return friendRepo.searchById(friendId);
+	}
+
+	@Override
+	public Friend create(Friend friend) {
+		if(friend != null) {
+			return friendRepo.saveAndFlush(friend);
+		}
+		return null;
+	}
+
+	@Override
+	public Friend update(int friendId, Friend friend) {
+		Friend editFriend = friendRepo.searchById(friendId);
+		User user = userRepo.searchById(friendId);
+		if(editFriend != null) {
+			editFriend.setFriendStatus(friend.getFriendStatus());
+			editFriend.setFriend(friend.getFriend());
+			editFriend.setUser(user);
+			friendRepo.saveAndFlush(editFriend);
+		}
+		return editFriend;
+	}
+
+	@Override
+	public boolean delete(int friendId) {
+		boolean deleted = false;
+		Friend notFriend = friendRepo.searchById(friendId);
+		if(notFriend != null) {
+//			friendRepo.deleteById(notFriend.getId());
+			deleted = true;
+		}
+		return deleted;
+	}
+	
+//	@Override
+//	public List<PartyGoer> getAllPartyGoers(Party party) {
+//		partyRepo.findById(party.getId());
+//		List<PartyGoer> pg = party.getPartyGoers(); 
+//			for (PartyGoer partyGoer : pg) {
+//				pg.remove(partyGoer);	
+//			}
+//	
+//		return pg;
+//	}
+	
+	@Override
+	public Friend addBuddy(int friendUserId, String username) {
+		Friend friend = null;
+		User user = userRepo.findByUsername(username);
+		User otherUser= userRepo.searchById(friendUserId);
+		if(user != null & otherUser != null) {
+			friend = new Friend();
+			FriendId id = new FriendId(friendUserId, user.getId());		
+			friend.setId(id);
+			friend.setUser(user);
+			friend.setFriend(otherUser);
+			friend.setFriendStatus(friendStatusRepo.searchById(2));
+			friendRepo.saveAndFlush(friend);
+		}
+		return friend;
+	}
+	
+//	@Override
+	public boolean removeBuddy(int friendId, String username) {
+		boolean deleted = false;
+		User user = userRepo.findByUsername(username);
+		Friend friend = friendRepo.searchById(friendId);
+		FriendId friendToDelete = new FriendId(user.getId(), friendId);
+		friendRepo.deleteById(friendToDelete);
+		
+		if (friendToDelete != null) {
+			deleted = true;
+		}
+		
+		
+		return deleted;
+	}
+
+	
+
+}

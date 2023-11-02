@@ -14,6 +14,8 @@ public interface PartyService {
 	boolean deleteParty(int partyId);
 	List<PartyGoer> getAllPartyGoers(Party party);
 	PartyGoer addPartyGoerToParty(int partyId, String username);
+	boolean removePartyGoerFromParty(int partyId, String username);
+	
 	
 	
 }

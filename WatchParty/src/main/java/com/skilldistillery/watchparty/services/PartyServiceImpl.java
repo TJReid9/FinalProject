@@ -30,6 +30,10 @@ public class PartyServiceImpl implements PartyService {
 	@Autowired
 	private PartyGoerRepository partyGoerRepo;
 	
+	
+	
+	
+	
 	@Override
 	public List<Party> getAllPartys() {
 		return partyRepo.findAll();
@@ -149,5 +153,23 @@ public class PartyServiceImpl implements PartyService {
 		}
 		return partyGoer;
 	}
+
+	@Override
+	public boolean removePartyGoerFromParty(int partyId, String username) {
+		boolean deleted = false;
+		User user = userRepo.findByUsername(username);
+		Party party = partyRepo.searchById(partyId);
+		PartyGoerId partyGoerToDelete = new PartyGoerId(user.getId(), party.getId());
+		partyGoerRepo.deleteById(partyGoerToDelete);
+		
+		if (partyGoerToDelete != null) {
+			deleted = true;
+		}
+		
+		
+		return deleted;
+	}
+	
+	
 
 }

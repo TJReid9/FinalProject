@@ -14,6 +14,8 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "direct_message")
 public class DirectMessage {
@@ -30,10 +32,12 @@ public class DirectMessage {
 	
 	@ManyToOne
 	@JoinColumn(name = "sender_id")
+	@JsonIgnoreProperties({"friends"})
 	private User sender;
 	
 	@ManyToOne
 	@JoinColumn(name = "recipient_id")
+	@JsonIgnoreProperties({"friends"})
 	private User recipient;
 
 	public DirectMessage() {

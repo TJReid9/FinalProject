@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, catchError, tap, throwError } from 'rxjs';
 import { User } from '../models/user';
-import { environment } from 'src/environments/environment.development';
+import { environment } from 'src/environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Buffer } from 'buffer';
 
@@ -10,7 +10,7 @@ import { Buffer } from 'buffer';
 })
 export class AuthService {
 
-
+user: User = new User;
 
    // Set port number to server's port
   //  private baseUrl = 'http://localhost:8086/';
@@ -63,7 +63,7 @@ export class AuthService {
   }
 
   getLoggedInUser(): Observable<User> {
-    if (!this.checkLogin()) {
+    if (!this.checkLogin() && this.user.enabled == true) {
       return throwError(() => {
         new Error('Not logged in.');
       });

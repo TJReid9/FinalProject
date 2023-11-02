@@ -8,7 +8,7 @@
     <div class='col-12'>
         <ngb-carousel>
             <ng-template ngbSlide *ngFor="let party of parties">
-              <a href="/#/parties/{{party.id}}" style="text-decoration:none"> <img [src]=party.imageUrl alt=party.title height="100%" width="100%" (click)="displayParty(party)">
+              <a [routerLink]="['/parties/{{party.id}}']" style="text-decoration:none"> <img [src]=party.imageUrl alt=party.title height="100%" width="100%" (click)="displayParty(party)">
                 <div class="carousel-caption">
                   <h3 style="color: white">{{party.title}}</h3>
                 </div>

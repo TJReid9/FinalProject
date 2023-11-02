@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
 import { Party } from '../models/party';
-import { environment } from 'src/environments/environment.development';
+import { environment } from 'src/environments/environment';
 import { AuthService } from './auth.service';
 import { DatePipe } from '@angular/common';
 import { PartyGoer } from '../models/party-goer';
@@ -55,6 +55,8 @@ export class PartyService {
   }
 
   update(partyId: number, party: Party): Observable<Party> {
+    party.user.friends = [];
+
     return this.http.put<Party>(this.url + 'watchparties/' + partyId, party ,this.getHttpOptions()).pipe(
       catchError((err: any) => {
         console.error(err);
@@ -71,6 +73,16 @@ export class PartyService {
         console.error(err);
         return throwError(
            () => new Error( 'PartyService.update(): error updating Party: ' + err )
+        );
+      })
+    );
+  }
+  RemoveSelfFromParty(partyId: number, userId: number): Observable<PartyGoer> {
+    return this.http.delete<PartyGoer>(this.url + 'watchparties/' + partyId + '/partyGoers/' + userId,this.getHttpOptions()).pipe(
+      catchError((err: any) => {
+        console.error(err);
+        return throwError(
+           () => new Error( 'PartyService.update(): error Deleting PartyGoer: ' + err )
         );
       })
     );

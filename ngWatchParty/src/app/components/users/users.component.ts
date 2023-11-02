@@ -32,6 +32,7 @@ friend: Friend = new Friend;
 newFriend: Friend = new Friend;
 friends: Friend[] = [];
 newAddress: Address | null = null;
+friendId: FriendId = new FriendId;
 
 // messages: Array<DirectMessage> = [];
 newMessage: DirectMessage = new DirectMessage();
@@ -82,7 +83,7 @@ loadMessages(userId: number) {
   this.dmService.index(userId).subscribe({
     next: (messages: DirectMessage[]) => {
       this.messages = messages;
-      this.messages.sort((b, a) => new Date(a.createDate).getTime() - new Date(b.createDate).getTime());
+      this.messages.sort((b, a) => b.id - a.id);
       console.log(messages);
       console.log(this.messages);
     },
@@ -141,6 +142,7 @@ updateUser(user: User){
     next: (updatedUser) => {
       this.editUser = null;
       this.setLoggedInUser();
+      location.reload();
     },
     error: (problem) => {
       console.error('UsersComponenet error')
@@ -219,19 +221,58 @@ deleteUser(id: number){
   })
 }
 
-
-addFriend(newFriend: Friend): void {
-  console.log(newFriend);
-  this.friendService.create(newFriend).subscribe({
+addFriend(userId: number) {
+  this.userService.addFriend(userId).subscribe({
     next: (result) => {
-       this.friend = new Friend();
-        this.setLoggedInUser();
+      location.reload();
     },
     error: (nojoy) => {
-      console.error('UserComponent.addFriend(): error adding Friend: ');
-    }
+      console.error('FriendComponent.reload(): error loading Friend:');
+      console.error(nojoy);
+    },
+
   })
 }
+
+removeFriend(friendId: number | undefined) {
+  if(friendId) {
+    this.friendService.removeFriend(friendId).subscribe({
+    next: (result) => {
+      location.reload();
+    },
+    error: (nojoy) => {
+      console.error('FriendComponent.reload(): error removing Friend:');
+      console.error(nojoy);
+    },
+  });
+}
+}
+
+
+
+isFriend() {
+  let isBuddy = false;
+  this.loggedInUser.friends.forEach((friend) => {
+    if (this.user.firstName === friend.friend?.firstName) {
+      isBuddy = true;
+    }
+  });
+  return isBuddy;
+}
+
+
+// addFriend(newFriend: Friend): void {
+//   console.log(newFriend);
+//   this.friendService.create(newFriend).subscribe({
+//     next: (result) => {
+//        this.friend = new Friend();
+//         this.setLoggedInUser();
+//     },
+//     error: (nojoy) => {
+//       console.error('UserComponent.addFriend(): error adding Friend: ');
+//     }
+//   })
+// }
 
 
 displayAddMessage(){

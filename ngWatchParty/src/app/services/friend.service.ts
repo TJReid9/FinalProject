@@ -2,7 +2,7 @@ import { Friend } from 'src/app/models/friend';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, throwError } from 'rxjs';
-import { environment } from 'src/environments/environment.development';
+import { environment } from 'src/environments/environment';
 import { AuthService } from './auth.service';
 
 @Injectable({
@@ -75,6 +75,19 @@ export class FriendService {
       })
     );
   }
+
+  removeFriend(friendId: number) : Observable<void> {
+    return this.http.put<void>(this.url + 'watchparties/users/' + friendId + '/friends', null, this.getHttpOptions()).pipe(
+      catchError((err: any) => {
+        console.error(err);
+        return throwError(
+           () => new Error( 'FriendService.Put(): error Removing Friend: ' + err )
+        );
+      })
+    );
+  }
+
+
 
   getHttpOptions() {
     let options = {
