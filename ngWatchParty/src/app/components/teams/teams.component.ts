@@ -1,3 +1,4 @@
+import { SportsFilterPipe } from './../../pipes/sports-filter.pipe';
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
@@ -35,7 +36,8 @@ export class TeamsComponent {
     private auth: AuthService,
     private venueService: VenueService,
     private carouselconfig: NgbCarouselConfig,
-    private userService: UserService
+    private userService: UserService,
+    public sportsFilter:  SportsFilterPipe
   ) {
     carouselconfig.interval = 2500;
   }
@@ -188,6 +190,8 @@ export class TeamsComponent {
       },
     });
   }
+
+
 
   addFavoriteTeam(team: Team) {
     this.loggedInUser.favoriteTeams.push(team);
